@@ -1,4 +1,3 @@
-
 #THIS IS THE MAIN PY FILE
 
 from tkinter import *
@@ -101,6 +100,63 @@ def on_entry_click_password(event):
         entry_for_password.config(show = '*')
 # >
 
+def sign_in():
+        
+        #THIS IS TO CHECK WHETHER ALL THE BOXES ARE FILLED
+        if entry_for_username.get() == '' or entry_for_password.get() == '':
+            messagebox.showerror('ERROR!', 'Please fill all the boxes!', parent = main_window)
+
+        else:
+            
+            #STORE THE USERNAME FOR THE NEXT WINDOW
+            global username
+            username = entry_for_username.get()
+
+            #IF ALL THE BOXES ARE FILLED, OPEN THE DATABASE
+            conn = sqlite3.connect('Essentials_Hub_Database.db')
+            curs = conn.cursor()
+
+            #GET THE PASSWORD BASED FROM THE USERNAME GIVEN
+            curs.execute('select password from Users_Information where username = :username',{
+                        'username': entry_for_username.get()})
+            password = curs.fetchall()
+
+            #GET THE ACCOUNT TYPE BASED FROM THE USERNAME GIVEN
+            curs.execute('select AccountType from Users_Information where username = :username',{
+                        'username': entry_for_username.get()})
+            account_type = curs.fetchall()
+
+            
+            #CHECK IF PASSWORD IS CORRECT
+            try:
+                if password[0][0] == entry_for_password.get():
+                    try:
+                        if account_type[0][0] == 'Admin' and variable_for_sign_in_as_admin.get() == 1:
+                            sign_in_as_admin()
+                            #THIS IS TO DESTROY THE MAIN LOGIN WINDOW
+                            main_window.destroy()
+                        elif account_type[0][0] =='Admin' and variable_for_sign_in_as_admin.get() == 0:
+                            sign_in_as_guest()
+                            #THIS IS TO DESTROY THE MAIN LOGIN WINDOW
+                            main_window.destroy()
+                        elif account_type[0][0] == 'Not Admin' and variable_for_sign_in_as_admin.get() ==0:
+                            sign_in_as_guest()
+                            #THIS IS TO DESTROY THE MAIN LOGIN WINDOW
+                            main_window.destroy()
+                        else:
+                            messagebox.showerror('ERROR!', 'Account does not have admin priveledges!', parent = main_window)
+                    except:
+                        messagebox.showerror('ERROR!', 'Account does not have admin priveledges!', parent = main_window)
+                else:
+                    messagebox.showerror('ERROR!', 'Incorrect Username or Password, try again.', parent = main_window)
+            except:
+                messagebox.showerror('ERROR!', 'Incorrect Username or Password, try again.', parent = main_window)
+
+
+            entry_for_username.delete(0, END)
+            entry_for_password.delete(0, END)
+
+
 
 
 # ======================================================START====================================================================
@@ -182,3 +238,4 @@ font_for_welcoming_user = Font(family = 'Gotham Black', size = 10)
 # ==============================================================================================================================
 
 root.mainloop()
+=======
