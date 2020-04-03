@@ -543,6 +543,312 @@ def update_pw_in_forgot_pw():
          messagebox.showerror('ERROR!', 'Password do not match, try again', parent = forgot_password_fourth_window)
 
 
+def sign_up():
+
+    #THIS IS TO DESTROY THE MAIN LOGIN WINDOW
+    main_window.destroy()
+
+    #THIS IS TO DETERMINE IF IF USER WANTS ADMIN PROVELEDGES OR NOT, BECOMES FALSE WHEN USER CLICKED SIGN-UP AS GUEST
+    global admin_or_not
+    admin_or_not = True
+
+    global sign_up_window
+    sign_up_window = Toplevel(root)
+    sign_up_window.geometry('1300x750+100+50')
+
+    main_frame_sign_up_window = Frame(sign_up_window)
+    main_frame_sign_up_window.pack()
+
+    canvas_sign_up_window = Canvas(main_frame_sign_up_window, width = 1300, height = 750)
+    canvas_sign_up_window.pack()
+    canvas_sign_up_window.create_image(0,0, anchor = NW, image = image_sign_up_window)
+
+    frame_above_sign_up_canvas_1 = Frame(sign_up_window, bg = 'Black')
+    canvas_sign_up_window.create_window(100,475, anchor =NW, window = frame_above_sign_up_canvas_1)
+
+    frame_above_sign_up_canvas_2 = Frame(sign_up_window, bg = 'Black')
+    canvas_sign_up_window.create_window(100,560, anchor =NW, window = frame_above_sign_up_canvas_2)
+
+    frame_above_sign_up_canvas_3 = Frame(sign_up_window, bg = 'Black')
+    canvas_sign_up_window.create_window(100,645, anchor =NW, window = frame_above_sign_up_canvas_3)
+
+    #THESE ARE THE BUTTONS FOR SIGN UP AS GUEST AND SIGN UP AS ADMIN
+    button_for_sign_up_as_guest = Button(frame_above_sign_up_canvas_1, text = 'Sign Up as Guest', font =font_for_sign_up_as_guest, bg = '#e99314', fg = 'Black', command = sign_up_as_guest)
+    button_for_sign_up_as_guest.grid(row = 0, column = 0, ipady = 11, ipadx = 90, sticky = W)
+
+    button_for_sign_up_as_admin = Button(frame_above_sign_up_canvas_2, text = 'Sign Up as Admin', font =font_for_sign_up_as_guest, bg = '#363636', fg = 'White', command = sign_up_as_admin)
+    button_for_sign_up_as_admin.grid(row = 0, column = 0, ipady = 11, ipadx = 90, sticky = W)
+
+    button_for_sign_in_instead = Button(frame_above_sign_up_canvas_3, text = 'Go Back', font =font_for_sign_up_as_guest, bg = 'white', fg = 'black', command = go_back_to_sign_in)
+    button_for_sign_in_instead.grid(row = 0, column = 0, ipady = 11, ipadx = 129, sticky = W)
+
+#< GO BACK TO THE SIGN IN WINDOW
+def go_back_to_sign_in():
+    sign_up_window.destroy()
+    main_login_window()
+#>
+
+def sign_up_as_guest():
+    
+    #THIS IS FOR ME TO KNOW IF THE ACCOUNT IS ADMIN TYPE OR NOT
+    global admin_or_not
+    admin_or_not = False
+
+    #close the sign up main page
+    sign_up_window.destroy()
+
+    #Set up new window for the guest sign up
+    global sign_up_as_guest_window
+    sign_up_as_guest_window = Toplevel(root)
+    sign_up_as_guest_window.geometry('1300x750+100+50')
+
+    main_frame_sign_up_as_guest_window = Frame(sign_up_as_guest_window)
+    main_frame_sign_up_as_guest_window.pack()
+
+    canvas_sign_up_as_guest_window = Canvas(main_frame_sign_up_as_guest_window, width = 1300, height = 750)
+    canvas_sign_up_as_guest_window.pack()
+    canvas_sign_up_as_guest_window.create_image(0,0, anchor = NW, image = image_sign_up_as_guest_window)
+
+    frame_above_sign_up_as_guest_canvas = Frame(main_frame_sign_up_as_guest_window, bg = 'Black')
+    canvas_sign_up_as_guest_window.create_window(70,180, anchor =NW, window = frame_above_sign_up_as_guest_canvas)
+
+    frame_above_sign_up_as_guest_canvas_bottom = Frame(main_frame_sign_up_as_guest_window, bg = 'Black')
+    canvas_sign_up_as_guest_window.create_window(70,610, anchor =NW, window = frame_above_sign_up_as_guest_canvas_bottom)
+
+    #THESE ARE FOR THE LABELS FOR THE SIGN UP AS GUEST
+    label_fname = Label(frame_above_sign_up_as_guest_canvas, font = font_for_sign_up_as_guest, bg = 'Black', fg = 'White',text = 'First Name')
+    label_fname.grid(row = 0, column = 0, padx = (45,40), sticky = W, pady = 10)
+
+    label_lname = Label(frame_above_sign_up_as_guest_canvas, font = font_for_sign_up_as_guest, bg = 'Black', fg = 'White', text = 'Last Name')
+    label_lname.grid(row = 1, column = 0, padx = (45,40), sticky = W, pady =10)
+
+    label_email = Label(frame_above_sign_up_as_guest_canvas, font = font_for_sign_up_as_guest, bg = 'Black', fg = 'White', text = 'Email')
+    label_email.grid(row = 2, column = 0, padx = (45,40), sticky = W, pady =10)
+    
+    label_username = Label(frame_above_sign_up_as_guest_canvas, font = font_for_sign_up_as_guest, bg = 'Black', fg = 'White', text = 'Username')
+    label_username.grid(row = 3, column = 0, padx = (45,40), sticky = W, pady =10)
+
+    label_password = Label(frame_above_sign_up_as_guest_canvas, font = font_for_sign_up_as_guest, bg = 'Black', fg = 'White', text = 'Password')
+    label_password.grid(row = 4, column = 0,padx = (45,40), sticky = W, pady =10)
+
+    #THESE ARE THE ENTRY WIDGETS FOR THE SIGN UP AS GUEST
+    global entry_fname
+    entry_fname = Entry(frame_above_sign_up_as_guest_canvas, font = font_for_sign_in_entry,width = 18, borderwidth =1, bg = 'Black', fg = 'White' )
+    entry_fname.grid(row = 0, column = 1, sticky = W+E, ipady = 3, pady = 10, padx =13)
+
+    global entry_lname
+    entry_lname= Entry(frame_above_sign_up_as_guest_canvas, font = font_for_sign_in_entry, width = 18 ,borderwidth =1, bg = 'Black', fg = 'White' )
+    entry_lname.grid(row =1, column = 1, sticky = W+E, ipady = 3, pady =10, padx =13)
+
+    global entry_email
+    entry_email = Entry(frame_above_sign_up_as_guest_canvas, font = font_for_sign_in_entry, width = 18 ,borderwidth =1, bg = 'Black', fg = 'White' )
+    entry_email.grid(row =2, column = 1, sticky = W+E, ipady = 3, pady =10, padx =13)
+
+    global entry_username
+    entry_username = Entry(frame_above_sign_up_as_guest_canvas, font = font_for_sign_in_entry, width = 18 ,borderwidth =1, bg = 'Black', fg = 'White' )
+    entry_username.grid(row =3, column = 1, sticky = W+E, ipady = 3, pady =10, padx =13)
+
+    global entry_password
+    entry_password = Entry(frame_above_sign_up_as_guest_canvas, show = '*', font = font_for_sign_in_entry, width = 18 ,borderwidth =1, bg = 'Black', fg = 'White' )
+    entry_password.grid(row =4, column = 1, sticky = W+E, ipady = 3, pady =10, padx =13)
+
+    #THIS IS THE LABEL FOR THE SECURITY QUESTION
+    label_security_question = Label(frame_above_sign_up_as_guest_canvas, font = font_for_sign_up_as_guest, bg = 'Black', fg = 'White', text = 'Security Question:')
+    label_security_question.grid(row = 5, column = 0, columnspan =2,padx = (45,40), sticky = W, pady =10)
+
+    #THIS IS THE OPTION MENU
+    global variable_for_option_menu
+    variable_for_option_menu = StringVar()
+    variable_for_option_menu.set('What is the name of your first Pet?')
+
+    option_menu_for_security_questions = OptionMenu(frame_above_sign_up_as_guest_canvas, variable_for_option_menu, 'What is the name of your first Pet?', 'Who is you favorite artist?', 'What is the middle name of your mother?', 'What elementary school did you attend?', 'In what town or city did your mother and father meet?', 'In what town or city was your first full time job?')
+    option_menu_for_security_questions.config(bg = 'Black', fg = 'White', highlightbackground = 'black', highlightcolor = 'black', font = font_for_option_menu)
+    option_menu_for_security_questions.grid(row = 6, column = 0, columnspan = 2, ipadx = 10, ipady = 7, padx = 5, pady = 10)
+    
+    #THIS IS THE LABEL FOR THE ANSWER IN SECURITY QUESTION
+    label_security_question_answer = Label(frame_above_sign_up_as_guest_canvas, font = font_for_sign_up_as_guest, bg = 'Black', fg = 'White', text = 'Answer')
+    label_security_question_answer.grid(row = 7, column = 0,padx = (45,40), sticky = W, pady =10)
+    
+    #THIS IS FOR THE ENTRY OF THE SECURITY QUESTION ANSWER
+    global entry_security_question
+    entry_security_question = Entry(frame_above_sign_up_as_guest_canvas, font = font_for_sign_in_entry, width = 18 ,borderwidth =1, bg = 'Black', fg = 'White' )
+    entry_security_question.grid(row =7, column = 1, sticky = W+E, ipady = 3, pady =10, padx =13)
+    
+    #THESE ARE FOR THE BUTTONS BELOW
+    button_submit_sign_up_as_guest = Button(frame_above_sign_up_as_guest_canvas_bottom, text = 'Sign Up!', bg = '#e99314', fg = 'black', font = font_for_option_menu, command = submit_sign_up)
+    button_submit_sign_up_as_guest.grid(row = 0, column = 0, ipady = 9, ipadx = 40, padx = (50,0), sticky = W+E)
+
+    button_back_sign_up_as_guest = Button(frame_above_sign_up_as_guest_canvas_bottom, text = 'Back', bg = '#363636', fg = 'white', font = font_for_option_menu, command = back_sign_up_as_guest)
+    button_back_sign_up_as_guest.grid(row = 0, column = 1, ipady = 9, ipadx = 40, padx = (10,50), sticky = W+E)
+
+
+def back_sign_up_as_guest():
+    sign_up_as_guest_window.destroy()
+    sign_up()
+
+
+def sign_up_as_admin():
+
+    #close the sign up main page
+    sign_up_window.destroy()
+
+    #Set up new window for the guest sign up
+    global sign_up_as_admin_window
+    sign_up_as_admin_window = Toplevel(root)
+    sign_up_as_admin_window.geometry('1300x750+100+50')
+
+    main_frame_sign_up_as_admin_window = Frame(sign_up_as_admin_window)
+    main_frame_sign_up_as_admin_window.pack()
+
+    canvas_sign_up_as_admin_window = Canvas(main_frame_sign_up_as_admin_window, width = 1300, height = 750)
+    canvas_sign_up_as_admin_window.pack()
+    canvas_sign_up_as_admin_window.create_image(0,0, anchor = NW, image = image_sign_up_as_admin_window)
+
+    frame_above_sign_up_as_admin_canvas = Frame(main_frame_sign_up_as_admin_window, bg = 'Black')
+    canvas_sign_up_as_admin_window.create_window(750,180, anchor =NW, window = frame_above_sign_up_as_admin_canvas)
+
+    frame_above_sign_up_as_admin_canvas_bottom = Frame(main_frame_sign_up_as_admin_window, bg = 'Black')
+    canvas_sign_up_as_admin_window.create_window(750,610, anchor =NW, window = frame_above_sign_up_as_admin_canvas_bottom)
+
+    #THESE ARE FOR THE LABELS FOR THE SIGN UP AS GUEST
+    label_fname = Label(frame_above_sign_up_as_admin_canvas, font = font_for_sign_up_as_guest, bg = 'Black', fg = 'White',text = 'First Name')
+    label_fname.grid(row = 0, column = 0, padx = (45,40), sticky = W, pady = 10)
+
+    label_lname = Label(frame_above_sign_up_as_admin_canvas, font = font_for_sign_up_as_guest, bg = 'Black', fg = 'White', text = 'Last Name')
+    label_lname.grid(row = 1, column = 0, padx = (45,40), sticky = W, pady =10)
+
+    label_email = Label(frame_above_sign_up_as_admin_canvas, font = font_for_sign_up_as_guest, bg = 'Black', fg = 'White', text = 'Email')
+    label_email.grid(row = 2, column = 0, padx = (45,40), sticky = W, pady =10)
+    
+    label_username = Label(frame_above_sign_up_as_admin_canvas, font = font_for_sign_up_as_guest, bg = 'Black', fg = 'White', text = 'Username')
+    label_username.grid(row = 3, column = 0, padx = (45,40), sticky = W, pady =10)
+
+    label_password = Label(frame_above_sign_up_as_admin_canvas, font = font_for_sign_up_as_guest, bg = 'Black', fg = 'White', text = 'Password')
+    label_password.grid(row = 4, column = 0,padx = (45,40), sticky = W, pady =10)
+
+    #THESE ARE THE ENTRY WIDGETS FOR THE SIGN UP AS GUEST
+    global entry_fname
+    entry_fname = Entry(frame_above_sign_up_as_admin_canvas, font = font_for_sign_in_entry,width = 18, borderwidth =1, bg = 'Black', fg = 'White' )
+    entry_fname.grid(row = 0, column = 1, sticky = W+E, ipady = 3, pady = 10, padx =13)
+
+    global entry_lname
+    entry_lname = Entry(frame_above_sign_up_as_admin_canvas, font = font_for_sign_in_entry, width = 18 ,borderwidth =1, bg = 'Black', fg = 'White' )
+    entry_lname.grid(row =1, column = 1, sticky = W+E, ipady = 3, pady =10, padx =13)
+
+    global entry_email
+    entry_email= Entry(frame_above_sign_up_as_admin_canvas, font = font_for_sign_in_entry, width = 18 ,borderwidth =1, bg = 'Black', fg = 'White' )
+    entry_email.grid(row =2, column = 1, sticky = W+E, ipady = 3, pady =10, padx =13)
+
+    global entry_username
+    entry_username = Entry(frame_above_sign_up_as_admin_canvas, font = font_for_sign_in_entry, width = 18 ,borderwidth =1, bg = 'Black', fg = 'White' )
+    entry_username.grid(row =3, column = 1, sticky = W+E, ipady = 3, pady =10, padx =13)
+
+    global entry_password
+    entry_password = Entry(frame_above_sign_up_as_admin_canvas, show = '*', font = font_for_sign_in_entry, width = 18 ,borderwidth =1, bg = 'Black', fg = 'White' )
+    entry_password.grid(row =4, column = 1, sticky = W+E, ipady = 3, pady =10, padx =13)
+
+    #THIS IS THE LABEL FOR THE SECURITY QUESTION
+    label_security_question = Label(frame_above_sign_up_as_admin_canvas, font = font_for_sign_up_as_guest, bg = 'Black', fg = 'White', text = 'Security Question:')
+    label_security_question.grid(row = 5, column = 0, columnspan =2,padx = (45,40), sticky = W, pady =10)
+
+    #THIS IS THE OPTION MENU
+    global variable_for_option_menu
+    variable_for_option_menu = StringVar()
+    variable_for_option_menu.set('What is the name of your first Pet?')
+
+    option_menu_for_security_questions = OptionMenu(frame_above_sign_up_as_admin_canvas, variable_for_option_menu, 'What is the name of your first Pet?', 'Who is you favorite artist?', 'What is the middle name of your mother?', 'What elementary school did you attend?', 'In what town or city did your mother and father meet?', 'In what town or city was your first full time job?')
+    option_menu_for_security_questions.config(bg = 'Black', fg = 'White', highlightbackground = 'black', highlightcolor = 'black', font = font_for_option_menu)
+    option_menu_for_security_questions.grid(row = 6, column = 0, columnspan = 2, ipadx = 10, ipady = 7, padx = 5, pady = 10)
+    
+    #THIS IS THE LABEL FOR THE ANSWER IN SECURITY QUESTION
+    label_security_question_answer = Label(frame_above_sign_up_as_admin_canvas, font = font_for_sign_up_as_guest, bg = 'Black', fg = 'White', text = 'Answer')
+    label_security_question_answer.grid(row = 7, column = 0,padx = (45,40), sticky = W, pady =10)
+    
+    #THIS IS FOR THE ENTRY OF THE SECURITY QUESTION ANSWER
+    global entry_security_question
+    entry_security_question = Entry(frame_above_sign_up_as_admin_canvas, font = font_for_sign_in_entry, width = 18 ,borderwidth =1, bg = 'Black', fg = 'White' )
+    entry_security_question.grid(row =7, column = 1, sticky = W+E, ipady = 3, pady =10, padx =13)
+    
+    #THESE ARE FOR THE BUTTONS BELOW
+    button_submit_sign_up_as_admin = Button(frame_above_sign_up_as_admin_canvas_bottom, text = 'Sign Up!', bg = '#e99314', fg = 'black', font = font_for_option_menu, command = submit_sign_up)
+    button_submit_sign_up_as_admin.grid(row = 0, column = 0, ipady = 9, ipadx = 40, padx = (50,0), sticky = W+E)
+
+    button_back_sign_up_as_admin = Button(frame_above_sign_up_as_admin_canvas_bottom, text = 'Back', bg = '#363636', fg = 'white', font = font_for_option_menu, command = back_sign_up_as_admin)
+    button_back_sign_up_as_admin.grid(row = 0, column = 1, ipady = 9, ipadx = 40, padx = (10,50), sticky = W+E)
+
+
+def submit_sign_up():
+
+    #THIS IS TO CHECK IF THE ACCOUNT IS ADMIN OR NOT
+    if admin_or_not:
+        admin_status = 'Admin'
+    else:
+        admin_status = 'Not Admin'
+
+    #THIS IS TO CHECK WHETHER ALL THE BOXES ARE FILLED
+    if entry_lname.get() == '' or entry_fname.get() == '' or entry_email.get() == '' or entry_username.get() == '' or entry_password.get() == '' or entry_security_question.get() == '':
+        
+        #THE IF ELSE HERE IS NECCESSARY TO KNOW THE PARENT OF THE MESSAGE BOX
+        if admin_status == 'Admin':
+            messagebox.showerror('ERROR!', 'Please fill all the boxes!', parent = sign_up_as_admin_window)
+        else:
+            messagebox.showerror('ERROR!', 'Please fill all the boxes!', parent = sign_up_as_guest_window)
+
+    #HERE I CREATE THE DATABASE FOR USER INFORMATION
+    else:
+        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        curs = conn.cursor()
+
+        curs.execute("""
+                    create table if not exists Users_Information(
+                        FirstName text,
+                        LastName text,
+                        Email text,
+                        Username text PRIMARY KEY,
+                        Password text,
+                        SecurityQuestion text,
+                        SecurityQuestionAnswer text,
+                        AccountType text
+                    )
+                    """)
+
+        #THIS IS TO PUT ALL THE ENTRIES INTO THE DATABASE
+        try:
+            
+            curs.execute('insert into Users_Information values (:fname, :lname, :email, :username, :password, :squestion, :squestionans, :atype)',
+            {
+                'fname': entry_fname.get(),
+                'lname': entry_lname.get(),
+                'email':entry_email.get(),
+                'username': entry_username.get(),
+                'password': entry_password.get(),
+                'squestion': variable_for_option_menu.get(),
+                'squestionans': entry_security_question.get(),
+                'atype': admin_status
+            })
+            conn.commit()
+            
+            #THE IF ELSE HERE IS NECCESSARY TO KNOW THE PARENT OF THE MESSAGE BOX
+            if admin_status == 'Admin':
+                messagebox.showinfo('SUCCESS!', 'Sign-up complete!', parent = sign_up_as_admin_window)
+                sign_up_as_admin_window.destroy
+                main_login_window()
+            else:
+                messagebox.showinfo('SUCCESS!', 'Sign-up complete!', parent = sign_up_as_guest_window)
+                sign_up_as_guest_window.destroy()
+                main_login_window()
+        
+        #THIS IS FOR THE ERROR BOX WHEN THERE IS SIMILAR USERNAMES SINCE USERNAME IS PKEY
+        except:
+            if admin_status == 'Admin':
+                messagebox.showerror('ERROR!', 'Username is already taken!', parent = sign_up_as_admin_window)
+            else:
+                messagebox.showerror('ERROR!', 'Username is already taken!', parent = sign_up_as_guest_window)
+            
+
+def back_sign_up_as_admin():
+    sign_up_as_admin_window.destroy()
+    sign_up()
 
 
 # ======================================================START====================================================================
@@ -556,7 +862,7 @@ main_frame.pack()
 
 canvas_launcher = Canvas(main_frame, width = 1300, height = 750)
 canvas_launcher.pack()
-image_launcher = ImageTk.PhotoImage(Image.open('launcher.jpg'))
+image_launcher = ImageTk.PhotoImage(Image.open('PICTURES\image_launcher.jpg'))
 canvas_launcher.create_image(0,0, anchor = NW, image = image_launcher)
 
 frame_above_canvas_left = Frame(main_frame, bg = 'Black')
@@ -578,25 +884,25 @@ button_launch.grid(row = 0, column = 0, ipady = 15, ipadx = 100, sticky = W)
 # ======================================================IMAGES==================================================================
 
 
-image_main_login_cover = ImageTk.PhotoImage(Image.open('main_cover.jpg'))
+image_main_login_cover = ImageTk.PhotoImage(Image.open('PICTURES\image_main_cover.jpg'))
 
-image_main_login_top_of_main_rec = ImageTk.PhotoImage(Image.open('top_of_main_cover.jpg'))
+image_main_login_top_of_main_rec = ImageTk.PhotoImage(Image.open("PICTURES\image_top_of_main_cover.jpg"))
 
-image_sign_up_window = ImageTk.PhotoImage(Image.open('second_main_cover.jpg'))
+image_sign_up_window = ImageTk.PhotoImage(Image.open('PICTURES\image_second_main_cover.jpg'))
 
-image_sign_up_as_guest_window = ImageTk.PhotoImage(Image.open('sign_up_as_guest.jpg'))
+image_sign_up_as_guest_window = ImageTk.PhotoImage(Image.open('PICTURES\image_sign_up_as_guest.jpg'))
 
-image_sign_up_as_admin_window = ImageTk.PhotoImage(Image.open('sign_up_as_admin.jpg'))
+image_sign_up_as_admin_window = ImageTk.PhotoImage(Image.open('PICTURES\image_sign_up_as_admin.jpg'))
 
-image_forgot_password_1 = ImageTk.PhotoImage(Image.open('forgot_password_1.jpg'))
+image_forgot_password_1 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_1.jpg'))
 
-image_forgot_password_2 = ImageTk.PhotoImage(Image.open('forgot_password_2.jpg'))
+image_forgot_password_2 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_2.jpg'))
 
-image_forgot_password_3 = ImageTk.PhotoImage(Image.open('forgot_password_3.jpg'))
+image_forgot_password_3 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_3.jpg'))
 
-image_forgot_password_4 = ImageTk.PhotoImage(Image.open('forgot_password_4.jpg'))
+image_forgot_password_4 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_4.jpg'))
 
-image_sign_in_as_guest_cover = ImageTk.PhotoImage(Image.open('main_page.jpg'))
+image_sign_in_as_guest_cover = ImageTk.PhotoImage(Image.open('PICTURES\image_main_page.jpg'))
 
 # ==============================================================================================================================
 
