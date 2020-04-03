@@ -363,6 +363,186 @@ def on_entry_click_username_forgot_pw_2(event):
         entry_for_security_question_answer_forgot_password.delete(0, 'end') 
 
 
+def get_code_then_send_to_email():
+    
+    #THIS IS FOR GENERATING THE RANDOM CODE
+    letters = string.ascii_uppercase
+    lst = []
+    for i in range(7):
+        lst.append(random.choice(letters))
+    
+    global random_code
+    random_code = ''.join(lst)
+
+    global username_for_forgot_pw
+    
+
+    #THIS IS FOR ME TO GET THE EMAIL WHERE I CAN SEND THE CODE
+    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    curs = conn.cursor()
+    curs.execute('select email from Users_Information where username = :username',{
+                'username': username_for_forgot_pw})
+    email = curs.fetchall()
+
+    #THIS IS FOR ME TO SEND THE CODE TOTHE EMAIL OF USER
+    email_sender = 'essentialshubofficial@gmail.com'
+    email_password = '!1EssentialsHub'
+    email_receiver = email[0][0]
+    message = f'The verification code is {random_code}'
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(email_sender, email_password)
+    server.sendmail(email_sender,email_receiver,message)
+    server.close()
+
+    forgot_pw_third_page()
+
+
+def forgot_pw_third_page():
+
+    global forgot_password_third_window
+    forgot_password_third_window = Toplevel(root)
+    forgot_password_third_window.geometry('1300x750+100+50')
+    main_frame = Frame(forgot_password_third_window)
+    main_frame.pack()
+
+    canvas_forgot_password = Canvas(main_frame, width = 1300, height = 750)
+    canvas_forgot_password.pack()
+    canvas_forgot_password.create_image(0,0, anchor = NW, image = image_forgot_password_3)
+
+    frame_above_canvas = Frame(forgot_password_third_window, bg = 'Black')
+    canvas_forgot_password.create_window(150,325, anchor =NW, window = frame_above_canvas)
+
+    global firstclick_username_forgot_pw_3
+    firstclick_username_forgot_pw_3 = True
+
+    frame_above_frame_of_canvas_top = Frame(frame_above_canvas, bg = 'black')
+    frame_above_frame_of_canvas_top.grid(row = 0, column = 0)
+
+    frame_above_frame_of_canvas_bottom = Frame(frame_above_canvas, bg = 'black')
+    frame_above_frame_of_canvas_bottom.grid(row = 1, column = 0)
+
+    global entry_for_code_forgot_password
+    entry_for_code_forgot_password = Entry(frame_above_frame_of_canvas_top, width = 34, font = font_for_username_and_password, bg = 'black', highlightbackground = 'white', fg = 'white', highlightthickness = 0.5, highlightcolor ='white')
+    entry_for_code_forgot_password.insert(0, ' Verification Code')
+    entry_for_code_forgot_password.bind('<FocusIn>', on_entry_click_username_forgot_pw_3)
+    entry_for_code_forgot_password.grid(row = 0, column = 0, pady = 13, ipady =13)
+
+    button_for_submit = Button(frame_above_frame_of_canvas_bottom, text = 'Submit', font =font_for_sign_in_sign_up, bg = '#e99314', fg = 'Black', command = check_the_random_code)
+    button_for_submit.grid(row = 0, column = 0, pady = 5, ipady = 11, ipadx = 63, sticky =W)
+
+    button_for_go_back = Button(frame_above_frame_of_canvas_bottom, text = 'Go Back', font = font_for_sign_in_sign_up, bg = 'black', fg = '#e99314', borderwidth = 1.5, command = forgot_password_third_page_go_back)
+    button_for_go_back.grid(row = 0, column = 1, pady =5, ipady = 11, ipadx = 63, sticky =W)
+
+
+def forgot_password_third_page_go_back():
+    global state_of_username
+    state_of_username = False
+    forgot_password_third_window.destroy()
+    forgot_pw_second_page()
+
+
+def on_entry_click_username_forgot_pw_3(event):
+    global firstclick_username_forgot_pw_3
+    if firstclick_username_forgot_pw_3:
+        firstclick_username_forgot_pw_3 = False
+        entry_for_code_forgot_password.delete(0, 'end')
+
+
+def check_the_random_code():
+    if random_code == entry_for_code_forgot_password.get():
+        forgot_pw_fourth_page()
+        forgot_password_third_window.destroy()
+
+    
+    else:
+        messagebox.showerror('ERROR!', 'Incorrect verification code, try again', parent = forgot_password_third_window)
+
+def forgot_pw_fourth_page():
+
+    global forgot_password_fourth_window
+    forgot_password_fourth_window = Toplevel(root)
+    forgot_password_fourth_window.geometry('1300x750+100+50')
+    main_frame = Frame(forgot_password_fourth_window)
+    main_frame.pack()
+
+    canvas_forgot_password = Canvas(main_frame, width = 1300, height = 750)
+    canvas_forgot_password.pack()
+    canvas_forgot_password.create_image(0,0, anchor = NW, image = image_forgot_password_4)
+
+    frame_above_canvas = Frame(forgot_password_fourth_window, bg = 'Black')
+    canvas_forgot_password.create_window(150,325, anchor =NW, window = frame_above_canvas)
+
+    global firstclick_username_forgot_pw_4
+    firstclick_username_forgot_pw_4 = True
+    global firstclick_username_forgot_pw_5
+    firstclick_username_forgot_pw_5 = True
+
+    frame_above_frame_of_canvas_top = Frame(frame_above_canvas, bg = 'black')
+    frame_above_frame_of_canvas_top.grid(row = 0, column = 0)
+
+    frame_above_frame_of_canvas_bottom = Frame(frame_above_canvas, bg = 'black')
+    frame_above_frame_of_canvas_bottom.grid(row = 1, column = 0)
+
+    global entry_for_new_pw_forgot_password
+    entry_for_new_pw_forgot_password = Entry(frame_above_frame_of_canvas_top, width = 34, font = font_for_username_and_password, bg = 'black', highlightbackground = 'white', fg = 'white', highlightthickness = 0.5, highlightcolor ='white')
+    entry_for_new_pw_forgot_password.insert(0, ' New Password')
+    entry_for_new_pw_forgot_password.bind('<FocusIn>', on_entry_click_username_forgot_pw_4)
+    entry_for_new_pw_forgot_password.grid(row = 0, column = 0, pady = 13, ipady =13)
+
+    global entry_for_confirm_pw_forgot_password
+    entry_for_confirm_pw_forgot_password = Entry(frame_above_frame_of_canvas_top, width = 34, font = font_for_username_and_password, bg = 'black', highlightbackground = 'white', fg = 'white', highlightthickness = 0.5, highlightcolor ='white')
+    entry_for_confirm_pw_forgot_password.insert(0, ' Confirm New Password')
+    entry_for_confirm_pw_forgot_password.bind('<FocusIn>', on_entry_click_username_forgot_pw_5)
+    entry_for_confirm_pw_forgot_password.grid(row = 1, column = 0, pady = 13, ipady =13)
+
+    button_for_submit = Button(frame_above_frame_of_canvas_bottom, text = 'Submit', font =font_for_sign_in_sign_up, bg = '#e99314', fg = 'Black', command = update_pw_in_forgot_pw)
+    button_for_submit.grid(row = 0, column = 0, pady = 5, ipady = 11, ipadx = 63, sticky =W)
+
+    button_for_go_back = Button(frame_above_frame_of_canvas_bottom, text = 'Go Back', font = font_for_sign_in_sign_up, bg = 'black', fg = '#e99314', borderwidth = 1.5, command = forgot_password_fourth_page_go_back)
+    button_for_go_back.grid(row = 0, column = 1, pady =5, ipady = 11, ipadx = 63, sticky =W)
+
+
+def forgot_password_fourth_page_go_back():
+    forgot_password_fourth_window.destroy
+    forgot_pw_third_page()
+
+def on_entry_click_username_forgot_pw_4(event):
+    global firstclick_username_forgot_pw_4
+    if firstclick_username_forgot_pw_4:
+        firstclick_username_forgot_pw_4 = False
+        entry_for_new_pw_forgot_password.delete(0, 'end')
+        entry_for_new_pw_forgot_password.config(show = '*')
+
+
+def on_entry_click_username_forgot_pw_5(event):
+    global firstclick_username_forgot_pw_5
+    if firstclick_username_forgot_pw_5:
+        firstclick_username_forgot_pw_5 = False
+        entry_for_confirm_pw_forgot_password.delete(0, 'end')
+        entry_for_confirm_pw_forgot_password.config(show = '*')
+
+
+def update_pw_in_forgot_pw():
+    
+    if entry_for_new_pw_forgot_password.get() == entry_for_confirm_pw_forgot_password.get():
+        global new_pw
+        new_pw = entry_for_confirm_pw_forgot_password.get()
+        # forgot_password_fourth_window.destroy()
+
+        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        curs = conn.cursor()
+        curs.execute('update Users_Information set password = :password where username = :username', {
+        'password': new_pw,
+        'username': username_for_forgot_pw})
+        conn.commit()
+        
+        messagebox.showinfo('SUCCESS!', 'Password has been reset!', parent = forgot_password_fourth_window)
+
+    else: 
+         messagebox.showerror('ERROR!', 'Password do not match, try again', parent = forgot_password_fourth_window)
+
+
 
 
 # ======================================================START====================================================================
