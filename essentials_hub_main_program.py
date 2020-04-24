@@ -8,23 +8,39 @@ import sqlite3
 import smtplib
 import string
 import random
-
-
+import final_scrape
+from datetime import datetime
+import pandas as pd
+from pandastable import Table
+import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
+import json
+import requests
 # ======================================================FUNCTIONS===============================================================
 
 
 def exit_launcher():
+    """
+    Destroy's the root window, closing the whole application
+    """
+
     root.destroy()
 
 
 def main_login_window():
+    """
+    This is the main window of the program. The window includes
+    the main sign-up window, sign-in form, and the forgot password
+    feature
+    """
     
     global main_window
     main_window = Toplevel(root)
     main_window.geometry('1300x750+100+50')
     main_frame_for_main_window = Frame(main_window)
     main_frame_for_main_window.pack()
-    
+
     canvas_main_window = Canvas(main_frame_for_main_window, width = 1300, height = 750)
     canvas_main_window.pack()
     canvas_main_window.create_image(0,0, anchor = NW, image = image_main_login_cover)
@@ -84,8 +100,12 @@ def main_login_window():
     button_for_sign_up.grid(row = 4, column = 0, sticky = W)
 
 
-# < FOR REMOVING THE INSERT TEXT ON USERNAME AND PASSWORD
 def on_entry_click_username(event):
+    """
+    This function is for the lable 'username'
+    above the entrybox for the username
+    """
+
     global firstclick_username
     if firstclick_username:
         firstclick_username = False
@@ -93,71 +113,88 @@ def on_entry_click_username(event):
 
 
 def on_entry_click_password(event):
+    """
+    This function is for the lable 'username'
+    above the entrybox for the username
+    """
+
     global firstclick_password
     if firstclick_password:
         firstclick_password = False
         entry_for_password.delete(0, 'end') 
         entry_for_password.config(show = '*')
-# >
+
 
 def sign_in():
+    """
+    This is the business logic for signing in the program
+    """
+
         
-        #THIS IS TO CHECK WHETHER ALL THE BOXES ARE FILLED
-        if entry_for_username.get() == '' or entry_for_password.get() == '':
-            messagebox.showerror('ERROR!', 'Please fill all the boxes!', parent = main_window)
+    #THIS IS TO CHECK WHETHER ALL THE BOXES ARE FILLED. IF NOT, AN ERROR BOX WILL APPEAR
+    if entry_for_username.get() == '' or entry_for_password.get() == '':
+        messagebox.showerror('ERROR!', 'Please fill all the boxes!', parent = main_window)
 
-        else:
-            
-            #STORE THE USERNAME FOR THE NEXT WINDOW
-            global username
-            username = entry_for_username.get()
+    else:
+        #GLOBALIZING THE USERNAME FOR THE NEXT WINDOW (FOR WELCOMING USER)
+        global username
+        username = entry_for_username.get()
 
-            #IF ALL THE BOXES ARE FILLED, OPEN THE DATABASE
-            conn = sqlite3.connect('Essentials_Hub_Database.db')
-            curs = conn.cursor()
+        #IF ALL THE BOXES ARE FILLED, OPEN THE DATABASE
+        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        curs = conn.cursor()
 
-            #GET THE PASSWORD BASED FROM THE USERNAME GIVEN
-            curs.execute('select password from Users_Information where username = :username',{
-                        'username': entry_for_username.get()})
-            password = curs.fetchall()
+        #GET THE PASSWORD BASED FROM THE USERNAME GIVEN
+        curs.execute('select password from Users_Information where username = :username',{
+                    'username': entry_for_username.get()})
+        password = curs.fetchall()
 
-            #GET THE ACCOUNT TYPE BASED FROM THE USERNAME GIVEN
-            curs.execute('select AccountType from Users_Information where username = :username',{
-                        'username': entry_for_username.get()})
-            account_type = curs.fetchall()
+        #GET THE ACCOUNT TYPE BASED FROM THE USERNAME GIVEN
+        curs.execute('select AccountType from Users_Information where username = :username',{
+                    'username': entry_for_username.get()})
+        account_type = curs.fetchall()
 
-            
-            #CHECK IF PASSWORD IS CORRECT
-            try:
-                if password[0][0] == entry_for_password.get():
-                    try:
-                        if account_type[0][0] == 'Admin' and variable_for_sign_in_as_admin.get() == 1:
-                            sign_in_as_admin()
-                            #THIS IS TO DESTROY THE MAIN LOGIN WINDOW
-                            main_window.destroy()
-                        elif account_type[0][0] =='Admin' and variable_for_sign_in_as_admin.get() == 0:
-                            sign_in_as_guest()
-                            #THIS IS TO DESTROY THE MAIN LOGIN WINDOW
-                            main_window.destroy()
-                        elif account_type[0][0] == 'Not Admin' and variable_for_sign_in_as_admin.get() ==0:
-                            sign_in_as_guest()
-                            #THIS IS TO DESTROY THE MAIN LOGIN WINDOW
-                            main_window.destroy()
-                        else:
-                            messagebox.showerror('ERROR!', 'Account does not have admin priveledges!', parent = main_window)
-                    except:
+        #CHECK IF PASSWORD IS CORRECT
+        try:
+            if password[0][0] == entry_for_password.get():
+                try:
+                    if account_type[0][0] == 'Admin' and variable_for_sign_in_as_admin.get() == 1:
+                        sign_in_as_admin()
+                        #THIS IS TO DESTROY THE MAIN LOGIN WINDOW
+                        main_window.destroy()
+                    elif account_type[0][0] =='Admin' and variable_for_sign_in_as_admin.get() == 0:
+                        sign_in_as_guest()
+                        #THIS IS TO DESTROY THE MAIN LOGIN WINDOW
+                        main_window.destroy()
+                    elif account_type[0][0] == 'Not Admin' and variable_for_sign_in_as_admin.get() ==0:
+                        sign_in_as_guest()
+                        #THIS IS TO DESTROY THE MAIN LOGIN WINDOW
+                        main_window.destroy()
+                    else:
                         messagebox.showerror('ERROR!', 'Account does not have admin priveledges!', parent = main_window)
-                else:
-                    messagebox.showerror('ERROR!', 'Incorrect Username or Password, try again.', parent = main_window)
-            except:
+                except:
+                    messagebox.showerror('ERROR!', 'Account does not have admin priveledges!', parent = main_window)
+            else:
                 messagebox.showerror('ERROR!', 'Incorrect Username or Password, try again.', parent = main_window)
+        except:
+            messagebox.showerror('ERROR!', 'Incorrect Username or Password, try again.', parent = main_window)
+
+        #THIS IS FOR THE DELETION OF USERNAME AND PASSEWORD ON THE ENTRY BOX
+        entry_for_username.delete(0, END)
+        entry_for_password.delete(0, END)
 
 
-            entry_for_username.delete(0, END)
-            entry_for_password.delete(0, END)
+def logout():
+    """
+    Logout by destroying the main window for the guests
+    and reopening the main login window
+    """
+
+    sign_in_as_guest_window.destroy()
+    main_login_window()
+
 
 def sign_in_as_guest():
-    
 
     global sign_in_as_guest_window
     sign_in_as_guest_window = Toplevel(root)
@@ -184,10 +221,10 @@ def sign_in_as_guest():
     button_for_logout = Button(frame_above_canvas_top_part, text = 'Logout', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = logout)
     button_for_logout.grid(row = 0, column = 1, ipadx = 10, ipady = 4, padx = (875,0))
 
-    button_for_online_shop = Button(frame_above_canvas_bottom_part, text = 'Online Shop', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white')
+    button_for_online_shop = Button(frame_above_canvas_bottom_part, text = 'Online Shop', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = online_shop)
     button_for_online_shop.grid(row = 0, column = 0, ipadx = 7, ipady = 3)
 
-    button_for_facts_statistics = Button(frame_above_canvas_bottom_part, text = 'Facts & Statistics', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white')
+    button_for_facts_statistics = Button(frame_above_canvas_bottom_part, text = 'Facts & Statistics', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = facts_and_statistics)
     button_for_facts_statistics.grid(row = 0, column = 1, ipadx = 7, ipady = 3, padx=(40,0))
 
     button_for_blog_section = Button(frame_above_canvas_bottom_part, text = 'Blog Section', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white')
@@ -196,9 +233,340 @@ def sign_in_as_guest():
     button_for_about_us = Button(frame_above_canvas_bottom_part, text = 'About Us', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white')
     button_for_about_us.grid(row = 0, column = 3, ipadx = 7, ipady = 3, padx=(60,0))
 
-def logout():
-    sign_in_as_guest_window.destroy()
-    main_login_window()
+    preload_web_scrape_data()
+
+def preload_web_scrape_data():
+    """
+    Funtion for preloading all the data
+    inside final_scrape.py
+    """
+
+
+    final_scrape.day_by_day()
+    final_scrape.for_total_deaths_total_recovered()
+    final_scrape.pui_pum_tested()
+    final_scrape.picture()
+
+    final_scrape.by_sex()
+    final_scrape.cases_outside_ph()
+    final_scrape.by_region()
+    final_scrape.by_age()
+    final_scrape.api()
+
+
+def facts_and_statistics():
+    """
+    This function is for the main window of the
+    facts and statistics page.
+    """
+
+
+    global facts_and_statistics_window
+    facts_and_statistics_window = Toplevel(root)
+    facts_and_statistics_window.geometry('1300x750+100+50')
+    
+    main_frame = Frame(facts_and_statistics_window)
+    main_frame.pack()
+
+    canvas_facts_and_statistics = Canvas(main_frame, width = 1300, height = 750)
+    canvas_facts_and_statistics.pack()
+    canvas_facts_and_statistics.create_image(0,0, anchor = NW, image = image_tracker)
+
+    global image_map
+    image_map = ImageTk.PhotoImage(Image.open('PICTURES/image_svg.png'))
+
+
+    canvas_facts_and_statistics.create_text(1100, 720, font = font_for_date_today, text = final_scrape.dates[0] , fill = 'white')
+    canvas_facts_and_statistics.create_image(860, 90, anchor = NW, image = image_map)
+    canvas_facts_and_statistics.create_text(255,205, font = font_for_tracker_case_today, text = final_scrape.api_total_cases, fill = '#e99314')
+    canvas_facts_and_statistics.create_text(255, 245, font = font_for_tracker_additional, text = f'+{final_scrape.api_additional_cases_today}', fill = 'white')
+    canvas_facts_and_statistics.create_text(255, 390, font = font_for_tracker_case_today, text = final_scrape.api_total_deaths, fill = 'red')
+    canvas_facts_and_statistics.create_text(250, 425, font = font_for_tracker_additional, text = f'+{final_scrape.api_additional_deaths_today}', fill = 'white')
+    canvas_facts_and_statistics.create_text(255, 570, font = font_for_tracker_case_today, text = final_scrape.api_total_recoveries, fill = 'green')
+    canvas_facts_and_statistics.create_text(250, 610, font = font_for_tracker_additional, text = f'+{final_scrape.api_additional_recoveries_today}', fill = 'white')
+    canvas_facts_and_statistics.create_text(590, 215, font = font_for_tracker_case_today, text = final_scrape.pui, fill = 'white')
+    canvas_facts_and_statistics.create_text(590, 405, font = font_for_tracker_case_today, text = final_scrape.pum, fill = 'white')
+    canvas_facts_and_statistics.create_text(590, 585, font = font_for_tracker_case_today, text = final_scrape.tested, fill = 'white')
+
+
+    #FRAME FOR THE BUTTONS BELOW
+    frame_for_buttons_below = Frame(facts_and_statistics_window, bg = '#050505')
+    canvas_facts_and_statistics.create_window(100,690, anchor = NW, window = frame_for_buttons_below)
+
+    #BUTTONS BELOW
+
+    button_for_page_2 = Button(frame_for_buttons_below, text = 'Page 2', font = font_for_facts_and_statistics_button, bg ='#e99314', fg = 'Black', command = facts_and_statistics_2)
+    button_for_page_2.grid(row = 0, column = 0, ipadx = 18, ipady =8, padx=(0,10))
+
+    button_for_page_graphs = Button(frame_for_buttons_below, text = 'Graphs', font = font_for_facts_and_statistics_button, bg ='#e99314', fg = 'Black', command = graphs_page_1)
+    button_for_page_graphs.grid(row = 0, column = 1, ipadx = 18, ipady =8, padx=(0,10))
+
+    button_for_page_facts = Button(frame_for_buttons_below, text = 'Facts', font = font_for_facts_and_statistics_button, bg ='#e99314', fg = 'Black')
+    button_for_page_facts.grid(row = 0, column = 2, ipadx = 18, ipady =8, padx = (0,10))
+
+    button_for_chatbot = Button(frame_for_buttons_below, text = 'Chatbot', font = font_for_facts_and_statistics_button, bg ='#e99314', fg = 'Black')
+    button_for_chatbot.grid(row = 0, column = 2, ipadx = 18, ipady =8, padx = (0,10))
+
+    button_for_page_back = Button(frame_for_buttons_below, text = 'Back', font = font_for_facts_and_statistics_button, bg ='#e99314', fg = 'Black')
+    button_for_page_back.grid(row = 0, column = 3, ipadx = 18, ipady =8)
+
+
+def facts_and_statistics_2():
+    global facts_and_statistics_window_2
+    facts_and_statistics_window_2 = Toplevel(root)
+    facts_and_statistics_window_2.geometry('1300x750+100+50')
+
+    main_frame = Frame(facts_and_statistics_window_2)
+    main_frame.pack()
+
+    canvas_facts_and_statistics = Canvas(main_frame, width=1300, height=750)
+    canvas_facts_and_statistics.pack()
+    canvas_facts_and_statistics.create_image(0, 0, anchor=NW, image=image_tracker_2)
+
+    canvas_facts_and_statistics.create_text(250, 210, font=font_for_tracker_case_today,
+                                            text=final_scrape.api_fatality_rate, fill='red')
+    canvas_facts_and_statistics.create_text(660, 210, font=font_for_tracker_case_today,
+                                            text=final_scrape.api_recovery_rate, fill='green')
+    canvas_facts_and_statistics.create_text(1030, 210, font=font_for_tracker_case_today, text=final_scrape.api_admitted,
+                                            fill='white')
+
+    frame_for_total_cases_region = Frame(facts_and_statistics_window_2, bg='#050505')
+    canvas_facts_and_statistics.create_window(175, 365, anchor=NW, window=frame_for_total_cases_region, width=217,
+                                              height=275)
+
+    frame_for_total_deaths_region = Frame(facts_and_statistics_window_2, bg='#050505')
+    canvas_facts_and_statistics.create_window(560, 365, anchor=NW, window=frame_for_total_deaths_region, width=217,
+                                              height=275)
+
+    frame_for_total_recovered_region = Frame(facts_and_statistics_window_2, bg='#050505')
+    canvas_facts_and_statistics.create_window(930, 365, anchor=NW, window=frame_for_total_recovered_region, width=217,
+                                              height=275)
+
+    # FOR THE CASES PER REGION
+    scrollbar_1 = Scrollbar(frame_for_total_cases_region, troughcolor='#050505', bg='#050505',
+                            activebackground='#050505', highlightbackground='#050505', highlightcolor='#050505',
+                            highlightthickness=0)
+    scrollbar_1.pack(side=RIGHT, fill=Y)
+
+    listbox_for_region_total_cases = Listbox(frame_for_total_cases_region, bg='#050505', fg='white', height=15,
+                                             width=30, font=font_for_listbox_region, borderwidth=0,
+                                             highlightthickness=0)
+    listbox_for_region_total_cases.pack()
+
+    for (a, b) in zip(final_scrape.region_cases, final_scrape.region):
+        if a == 0 or a == 1:
+            listbox_for_region_total_cases.insert(END, f'{a} case', b, '⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯')
+        else:
+            listbox_for_region_total_cases.insert(END, f'{a} cases', b, '⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯')
+
+    listbox_for_region_total_cases.config(yscrollcommand=scrollbar_1.set)
+    scrollbar_1.config(command=listbox_for_region_total_cases.yview, troughcolor='#050505', bg='#050505',
+                       activebackground='#050505')
+
+    # FOR DEATHS PER REGION
+    scrollbar_2 = Scrollbar(frame_for_total_deaths_region, troughcolor='#050505', bg='#050505',
+                            activebackground='#050505', highlightbackground='#050505', highlightcolor='#050505',
+                            highlightthickness=0)
+    scrollbar_2.pack(side=RIGHT, fill=Y)
+
+    listbox_for_region_deaths = Listbox(frame_for_total_deaths_region, bg='#050505', fg='white', height=15, width=30,
+                                        font=font_for_listbox_region, borderwidth=0, highlightthickness=0)
+    listbox_for_region_deaths.pack()
+
+    for (a, b) in zip(final_scrape.region_deaths, final_scrape.region):
+        if a == 0 or a == 1:
+            listbox_for_region_deaths.insert(END, f'{a} death', b, '⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯')
+        else:
+            listbox_for_region_deaths.insert(END, f'{a} deaths', b, '⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯')
+
+    listbox_for_region_deaths.config(yscrollcommand=scrollbar_2.set)
+    scrollbar_2.config(command=listbox_for_region_deaths.yview, troughcolor='#050505', bg='#050505',
+                       activebackground='#050505')
+
+    # FOR RECOVERIES PER REGION
+    scrollbar_3 = Scrollbar(frame_for_total_recovered_region, troughcolor='#050505', bg='#050505',
+                            activebackground='#050505', highlightbackground='#050505', highlightcolor='#050505',
+                            highlightthickness=0)
+    scrollbar_3.pack(side=RIGHT, fill=Y)
+
+    listbox_for_region_recovered = Listbox(frame_for_total_recovered_region, bg='#050505', fg='white', height=15,
+                                           width=30, font=font_for_listbox_region, borderwidth=0, highlightthickness=0)
+    listbox_for_region_recovered.pack()
+
+    for (a, b) in zip(final_scrape.region_recovered, final_scrape.region):
+        if a == 0 or a == 1:
+            listbox_for_region_recovered.insert(END, f'{a} recovery', b, '⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯')
+        else:
+            listbox_for_region_recovered.insert(END, f'{a} recoveries', b, '⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯')
+
+    listbox_for_region_recovered.config(yscrollcommand=scrollbar_3.set)
+    scrollbar_3.config(command=listbox_for_region_recovered.yview, troughcolor='#050505', bg='#050505',
+                       activebackground='#050505')
+
+    # FRAME FOR THE BUTTONS BELOW
+    frame_for_buttons_below = Frame(facts_and_statistics_window_2, bg='#050505')
+    canvas_facts_and_statistics.create_window(500, 690, anchor=NW, window=frame_for_buttons_below)
+
+    # BUTTONS BELOW
+    button_for_page_graphs = Button(frame_for_buttons_below, text='Graphs', font=font_for_facts_and_statistics_button,
+                                    bg='#e99314', fg='Black')
+    button_for_page_graphs.grid(row=0, column=0, ipadx=18, ipady=8, padx=(0, 10))
+
+    button_for_chatbot = Button(frame_for_buttons_below, text='Chatbot', font=font_for_facts_and_statistics_button,
+                                bg='#e99314', fg='Black')
+    button_for_chatbot.grid(row=0, column=1, ipadx=18, ipady=8, padx=(0, 10))
+
+    button_for_page_back = Button(frame_for_buttons_below, text='Back', font=font_for_facts_and_statistics_button,
+                                  bg='#e99314', fg='Black')
+    button_for_page_back.grid(row=0, column=2, ipadx=18, ipady=8)
+
+
+def graphs_page_1():
+    global graphs_page_1_window
+    graphs_page_1_window = Toplevel(root)
+    graphs_page_1_window.geometry('1920x1080')
+    main_frame = Frame(graphs_page_1_window)
+    main_frame.pack()
+
+    canvas_graphs_page_1 = Canvas(main_frame, width=1920, height=1080)
+    canvas_graphs_page_1.pack()
+    canvas_graphs_page_1.create_image(0, 0, anchor=NW, image=image_for_tracker_graphs)
+
+    # THIS IS THE FRAME FOR THE UPPER CHART
+    frame_for_top_graph = Frame(main_frame)
+    canvas_graphs_page_1.create_window(120, 15, anchor=NW, window=frame_for_top_graph)
+
+    frame_for_bottom_graphs_if = Frame(main_frame)
+    canvas_graphs_page_1.create_window(120, 400, anchor=NW, window=frame_for_bottom_graphs_if)
+
+    # FRAME FOR THE BUTTONS
+    frame_for_graphs_buttons = Frame(main_frame, bg='#050505')
+    canvas_graphs_page_1.create_window(600, 780, anchor=NW, window=frame_for_graphs_buttons)
+
+    # STYLE OF THE CHART
+    plt.style.use('dark_background')
+
+    # FIGURE SIZE
+    figure_1 = Figure(figsize=(13, 3.2), dpi=100)
+    # FIGURE COLOR, OUTSIDE OF CHART
+    figure_1.set_facecolor('#050505')
+    subplot_1 = figure_1.add_subplot(111)
+    subplot_1.plot(final_scrape.total_dates, final_scrape.total_cases, marker='o', color='y')
+    # TITLE
+    subplot_1.set_title('Day by day Cases')
+    # LABEL X AXIS
+    subplot_1.set_xlabel('Days')
+    # LABEL YAXIS
+    subplot_1.set_ylabel('Number of Cases')
+    figure_1.set_tight_layout(True)
+    subplot_1.set_facecolor('#050505')
+    subplot_1.grid(alpha=0.1)
+    for tick in subplot_1.xaxis.get_ticklabels():
+        tick.set_rotation(40)
+    subplot_1.tick_params(color='white', labelcolor='white')
+    canvas1 = FigureCanvasTkAgg(figure_1, frame_for_top_graph)
+    canvas1.get_tk_widget().pack()
+
+    toolbar1 = NavigationToolbar2Tk(canvas1, frame_for_top_graph)
+    canvas1._tkcanvas.pack()
+
+    # FIGURE SIZE
+    figure_6 = Figure(figsize=(13, 3.2), dpi=100)
+    # FIGURE COLOR, OUTSIDE OF CHART
+    figure_6.set_facecolor('#050505')
+    subplot_6 = figure_6.add_subplot(111)
+    subplot_6.plot(final_scrape.total_dates, final_scrape.total_deaths_day, marker='.', color='r')
+    subplot_6.plot(final_scrape.total_dates, final_scrape.total_recoveries_day, marker='.', color='g')
+    # TITLE
+    subplot_6.set_title('Deaths and Recoveries per day')
+    # LABEL X AXIS
+    subplot_6.set_xlabel('Days')
+    # LABEL YAXIS
+    subplot_6.set_ylabel('Number of Cases')
+    figure_6.set_tight_layout(True)
+    subplot_6.set_facecolor('#050505')
+    subplot_6.grid(alpha=0.1)
+    for tick in subplot_6.xaxis.get_ticklabels():
+        tick.set_rotation(40)
+    subplot_6.tick_params(color='white', labelcolor='white')
+    canvas6 = FigureCanvasTkAgg(figure_6, frame_for_bottom_graphs_if)
+    canvas6.get_tk_widget().pack()
+
+    toolbar6 = NavigationToolbar2Tk(canvas6, frame_for_bottom_graphs_if)
+    canvas6._tkcanvas.pack()
+
+    #BUTTONS
+    button_for_graphs_page_1 = Button(frame_for_graphs_buttons, text='Page 1',font=font_for_facts_and_statistics_button, bg='black', fg='white', state=DISABLED)
+    button_for_graphs_page_1.grid(row=0, column=0, ipadx=7, ipady=5, padx=3)
+
+    button_for_graphs_page_2 = Button(frame_for_graphs_buttons, text='Page 2',font=font_for_facts_and_statistics_button, bg='black', fg='white',command=graphs_page_2)
+    button_for_graphs_page_2.grid(row=0, column=1, ipadx=7, ipady=5, padx=3)
+
+    button_for_graphs_page_3 = Button(frame_for_graphs_buttons, text='Page 3',font=font_for_facts_and_statistics_button, bg='black', fg='white')
+    button_for_graphs_page_3.grid(row=0, column=2, ipadx=7, ipady=5, padx=3)
+
+    button_for_graphs_back = Button(frame_for_graphs_buttons, text='Back', font=font_for_facts_and_statistics_button,bg='black', fg='white')
+    button_for_graphs_back.grid(row=0, column=3, ipadx=7, ipady=5, padx=3)
+
+
+def graphs_page_2():
+    global graphs_page_2_window
+    graphs_page_2_window = Toplevel(root)
+    graphs_page_2_window.geometry('1920x1080')
+    main_frame = Frame(graphs_page_2_window)
+    main_frame.pack()
+
+    canvas_graphs_page_2 = Canvas(main_frame, width = 1920, height = 1080)
+    canvas_graphs_page_2.pack()
+    canvas_graphs_page_2.create_image(0,0, anchor = NW, image = image_for_tracker_graphs)
+
+    #THIS IS THE FRAME FOR THE UPPER CHART
+    frame_for_top_graph = Frame(main_frame)
+    canvas_graphs_page_2.create_window(120,15, anchor = NW, window = frame_for_top_graph)
+
+    frame_for_bottom_graphs = Frame(main_frame)
+    canvas_graphs_page_2.create_window(120,400, anchor = NW, window = frame_for_bottom_graphs)
+
+
+
+    figure_4 = Figure(figsize=(13, 3.2), dpi = 100)
+    figure_4.set_facecolor('#050505')
+    subplot_4 = figure_4.add_subplot(111)
+    subplot_4.bar(final_scrape.region, final_scrape.region_cases, color = '#c16c1a')
+    subplot_4.set_title('regions')
+    subplot_4.set_xlabel('Region')
+    subplot_4.set_ylabel('Number of Cases')
+    figure_4.set_tight_layout(TRUE)
+    subplot_4.set_facecolor('#050505')
+    subplot_4.grid(alpha = 0.1)
+    for tick in subplot_4.xaxis.get_ticklabels():
+        tick.set_rotation(25)
+    subplot_4.tick_params(color = 'white', labelcolor = 'white')
+    canvas4 = FigureCanvasTkAgg(figure_4, frame_for_top_graph)
+    canvas4.get_tk_widget().pack()
+
+    toolbar4 = NavigationToolbar2Tk(canvas4, frame_for_top_graph)
+    canvas4._tkcanvas.pack()
+
+
+    figure_5 = Figure(figsize=(13, 3.2), dpi = 100)
+    figure_5.set_facecolor('#050505')
+    subplot_5 = figure_5.add_subplot(111)
+    subplot_5.bar(final_scrape.age_group, final_scrape.age_number_of_case, color = '#c16c1a')
+    subplot_5.set_title('regions')
+    subplot_5.set_xlabel('Region')
+    subplot_5.set_ylabel('Number of Cases')
+    figure_5.set_tight_layout(TRUE)
+    subplot_5.set_facecolor('#050505')
+    subplot_5.grid(alpha = 0.1)
+    for tick in subplot_5.xaxis.get_ticklabels():
+        tick.set_rotation(25)
+    subplot_5.tick_params(color = 'white', labelcolor = 'white')
+    canvas5 = FigureCanvasTkAgg(figure_5, frame_for_bottom_graphs)
+    canvas5.get_tk_widget().pack()
+
+    toolbar5 = NavigationToolbar2Tk(canvas5, frame_for_bottom_graphs)
+    canvas5._tkcanvas.pack()
 
 
 def forgot_password():
@@ -244,15 +612,18 @@ def forgot_password():
     global state_of_username
     state_of_username = True
 
+
 def on_entry_click_username_forgot_pw_1(event):
     global firstclick_username_forgot_pw_1
     if firstclick_username_forgot_pw_1:
         firstclick_username_forgot_pw_1 = False
         entry_for_username_forgot_password.delete(0, 'end') 
 
+
 def forgot_password_first_page_go_back():
     forgot_password_window.destroy()
     main_login_window()
+
 
 def submit_forgot_pw():
 
@@ -272,6 +643,7 @@ def submit_forgot_pw():
                 forgot_password_window.destroy()
         except:
             messagebox.showerror('ERROR!', 'Invalid Username, try again', parent = forgot_password_window)
+
 
 def forgot_pw_second_page():
 
@@ -330,6 +702,7 @@ def forgot_pw_second_page():
 
     button_for_go_back = Button(frame_above_frame_of_canvas_bottom, text = 'Go Back', font = font_for_sign_in_sign_up, bg = 'black', fg = '#e99314', borderwidth = 1.5, command = forgot_password_second_page_go_back)
     button_for_go_back.grid(row = 0, column = 1, pady =5, ipady = 11, ipadx = 63, sticky =W)
+
 
 def forgot_password_second_page_go_back():
     forgot_password_second_window.destroy()
@@ -538,6 +911,8 @@ def update_pw_in_forgot_pw():
         conn.commit()
         
         messagebox.showinfo('SUCCESS!', 'Password has been reset!', parent = forgot_password_fourth_window)
+        forgot_password_fourth_window.destroy()
+        main_login_window()
 
     else: 
          messagebox.showerror('ERROR!', 'Password do not match, try again', parent = forgot_password_fourth_window)
@@ -904,7 +1279,14 @@ image_forgot_password_4 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_p
 
 image_sign_in_as_guest_cover = ImageTk.PhotoImage(Image.open('PICTURES\image_main_page.jpg'))
 
-# ==============================================================================================================================
+image_tracker = ImageTk.PhotoImage(Image.open('PICTURES\image_tracker.jpg'))
+
+image_for_tracker_graphs = ImageTk.PhotoImage(Image.open('PICTURES\image_tracker_graphs.jpg'))
+
+image_online_shop = ImageTk.PhotoImage(Image.open('PICTURES\image_main_online_shop.jpg'))
+
+image_tracker_2 = ImageTk.PhotoImage(Image.open('PICTURES\image_tracker_2.jpg'))
+
 
 # ======================================================FONTS===================================================================
 
@@ -927,7 +1309,24 @@ font_for_message_box = Font(family = 'Gotham', size = 12)
 font_for_forgot_pw_security_question =Font(family = 'Gotham', size = 13)
 
 font_for_welcoming_user = Font(family = 'Gotham Black', size = 10)
+
+font_for_tracker_case_today = Font(family = 'Gotham Black', size = 35)
+
+font_for_listbox_region = Font(family = 'Gotham', size = 14)
+
+font_for_tracker_additional = Font(family = 'Gotham', size = 17)
+
+font_for_date_today = Font(family = 'Gotham', size = 10)
+
+font_for_facts_and_statistics_button = Font(family = 'Gotham', size = 10)
+
+font_for_label_for_product_id = Font(family='Gotham', size=16)
+
+font_for_online_shop_button = Font(family='Gotham', size=11)
+
+font_for_online_shop_search = Font(family='Gotham', size=13)
+
+
 # ==============================================================================================================================
 
 root.mainloop()
-=======
