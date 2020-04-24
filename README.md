@@ -6,4 +6,32 @@ Essentials Hub is a python program designed to provide people convenience during
 
 ## Setup and Installation
 
-To be able to run the application, you need to have a new environment with Python
+To be able to run the application, you need to have a new environment with Python 3.6 on it. 
+If you have anaconda installed, open the terminal and execute the code below
+```
+conda create -n E-Hub_env python=3.6
+```
+
+Once you have created a new envriment, just activate it
+```
+conda activate E-Hub_env
+```
+
+To run the main script, you first need to install the following libraries using pip:
+<ul><li> <b>Pillow</b></li>
+<li> <b>smptlib-secure</b></li>
+<li> <b>pandas</b></li>
+<li> <b>pandastable</b></li>
+<li> <b>matplotlib</b></li>
+<li> <b>tensorflow version1.14.0</b></li>
+<li> <b>nltk</b></li>
+<li> <b>tflearn</b></li>
+<li> <b>numpy</b></li></ul>
+
+Examples
+```
+pip install pandas
+```
+```
+pip install tensorflow==1.14.0
+```
