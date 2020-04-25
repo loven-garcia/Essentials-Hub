@@ -221,7 +221,7 @@ def sign_in_as_guest():
     button_for_logout = Button(frame_above_canvas_top_part, text = 'Logout', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = logout)
     button_for_logout.grid(row = 0, column = 1, ipadx = 10, ipady = 4, padx = (875,0))
 
-    button_for_online_shop = Button(frame_above_canvas_bottom_part, text = 'Online Shop', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = online_shop)
+    button_for_online_shop = Button(frame_above_canvas_bottom_part, text = 'Online Shop', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white')
     button_for_online_shop.grid(row = 0, column = 0, ipadx = 7, ipady = 3)
 
     button_for_facts_statistics = Button(frame_above_canvas_bottom_part, text = 'Facts & Statistics', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = facts_and_statistics)
@@ -235,6 +235,7 @@ def sign_in_as_guest():
 
     preload_web_scrape_data()
 
+    
 def preload_web_scrape_data():
     """
     Funtion for preloading all the data
@@ -260,6 +261,7 @@ def facts_and_statistics():
     facts and statistics page.
     """
 
+    sign_in_as_guest_window.destroy()
 
     global facts_and_statistics_window
     facts_and_statistics_window = Toplevel(root)
@@ -308,7 +310,7 @@ def facts_and_statistics():
     button_for_chatbot.grid(row = 0, column = 2, ipadx = 18, ipady =8, padx = (0,10))
 
     button_for_page_back = Button(frame_for_buttons_below, text = 'Back', font = font_for_facts_and_statistics_button, bg ='#e99314', fg = 'Black')
-    button_for_page_back.grid(row = 0, column = 3, ipadx = 18, ipady =8)
+    button_for_page_back.grid(row = 0, column = 3, ipadx = 18, ipady =8, command = back_facts_statistics)
 
 
 def facts_and_statistics_2():
@@ -422,6 +424,8 @@ def facts_and_statistics_2():
 
 
 def graphs_page_1():
+    facts_and_statistics_window.destroy()
+
     global graphs_page_1_window
     graphs_page_1_window = Toplevel(root)
     graphs_page_1_window.geometry('1920x1080')
@@ -496,20 +500,27 @@ def graphs_page_1():
     canvas6._tkcanvas.pack()
 
     #BUTTONS
-    button_for_graphs_page_1 = Button(frame_for_graphs_buttons, text='Page 1',font=font_for_facts_and_statistics_button, bg='black', fg='white', state=DISABLED)
+    button_for_graphs_page_1 = Button(frame_for_graphs_buttons, text='Page 1',
+                                      font=font_for_facts_and_statistics_button, bg='black', fg='white', state = DISABLED)
     button_for_graphs_page_1.grid(row=0, column=0, ipadx=7, ipady=5, padx=3)
 
     button_for_graphs_page_2 = Button(frame_for_graphs_buttons, text='Page 2',font=font_for_facts_and_statistics_button, bg='black', fg='white',command=graphs_page_2)
     button_for_graphs_page_2.grid(row=0, column=1, ipadx=7, ipady=5, padx=3)
 
-    button_for_graphs_page_3 = Button(frame_for_graphs_buttons, text='Page 3',font=font_for_facts_and_statistics_button, bg='black', fg='white')
+    button_for_graphs_page_3 = Button(frame_for_graphs_buttons, text='Page 3',font=font_for_facts_and_statistics_button, bg='black', fg='white', command = graphs_page_3)
     button_for_graphs_page_3.grid(row=0, column=2, ipadx=7, ipady=5, padx=3)
 
-    button_for_graphs_back = Button(frame_for_graphs_buttons, text='Back', font=font_for_facts_and_statistics_button,bg='black', fg='white')
+    button_for_graphs_back = Button(frame_for_graphs_buttons, text='Back', font=font_for_facts_and_statistics_button,bg='black', fg='white', command = back_graph1)
     button_for_graphs_back.grid(row=0, column=3, ipadx=7, ipady=5, padx=3)
 
 
 def graphs_page_2():
+    try:
+        graphs_page_1_window.destroy()
+    except:
+        pass
+
+
     global graphs_page_2_window
     graphs_page_2_window = Toplevel(root)
     graphs_page_2_window.geometry('1920x1080')
@@ -525,22 +536,26 @@ def graphs_page_2():
     canvas_graphs_page_2.create_window(120,15, anchor = NW, window = frame_for_top_graph)
 
     frame_for_bottom_graphs = Frame(main_frame)
-    canvas_graphs_page_2.create_window(120,400, anchor = NW, window = frame_for_bottom_graphs)
+    canvas_graphs_page_2.create_window(800,15, anchor = NW, window = frame_for_bottom_graphs)
+
+    # FRAME FOR THE BUTTONS
+    frame_for_graphs_buttons_2 = Frame(main_frame, bg='#050505')
+    canvas_graphs_page_2.create_window(600, 780, anchor=NW, window=frame_for_graphs_buttons_2)
 
 
 
-    figure_4 = Figure(figsize=(13, 3.2), dpi = 100)
+    figure_4 = Figure(figsize=(6.3, 7), dpi = 100)
     figure_4.set_facecolor('#050505')
     subplot_4 = figure_4.add_subplot(111)
-    subplot_4.bar(final_scrape.region, final_scrape.region_cases, color = '#c16c1a')
-    subplot_4.set_title('regions')
-    subplot_4.set_xlabel('Region')
-    subplot_4.set_ylabel('Number of Cases')
+    subplot_4.barh(final_scrape.region[::-1], final_scrape.region_cases[::-1], color = '#FFC000', log = True)
+    for index, value in enumerate(final_scrape.region_cases[::-1]):
+        subplot_4.text(value, index, str(value), va = 'center', fontsize = 8, fontweight = 'bold')
+    subplot_4.set_title('Number of cases per Region in the Philippines')
+    subplot_4.set_xlabel('Number of Cases')
+    subplot_4.set_ylabel('Regions')
     figure_4.set_tight_layout(TRUE)
     subplot_4.set_facecolor('#050505')
     subplot_4.grid(alpha = 0.1)
-    for tick in subplot_4.xaxis.get_ticklabels():
-        tick.set_rotation(25)
     subplot_4.tick_params(color = 'white', labelcolor = 'white')
     canvas4 = FigureCanvasTkAgg(figure_4, frame_for_top_graph)
     canvas4.get_tk_widget().pack()
@@ -549,24 +564,170 @@ def graphs_page_2():
     canvas4._tkcanvas.pack()
 
 
-    figure_5 = Figure(figsize=(13, 3.2), dpi = 100)
+    figure_5 = Figure(figsize=(6.3, 7), dpi = 100)
     figure_5.set_facecolor('#050505')
     subplot_5 = figure_5.add_subplot(111)
-    subplot_5.bar(final_scrape.age_group, final_scrape.age_number_of_case, color = '#c16c1a')
-    subplot_5.set_title('regions')
-    subplot_5.set_xlabel('Region')
-    subplot_5.set_ylabel('Number of Cases')
+    subplot_5.barh(final_scrape.age_group[::-1], final_scrape.age_number_of_case[::-1], color = '#FF6347', height = 0.6)
+    for index, value in enumerate(final_scrape.age_number_of_case[::-1]):
+        subplot_5.text(value, index, str(value), va = 'center', fontsize = 8, fontweight = 'bold')
+    subplot_5.set_title('Number of Cases per Age Group in the Philippines')
+    subplot_5.set_xlabel('Number of Cases')
+    subplot_5.set_ylabel('Age Groups')
     figure_5.set_tight_layout(TRUE)
     subplot_5.set_facecolor('#050505')
     subplot_5.grid(alpha = 0.1)
-    for tick in subplot_5.xaxis.get_ticklabels():
-        tick.set_rotation(25)
     subplot_5.tick_params(color = 'white', labelcolor = 'white')
     canvas5 = FigureCanvasTkAgg(figure_5, frame_for_bottom_graphs)
     canvas5.get_tk_widget().pack()
 
     toolbar5 = NavigationToolbar2Tk(canvas5, frame_for_bottom_graphs)
     canvas5._tkcanvas.pack()
+
+    button_for_graphs_page_1 = Button(frame_for_graphs_buttons_2, text='Page 1',
+                                      font=font_for_facts_and_statistics_button, bg='black', fg='white', command = back_graph_2)
+    button_for_graphs_page_1.grid(row=0, column=0, ipadx=7, ipady=5, padx=3)
+
+    button_for_graphs_page_2 = Button(frame_for_graphs_buttons_2, text='Page 2',
+                                      font=font_for_facts_and_statistics_button, bg='black', fg='white',
+                                      state =DISABLED)
+    button_for_graphs_page_2.grid(row=0, column=1, ipadx=7, ipady=5, padx=3)
+
+    button_for_graphs_page_3 = Button(frame_for_graphs_buttons_2, text='Page 3',
+                                      font=font_for_facts_and_statistics_button, bg='black', fg='white', command = graphs_page_3)
+    button_for_graphs_page_3.grid(row=0, column=2, ipadx=7, ipady=5, padx=3)
+
+    button_for_graphs_back = Button(frame_for_graphs_buttons_2, text='Back', font=font_for_facts_and_statistics_button,
+                                    bg='black', fg='white',command = back_graph_2)
+    button_for_graphs_back.grid(row=0, column=3, ipadx=7, ipady=5, padx=3)
+
+def graphs_page_3():
+    try:
+        graphs_page_2_window.destroy()
+    except:
+        pass
+
+
+    global graphs_page_3_window
+    graphs_page_3_window = Toplevel(root)
+    graphs_page_3_window.geometry('1920x1080')
+    main_frame = Frame(graphs_page_3_window)
+    main_frame.pack()
+
+    canvas_graphs_page_3 = Canvas(main_frame, width = 1920, height = 1080)
+    canvas_graphs_page_3.pack()
+    canvas_graphs_page_3.create_image(0,0, anchor = NW, image = image_for_tracker_graphs)
+
+    #THIS IS THE FRAME FOR THE UPPER CHART
+    frame_for_top_graph = Frame(main_frame)
+    canvas_graphs_page_3.create_window(120,15, anchor = NW, window = frame_for_top_graph)
+
+    frame_for_upper_right = Frame(main_frame)
+    canvas_graphs_page_3.create_window(800,15, anchor = NW, window = frame_for_upper_right)
+
+    frame_for_bottom_right = Frame(main_frame)
+    canvas_graphs_page_3.create_window(800,400, anchor = NW, window = frame_for_bottom_right)
+
+    # FRAME FOR THE BUTTONS
+    frame_for_graphs_buttons_3 = Frame(main_frame, bg='#050505')
+    canvas_graphs_page_3.create_window(600, 780, anchor=NW, window=frame_for_graphs_buttons_3)
+
+    x = np.arange(len(final_scrape.outside_region))
+    figure_6 = Figure(figsize=(6.3, 7), dpi = 100)
+    figure_6.set_facecolor('#050505')
+    subplot_6 = figure_6.add_subplot(111)
+    subplot_6.set_yticks(np.arange(len(final_scrape.outside_region)))
+    subplot_6.set_yticklabels(final_scrape.outside_region[::-1])
+    subplot_6.barh(x-0.26, final_scrape.outside_confirmed_cases[::-1], color = '#FFC000', height = 0.25, label = 'Cases')
+    subplot_6.barh(x, final_scrape.outside_recovered[::-1], color = '#87CEEB', height = 0.25, label = 'Recoveries')
+    subplot_6.barh(x+0.26, final_scrape.outside_deaths[::-1], color = '#FF6347', height = 0.25, label = 'Deaths')
+    subplot_6.legend()
+
+    for index, value in enumerate(final_scrape.outside_confirmed_cases[::-1]):
+        subplot_6.text(value, index-0.26, str(value), va = 'center', fontsize = 8, fontweight = 'bold')
+    for index, value in enumerate(final_scrape.outside_recovered[::-1]):
+        subplot_6.text(value, index, str(value), va = 'center', fontsize = 8, fontweight = 'bold')
+    for index, value in enumerate(final_scrape.outside_deaths[::-1]):
+        subplot_6.text(value, index+0.26, str(value), va = 'center', fontsize = 8, fontweight = 'bold')
+
+    subplot_6.set_title('Number of cases per Region in the Philippines')
+    subplot_6.set_xlabel('Number of Cases')
+    subplot_6.set_ylabel('Regions')
+    figure_6.set_tight_layout(TRUE)
+    subplot_6.set_facecolor('#050505')
+    subplot_6.grid(alpha = 0.1)
+    subplot_6.tick_params(color = 'white', labelcolor = 'white')
+    canvas6 = FigureCanvasTkAgg(figure_6, frame_for_top_graph)
+    canvas6.get_tk_widget().pack()
+
+    toolbar6 = NavigationToolbar2Tk(canvas6, frame_for_top_graph)
+    canvas6._tkcanvas.pack()
+
+
+    figure_7 = Figure(figsize= (5.5, 3.1), dpi = 100)
+    figure_7.set_facecolor('#050505')
+    subplot_7 = figure_7.add_subplot(111)
+    subplot_7.set_title('Number of cases among Men and Women', pad = 3)
+    color = ['#8f2a2a', '#14af8c']
+    explode = [0.1, 0]
+    subplot_7.pie(final_scrape.sex_number_of_case, labels = final_scrape.sex, colors = color, explode = explode, wedgeprops = {'edgecolor': '#050505', 'linewidth': 1}, startangle = 45, autopct = '%1.1f%%')
+    canvas7 = FigureCanvasTkAgg(figure_7, frame_for_upper_right)
+    canvas7.get_tk_widget().pack()
+    toolbar7 = NavigationToolbar2Tk(canvas7, frame_for_upper_right)
+    canvas7._tkcanvas.pack()
+
+    figure_8 = Figure(figsize= (5.5, 3.1), dpi = 100)
+    figure_8.set_facecolor('#050505')
+    subplot_8 = figure_8.add_subplot(111)
+    subplot_8.set_title('Number of deaths among Men and Women', pad = 3)
+    color = ['#8f2a2a', '#14af8c']
+    explode = [0.1, 0]
+    subplot_8.pie(final_scrape.sex_number_of_deaths, labels = final_scrape.sex, colors = color, explode = explode, wedgeprops = {'edgecolor': '#050505', 'linewidth': 1}, startangle = 45, autopct = '%1.1f%%')
+    canvas8 = FigureCanvasTkAgg(figure_8, frame_for_bottom_right)
+    canvas8.get_tk_widget().pack()
+    toolbar8 = NavigationToolbar2Tk(canvas8, frame_for_bottom_right)
+    canvas8._tkcanvas.pack()
+
+    button_for_graphs_page_1 = Button(frame_for_graphs_buttons_3, text='Page 1',
+                                      font=font_for_facts_and_statistics_button, bg='black', fg='white', command = graphs_page_1)
+    button_for_graphs_page_1.grid(row=0, column=0, ipadx=7, ipady=5, padx=3)
+
+    button_for_graphs_page_2 = Button(frame_for_graphs_buttons_3, text='Page 2',
+                                      font=font_for_facts_and_statistics_button, bg='black', fg='white', command = back_graph_3)
+    button_for_graphs_page_2.grid(row=0, column=1, ipadx=7, ipady=5, padx=3)
+
+    button_for_graphs_page_3 = Button(frame_for_graphs_buttons_3, text='Page 3',
+                                      font=font_for_facts_and_statistics_button, bg='black', fg='white', state=  DISABLED)
+    button_for_graphs_page_3.grid(row=0, column=2, ipadx=7, ipady=5, padx=3)
+
+    button_for_graphs_back = Button(frame_for_graphs_buttons_3, text='Back', font=font_for_facts_and_statistics_button,
+                                    bg='black', fg='white',command = back_graph_3)
+    button_for_graphs_back.grid(row=0, column=3, ipadx=7, ipady=5, padx=3)
+
+
+def back_facts_statistics():
+    facts_and_statistics_window.destroy()
+    sign_in_as_guest()
+
+def back_graph1():
+    try:
+        graphs_page_1_window.destroy()
+        facts_and_statistics()
+    except:
+        pass
+
+def back_graph_2():
+    try:
+        graphs_page_2_window.destroy()
+        graphs_page_1()
+    except:
+        pass
+
+def back_graph_3():
+    try:
+        graphs_page_3_window.destroy()
+        graphs_page_2()
+    except:
+        pass
 
 
 def forgot_password():
