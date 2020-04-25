@@ -19,7 +19,9 @@ conda activate E-Hub_env
 
 ### Requirements
 <ul><li> <b>Pillow</b></li>
-<li> <b>smptlib-secure</b></li>
+<li> <b>secure-smtplib</b></li>
+<li> <b>bs4</b></li>
+<li> <b>requests</b></li>
 <li> <b>pandas</b></li>
 <li> <b>pandastable</b></li>
 <li> <b>matplotlib</b></li>
