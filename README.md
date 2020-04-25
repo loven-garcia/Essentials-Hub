@@ -17,7 +17,7 @@ Once you have created a new envriment, just activate it
 conda activate E-Hub_env
 ```
 
-To run the main script, you first need to install the following libraries using pip:
+### Requirements
 <ul><li> <b>Pillow</b></li>
 <li> <b>smptlib-secure</b></li>
 <li> <b>pandas</b></li>
@@ -26,7 +26,8 @@ To run the main script, you first need to install the following libraries using 
 <li> <b>tensorflow version1.14.0</b></li>
 <li> <b>nltk</b></li>
 <li> <b>tflearn</b></li>
-<li> <b>numpy</b></li></ul>
+<li> <b>numpy</b></li>
+<li> <b>Gotham Family Font (https://freefontsfamily.com/gotham-font-family/)</b></li></ul>
 
 Examples
 ```
