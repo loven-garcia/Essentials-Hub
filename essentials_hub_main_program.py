@@ -34,6 +34,7 @@ def main_login_window():
     the main sign-up window, sign-in form, and the forgot password
     feature
     """
+    preload_web_scrape_data()
     
     global main_window
     main_window = Toplevel(root)
@@ -233,8 +234,251 @@ def sign_in_as_guest():
     button_for_about_us = Button(frame_above_canvas_bottom_part, text = 'About Us', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white')
     button_for_about_us.grid(row = 0, column = 3, ipadx = 7, ipady = 3, padx=(60,0))
 
-    preload_web_scrape_data()
+    
+def online_shop():
+    """
+    This function is for the main window of the
+    online shop window. This includes all the
+    necessary widgets
+    """
 
+    sign_in_as_guest_window.destroy()
+
+    global online_shop_main_window
+    online_shop_main_window = Toplevel(root)
+    online_shop_main_window.geometry('1300x750+100+50')
+    main_frame_for_main_window = Frame(online_shop_main_window)
+    main_frame_for_main_window.pack()
+
+    image_canvas = Canvas(main_frame_for_main_window, width=1300, height=750)
+    image_canvas.pack()
+    image_canvas.create_image(0, 0, anchor=NW, image=image_online_shop)
+
+    global frame_left_side
+    frame_left_side = Frame(main_frame_for_main_window, bg ='#050505')
+    image_canvas.create_window(120,340, anchor = NW, window = frame_left_side)
+
+    global frame_right_side
+    frame_right_side = Frame(main_frame_for_main_window, bg ='#050505')
+    image_canvas.create_window(690,200, anchor = NW, window = frame_right_side)
+
+
+    label_enter_product_id= Label(frame_left_side, font = font_for_label_for_product_id, bg = '#050505', fg = 'White',text = 'Product Id: ')
+    label_enter_product_id.grid(row = 0, column = 0, pady =10, sticky = W, padx =(0, 25))
+
+    global entry_for_product_id
+    entry_for_product_id= Entry(frame_left_side, width = 15 ,borderwidth =1, bg = '#050505', fg = 'White', font = font_for_label_for_product_id )
+    entry_for_product_id.grid(row = 0, column = 1, pady = 10, sticky = W+E)
+
+    label_enter_quantity= Label(frame_left_side, font = font_for_label_for_product_id, bg = '#050505', fg = 'White',text = 'Quantity:   ')
+    label_enter_quantity.grid(row = 1, column = 0, sticky = W, padx =(0, 25), pady = 10)
+
+    global entry_for_quantity
+    entry_for_quantity= Entry(frame_left_side, width = 15 ,borderwidth =1, bg = '#050505', fg = 'White', font = font_for_label_for_product_id )
+    entry_for_quantity.grid(row = 1, column = 1, pady = 10, sticky = W+E)
+
+    button_add_to_cart = Button(frame_left_side, text = 'Add to Cart', bg = '#FF9900',fg = 'Black', font = font_for_online_shop_button, command = add_to_cart)
+    button_add_to_cart.grid(row = 3, column = 0, pady = (25, 10), ipadx =15, ipady = 7)
+
+    button_view_my_cart = Button(frame_left_side, text = 'View my Cart', bg = '#FF9900',fg = 'Black', font = font_for_online_shop_button, command = view_my_cart)
+    button_view_my_cart.grid(row = 3, column = 1, pady = (25, 10), ipadx =15, ipady = 7, sticky = W)
+
+    button_save_receipt = Button(frame_left_side, text = 'Save Receipt', bg = '#FF9900',fg = 'Black', font = font_for_online_shop_button)
+    button_save_receipt.grid(row = 4, column = 0, ipadx =13, ipady = 7)
+
+    label_for_search= Label(frame_right_side, font = font_for_online_shop_search, bg = '#050505', fg = 'White', text = 'Search by Name')
+    label_for_search.grid(row = 0, column = 0)
+
+    global entry_search
+    entry_search= Entry(frame_right_side, width = 9, borderwidth =1, bg = '#050505', fg = 'White', font = font_for_online_shop_search)
+    entry_search.grid(row = 0, column = 1, pady = 5, padx = 7)
+
+    button_search = Button(frame_right_side, text = 'Search', bg = '#050505',fg = 'White', font = font_for_online_shop_button, command = search_by_name)
+    button_search.grid(row = 0, column = 2, ipadx =6, padx = 3)
+
+    button_show_all_products = Button(frame_right_side, text = 'Show all products', bg = '#050505',fg = 'White', font = font_for_online_shop_button, command = show_all_products)
+    button_show_all_products.grid(row = 0, column = 3, ipadx = 6, padx = 3)
+
+    button_online_shop_go_back = Button(frame_right_side, text='Back', bg='#050505', fg='White', font = font_for_online_shop_button, command = online_shop_back)
+    button_online_shop_go_back.grid(row=2, column=0, pady=5, ipadx =11, padx = (0,5), sticky = W+E)
+
+    button_online_shop_exit = Button(frame_right_side, text='Exit', bg='#050505', fg='White', font = font_for_online_shop_button, command = online_shop_exit)
+    button_online_shop_exit.grid(row=2, column=1, pady=5, ipadx = 11, padx =5, sticky = W+E)
+
+    #BY CALLING THE INITIALIZE_DATA_VIEWER(), WE ARE PUTTING THE TABLE TO THE LABEL INSIDE THE RIGHT FRAME
+    initialize_data_viewer()
+
+    #THE SHOPPING CART NEEDS TO BE DELETED EVERYTIME THE FUNCTION IS CALLED
+    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    curs = conn.cursor()
+    curs.execute('delete from my_shopping_cart')
+    conn.commit()
+    
+ 
+def initialize_data_viewer():
+    """
+    This is to initialize/load the data from
+    the database and place it to the label
+    """
+
+    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    df = pd.read_sql_query('select * from Product_Inventory', conn)
+
+    global label_for_viewer
+    label_for_viewer = Label(frame_right_side)
+    label_for_viewer.grid(row=1, column=0, pady=10, columnspan=4)
+
+    pt = Table(label_for_viewer, dataframe=df)
+    for i in range(3):
+        pt.expandColumns()
+
+    label_for_viewer.config(text=pt.show())
+
+    
+def show_all_products():
+    initialize_data_viewer()
+    
+    
+def search_by_name():
+
+    try:
+        delete_data_viewer()
+        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        df = pd.read_sql_query('select * from product_inventory where (Product_Name like "%{}") OR (Product_Name like "{}%") OR (Product_Name like "%{}%")'.format(entry_search.get(),entry_search.get(),entry_search.get()), conn)
+        global label_for_viewer_2
+        label_for_viewer_2 = Label(frame_right_side)
+        label_for_viewer_2.grid(row=1, column=0, columnspan=4, pady=10)
+        pt = Table(label_for_viewer_2, dataframe=df)
+        pt.expandColumns()
+        pt.expandColumns()
+        pt.expandColumns()
+        label_for_viewer_2.config(text=pt.show())
+    except:
+        messagebox.showerror('ERROR!', 'No such product', parent=online_shop_main_window)
+
+        
+def add_to_cart():
+    """
+    Business logic for adding items inside
+    the cart of the user
+    """
+
+    try:
+
+        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        curs = conn.cursor()
+
+        curs.execute('select product_quantity from Product_Inventory where product_Id = :product_Id', {
+            'product_Id': entry_for_product_id.get()})
+
+        global specific_quantity
+        specific_quantity = curs.fetchall()
+
+        # FOR PRODUCT UPDATE
+        global user_entered_quantity
+        user_entered_quantity = int(entry_for_quantity.get())
+        # ------------------------------------------------------
+
+        if specific_quantity[0][0] - user_entered_quantity < 0:
+            messagebox.showerror('ERROR!', 'Order is less than Quantity', parent = online_shop_main_window)
+
+        else:
+            curs.execute('select Product_Id from Product_Inventory where Product_Id = :product_Id', {
+                'product_Id': entry_for_product_id.get()})
+            global inventory_product_Id
+            inventory_product_Id = curs.fetchall()
+            print(inventory_product_Id)
+
+            curs.execute('select Product_Name from Product_Inventory where Product_Id = :product_Id', {
+                'product_Id': inventory_product_Id[0][0]})
+            inventory_product_name = curs.fetchall()
+            print(inventory_product_name)
+
+            curs.execute('select Product_Price from Product_Inventory where Product_Id = :product_Id', {
+                'product_Id': inventory_product_Id[0][0]})
+            inventory_product_price = curs.fetchall()
+            print(inventory_product_price)
+
+            conn = sqlite3.connect('Essentials_Hub_Database.db')
+            curs = conn.cursor()
+
+
+            curs.execute("""
+                        create table if not exists my_shopping_cart(
+    
+                            Product_Id text PRIMARY KEY,
+                            Product_Name text,
+                            Product_Price integer,
+                            Product_Quantity integer,
+                            Total_Price integer
+                        )
+    
+            """)
+
+            global tprice
+            tprice = user_entered_quantity * int(inventory_product_price[0][0])
+
+            curs.execute('insert into my_shopping_cart values(:pid, :pname, :pprice, :pquantity, :tprice)',
+                         {
+                             'pid': inventory_product_Id[0][0],
+                             'pname': inventory_product_name[0][0],
+                             'pprice': inventory_product_price[0][0],
+                             'pquantity': user_entered_quantity,
+                             'tprice': tprice
+                         })
+
+            conn.commit()
+
+            update_products_inventory()
+    except:
+        messagebox.showerror('ERROR!', 'Item not in Inventory', parent=online_shop_main_window)
+
+
+
+def update_products_inventory():
+    remaining_product_quantity = int(specific_quantity[0][0]) - user_entered_quantity
+    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    curs = conn.cursor()
+    curs.execute('update Product_Inventory set Product_Quantity = :remaining_inv where Product_Id = :product_id', {
+        'remaining_inv': remaining_product_quantity,
+        'product_id': inventory_product_Id[0][0]
+    })
+
+    conn.commit()
+
+    
+def view_my_cart():
+    """
+    Funtion for viewing all the product
+    inside the cart of the user
+    """
+
+
+    delete_data_viewer()
+
+    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    df = pd.read_sql_query('select * from my_shopping_cart', conn)
+
+    global label_for_viewer_2
+    label_for_viewer_2 = Label(frame_right_side)
+    label_for_viewer_2.grid(row=1, column=0, columnspan=4, pady=10)
+
+    pt = Table(label_for_viewer_2, dataframe=df)
+    pt.expandColumns()
+    pt.expandColumns()
+    label_for_viewer_2.config(text=pt.show())
+    
+    
+def delete_data_viewer():
+    """
+    This function is used in order for the
+    table for the cart of user to be shown
+    """
+
+
+    initialize_data_viewer()
+    label_for_viewer.destroy()
+    
     
 def preload_web_scrape_data():
     """
