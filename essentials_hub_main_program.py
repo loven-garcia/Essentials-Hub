@@ -235,7 +235,7 @@ def sign_in_as_guest():
     button_for_about_us.grid(row = 0, column = 3, ipadx = 7, ipady = 3, padx=(60,0))
 
     
-    def online_shop():
+def online_shop():
     """
     This function is for the main window of the
     online shop window. This includes all the
@@ -313,7 +313,188 @@ def sign_in_as_guest():
     curs = conn.cursor()
     curs.execute('delete from my_shopping_cart')
     conn.commit()
+    
+ 
+def initialize_data_viewer():
+    """
+    This is to initialize/load the data from
+    the database and place it to the label
+    """
 
+    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    df = pd.read_sql_query('select * from Product_Inventory', conn)
+
+    global label_for_viewer
+    label_for_viewer = Label(frame_right_side)
+    label_for_viewer.grid(row=1, column=0, pady=10, columnspan=4)
+
+    pt = Table(label_for_viewer, dataframe=df)
+    for i in range(3):
+        pt.expandColumns()
+
+    label_for_viewer.config(text=pt.show())
+
+    
+def show_all_products():
+    initialize_data_viewer()
+    
+    
+def search_by_name():
+
+    try:
+        delete_data_viewer()
+        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        df = pd.read_sql_query('select * from product_inventory where (Product_Name like "%{}") OR (Product_Name like "{}%") OR (Product_Name like "%{}%")'.format(entry_search.get(),entry_search.get(),entry_search.get()), conn)
+        global label_for_viewer_2
+        label_for_viewer_2 = Label(frame_right_side)
+        label_for_viewer_2.grid(row=1, column=0, columnspan=4, pady=10)
+        pt = Table(label_for_viewer_2, dataframe=df)
+        pt.expandColumns()
+        pt.expandColumns()
+        pt.expandColumns()
+        label_for_viewer_2.config(text=pt.show())
+    except:
+        messagebox.showerror('ERROR!', 'No such product', parent=online_shop_main_window)
+
+        
+def add_to_cart():
+    """
+    Business logic for adding items inside
+    the cart of the user
+    """
+
+    try:
+
+        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        curs = conn.cursor()
+
+        curs.execute('select product_quantity from Product_Inventory where product_Id = :product_Id', {
+            'product_Id': entry_for_product_id.get()})
+
+        global specific_quantity
+        specific_quantity = curs.fetchall()
+
+        # FOR PRODUCT UPDATE
+        global user_entered_quantity
+        user_entered_quantity = int(entry_for_quantity.get())
+        # ------------------------------------------------------
+
+        if specific_quantity[0][0] - user_entered_quantity < 0:
+            messagebox.showerror('ERROR!', 'Order is less than Quantity', parent = online_shop_main_window)
+
+        else:
+            curs.execute('select Product_Id from Product_Inventory where Product_Id = :product_Id', {
+                'product_Id': entry_for_product_id.get()})
+            global inventory_product_Id
+            inventory_product_Id = curs.fetchall()
+            print(inventory_product_Id)
+
+            curs.execute('select Product_Name from Product_Inventory where Product_Id = :product_Id', {
+                'product_Id': inventory_product_Id[0][0]})
+            inventory_product_name = curs.fetchall()
+            print(inventory_product_name)
+
+            curs.execute('select Product_Price from Product_Inventory where Product_Id = :product_Id', {
+                'product_Id': inventory_product_Id[0][0]})
+            inventory_product_price = curs.fetchall()
+            print(inventory_product_price)
+
+            conn = sqlite3.connect('Essentials_Hub_Database.db')
+            curs = conn.cursor()
+
+
+            curs.execute("""
+                        create table if not exists my_shopping_cart(
+    
+                            Product_Id text PRIMARY KEY,
+                            Product_Name text,
+                            Product_Price integer,
+                            Product_Quantity integer,
+                            Total_Price integer
+                        )
+    
+            """)
+
+            global tprice
+            tprice = user_entered_quantity * int(inventory_product_price[0][0])
+
+            curs.execute('insert into my_shopping_cart values(:pid, :pname, :pprice, :pquantity, :tprice)',
+                         {
+                             'pid': inventory_product_Id[0][0],
+                             'pname': inventory_product_name[0][0],
+                             'pprice': inventory_product_price[0][0],
+                             'pquantity': user_entered_quantity,
+                             'tprice': tprice
+                         })
+
+            conn.commit()
+
+            update_products_inventory()
+    except:
+        messagebox.showerror('ERROR!', 'Item not in Inventory', parent=online_shop_main_window)
+
+
+
+def update_products_inventory():
+    remaining_product_quantity = int(specific_quantity[0][0]) - user_entered_quantity
+    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    curs = conn.cursor()
+    curs.execute('update Product_Inventory set Product_Quantity = :remaining_inv where Product_Id = :product_id', {
+        'remaining_inv': remaining_product_quantity,
+        'product_id': inventory_product_Id[0][0]
+    })
+
+    conn.commit()
+
+    
+def view_my_cart():
+    """
+    Funtion for viewing all the product
+    inside the cart of the user
+    """
+
+
+    delete_data_viewer()
+
+    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    df = pd.read_sql_query('select * from my_shopping_cart', conn)
+
+    global label_for_viewer_2
+    label_for_viewer_2 = Label(frame_right_side)
+    label_for_viewer_2.grid(row=1, column=0, columnspan=4, pady=10)
+
+    pt = Table(label_for_viewer_2, dataframe=df)
+    pt.expandColumns()
+    pt.expandColumns()
+    label_for_viewer_2.config(text=pt.show())
+    
+    
+def delete_data_viewer():
+    """
+    This function is used in order for the
+    table for the cart of user to be shown
+    """
+
+
+    initialize_data_viewer()
+    label_for_viewer.destroy()
+    
+    
+def online_shop_back():
+    """
+    Function to return back to the main online
+    shop window
+    """
+
+    online_shop_main_window.destroy()
+    sign_in_as_guest()
+
+def online_shop_exit():
+    """
+    Function to exit the program
+    """
+
+    exit_launcher()
     
     
 def preload_web_scrape_data():
@@ -1478,7 +1659,7 @@ main_frame.pack()
 
 canvas_launcher = Canvas(main_frame, width = 1300, height = 750)
 canvas_launcher.pack()
-image_launcher = ImageTk.PhotoImage(Image.open('PICTURES\image_launcher.jpg'))
+image_launcher = ImageTk.PhotoImage(Image.open('PICTURES/image_launcher.jpg'))
 canvas_launcher.create_image(0,0, anchor = NW, image = image_launcher)
 
 frame_above_canvas_left = Frame(main_frame, bg = 'Black')
@@ -1500,33 +1681,33 @@ button_launch.grid(row = 0, column = 0, ipady = 15, ipadx = 100, sticky = W)
 # ======================================================IMAGES==================================================================
 
 
-image_main_login_cover = ImageTk.PhotoImage(Image.open('PICTURES\image_main_cover.jpg'))
+image_main_login_cover = ImageTk.PhotoImage(Image.open('PICTURES/image_main_cover.jpg'))
 
-image_main_login_top_of_main_rec = ImageTk.PhotoImage(Image.open("PICTURES\image_top_of_main_cover.jpg"))
+image_main_login_top_of_main_rec = ImageTk.PhotoImage(Image.open("PICTURES/image_top_of_main_cover.jpg"))
 
-image_sign_up_window = ImageTk.PhotoImage(Image.open('PICTURES\image_second_main_cover.jpg'))
+image_sign_up_window = ImageTk.PhotoImage(Image.open('PICTURES/image_second_main_cover.jpg'))
 
-image_sign_up_as_guest_window = ImageTk.PhotoImage(Image.open('PICTURES\image_sign_up_as_guest.jpg'))
+image_sign_up_as_guest_window = ImageTk.PhotoImage(Image.open('PICTURES/image_sign_up_as_guest.jpg'))
 
-image_sign_up_as_admin_window = ImageTk.PhotoImage(Image.open('PICTURES\image_sign_up_as_admin.jpg'))
+image_sign_up_as_admin_window = ImageTk.PhotoImage(Image.open('PICTURES/image_sign_up_as_admin.jpg'))
 
-image_forgot_password_1 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_1.jpg'))
+image_forgot_password_1 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_1.jpg'))
 
-image_forgot_password_2 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_2.jpg'))
+image_forgot_password_2 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_2.jpg'))
 
-image_forgot_password_3 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_3.jpg'))
+image_forgot_password_3 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_3.jpg'))
 
-image_forgot_password_4 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_4.jpg'))
+image_forgot_password_4 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_4.jpg'))
 
-image_sign_in_as_guest_cover = ImageTk.PhotoImage(Image.open('PICTURES\image_main_page.jpg'))
+image_sign_in_as_guest_cover = ImageTk.PhotoImage(Image.open('PICTURES/image_main_page.jpg'))
 
-image_tracker = ImageTk.PhotoImage(Image.open('PICTURES\image_tracker.jpg'))
+image_tracker = ImageTk.PhotoImage(Image.open('PICTURES/image_tracker.jpg'))
 
-image_for_tracker_graphs = ImageTk.PhotoImage(Image.open('PICTURES\image_tracker_graphs.jpg'))
+image_for_tracker_graphs = ImageTk.PhotoImage(Image.open('PICTURES/image_tracker_graphs.jpg'))
 
-image_online_shop = ImageTk.PhotoImage(Image.open('PICTURES\image_main_online_shop.jpg'))
+image_online_shop = ImageTk.PhotoImage(Image.open('PICTURES/image_main_online_shop.jpg'))
 
-image_tracker_2 = ImageTk.PhotoImage(Image.open('PICTURES\image_tracker_2.jpg'))
+image_tracker_2 = ImageTk.PhotoImage(Image.open('PICTURES/image_tracker_2.jpg'))
 
 
 # ======================================================FONTS===================================================================
