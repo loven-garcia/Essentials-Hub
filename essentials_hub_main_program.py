@@ -335,8 +335,27 @@ def initialize_data_viewer():
     label_for_viewer.config(text=pt.show())
 
     
- def show_all_products():
+    
+def show_all_products():
     initialize_data_viewer()
+    
+    
+def search_by_name():
+
+    try:
+        delete_data_viewer()
+        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        df = pd.read_sql_query('select * from product_inventory where (Product_Name like "%{}") OR (Product_Name like "{}%") OR (Product_Name like "%{}%")'.format(entry_search.get(),entry_search.get(),entry_search.get()), conn)
+        global label_for_viewer_2
+        label_for_viewer_2 = Label(frame_right_side)
+        label_for_viewer_2.grid(row=1, column=0, columnspan=4, pady=10)
+        pt = Table(label_for_viewer_2, dataframe=df)
+        pt.expandColumns()
+        pt.expandColumns()
+        pt.expandColumns()
+        label_for_viewer_2.config(text=pt.show())
+    except:
+        messagebox.showerror('ERROR!', 'No such product', parent=online_shop_main_window)
 
 
     
