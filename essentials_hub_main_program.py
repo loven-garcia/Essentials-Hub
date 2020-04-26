@@ -480,6 +480,23 @@ def delete_data_viewer():
     label_for_viewer.destroy()
     
     
+def online_shop_back():
+    """
+    Function to return back to the main online
+    shop window
+    """
+
+    online_shop_main_window.destroy()
+    sign_in_as_guest()
+
+def online_shop_exit():
+    """
+    Function to exit the program
+    """
+
+    exit_launcher()
+    
+    
 def preload_web_scrape_data():
     """
     Funtion for preloading all the data
