@@ -335,7 +335,6 @@ def initialize_data_viewer():
     label_for_viewer.config(text=pt.show())
 
     
-    
 def show_all_products():
     initialize_data_viewer()
     
@@ -357,6 +356,95 @@ def search_by_name():
     except:
         messagebox.showerror('ERROR!', 'No such product', parent=online_shop_main_window)
 
+        
+def add_to_cart():
+    """
+    Business logic for adding items inside
+    the cart of the user
+    """
+
+    try:
+
+        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        curs = conn.cursor()
+
+        curs.execute('select product_quantity from Product_Inventory where product_Id = :product_Id', {
+            'product_Id': entry_for_product_id.get()})
+
+        global specific_quantity
+        specific_quantity = curs.fetchall()
+
+        # FOR PRODUCT UPDATE
+        global user_entered_quantity
+        user_entered_quantity = int(entry_for_quantity.get())
+        # ------------------------------------------------------
+
+        if specific_quantity[0][0] - user_entered_quantity < 0:
+            messagebox.showerror('ERROR!', 'Order is less than Quantity', parent = online_shop_main_window)
+
+        else:
+            curs.execute('select Product_Id from Product_Inventory where Product_Id = :product_Id', {
+                'product_Id': entry_for_product_id.get()})
+            global inventory_product_Id
+            inventory_product_Id = curs.fetchall()
+            print(inventory_product_Id)
+
+            curs.execute('select Product_Name from Product_Inventory where Product_Id = :product_Id', {
+                'product_Id': inventory_product_Id[0][0]})
+            inventory_product_name = curs.fetchall()
+            print(inventory_product_name)
+
+            curs.execute('select Product_Price from Product_Inventory where Product_Id = :product_Id', {
+                'product_Id': inventory_product_Id[0][0]})
+            inventory_product_price = curs.fetchall()
+            print(inventory_product_price)
+
+            conn = sqlite3.connect('Essentials_Hub_Database.db')
+            curs = conn.cursor()
+
+
+            curs.execute("""
+                        create table if not exists my_shopping_cart(
+    
+                            Product_Id text PRIMARY KEY,
+                            Product_Name text,
+                            Product_Price integer,
+                            Product_Quantity integer,
+                            Total_Price integer
+                        )
+    
+            """)
+
+            global tprice
+            tprice = user_entered_quantity * int(inventory_product_price[0][0])
+
+            curs.execute('insert into my_shopping_cart values(:pid, :pname, :pprice, :pquantity, :tprice)',
+                         {
+                             'pid': inventory_product_Id[0][0],
+                             'pname': inventory_product_name[0][0],
+                             'pprice': inventory_product_price[0][0],
+                             'pquantity': user_entered_quantity,
+                             'tprice': tprice
+                         })
+
+            conn.commit()
+
+            update_products_inventory()
+    except:
+        messagebox.showerror('ERROR!', 'Item not in Inventory', parent=online_shop_main_window)
+
+
+
+def update_products_inventory():
+    remaining_product_quantity = int(specific_quantity[0][0]) - user_entered_quantity
+    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    curs = conn.cursor()
+    curs.execute('update Product_Inventory set Product_Quantity = :remaining_inv where Product_Id = :product_id', {
+        'remaining_inv': remaining_product_quantity,
+        'product_id': inventory_product_Id[0][0]
+    })
+
+    conn.commit()
 
     
     
