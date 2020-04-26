@@ -47,3 +47,14 @@ pip install pandas
 ```
 pip install tensorflow==1.14.0
 ```
+
+## User Stories
+
+### List of all Use Stories
+-User stories (Customers)
+  1. Sign-up form
+    + As a customer, I want to be able to create my personal account.
+  2. Forgot password feauture
+    + As a customer, I want to be able to change my password in case I forgot it.
+  3. Sign-in form
+    + As a customer, I want to be able to log-in to the application for me to use the services offered by the program.
