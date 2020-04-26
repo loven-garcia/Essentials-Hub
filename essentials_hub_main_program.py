@@ -235,7 +235,7 @@ def sign_in_as_guest():
     button_for_about_us.grid(row = 0, column = 3, ipadx = 7, ipady = 3, padx=(60,0))
 
     
-    def online_shop():
+def online_shop():
     """
     This function is for the main window of the
     online shop window. This includes all the
@@ -446,6 +446,38 @@ def update_products_inventory():
 
     conn.commit()
 
+    
+def view_my_cart():
+    """
+    Funtion for viewing all the product
+    inside the cart of the user
+    """
+
+
+    delete_data_viewer()
+
+    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    df = pd.read_sql_query('select * from my_shopping_cart', conn)
+
+    global label_for_viewer_2
+    label_for_viewer_2 = Label(frame_right_side)
+    label_for_viewer_2.grid(row=1, column=0, columnspan=4, pady=10)
+
+    pt = Table(label_for_viewer_2, dataframe=df)
+    pt.expandColumns()
+    pt.expandColumns()
+    label_for_viewer_2.config(text=pt.show())
+    
+    
+def delete_data_viewer():
+    """
+    This function is used in order for the
+    table for the cart of user to be shown
+    """
+
+
+    initialize_data_viewer()
+    label_for_viewer.destroy()
     
     
 def preload_web_scrape_data():
