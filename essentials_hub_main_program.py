@@ -1659,7 +1659,7 @@ main_frame.pack()
 
 canvas_launcher = Canvas(main_frame, width = 1300, height = 750)
 canvas_launcher.pack()
-image_launcher = ImageTk.PhotoImage(Image.open('PICTURES\image_launcher.jpg'))
+image_launcher = ImageTk.PhotoImage(Image.open('PICTURES/image_launcher.jpg'))
 canvas_launcher.create_image(0,0, anchor = NW, image = image_launcher)
 
 frame_above_canvas_left = Frame(main_frame, bg = 'Black')
@@ -1681,33 +1681,33 @@ button_launch.grid(row = 0, column = 0, ipady = 15, ipadx = 100, sticky = W)
 # ======================================================IMAGES==================================================================
 
 
-image_main_login_cover = ImageTk.PhotoImage(Image.open('PICTURES\image_main_cover.jpg'))
+image_main_login_cover = ImageTk.PhotoImage(Image.open('PICTURES/image_main_cover.jpg'))
 
-image_main_login_top_of_main_rec = ImageTk.PhotoImage(Image.open("PICTURES\image_top_of_main_cover.jpg"))
+image_main_login_top_of_main_rec = ImageTk.PhotoImage(Image.open("PICTURES/image_top_of_main_cover.jpg"))
 
-image_sign_up_window = ImageTk.PhotoImage(Image.open('PICTURES\image_second_main_cover.jpg'))
+image_sign_up_window = ImageTk.PhotoImage(Image.open('PICTURES/image_second_main_cover.jpg'))
 
-image_sign_up_as_guest_window = ImageTk.PhotoImage(Image.open('PICTURES\image_sign_up_as_guest.jpg'))
+image_sign_up_as_guest_window = ImageTk.PhotoImage(Image.open('PICTURES/image_sign_up_as_guest.jpg'))
 
-image_sign_up_as_admin_window = ImageTk.PhotoImage(Image.open('PICTURES\image_sign_up_as_admin.jpg'))
+image_sign_up_as_admin_window = ImageTk.PhotoImage(Image.open('PICTURES/image_sign_up_as_admin.jpg'))
 
-image_forgot_password_1 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_1.jpg'))
+image_forgot_password_1 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_1.jpg'))
 
-image_forgot_password_2 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_2.jpg'))
+image_forgot_password_2 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_2.jpg'))
 
-image_forgot_password_3 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_3.jpg'))
+image_forgot_password_3 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_3.jpg'))
 
-image_forgot_password_4 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_4.jpg'))
+image_forgot_password_4 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_4.jpg'))
 
-image_sign_in_as_guest_cover = ImageTk.PhotoImage(Image.open('PICTURES\image_main_page.jpg'))
+image_sign_in_as_guest_cover = ImageTk.PhotoImage(Image.open('PICTURES/image_main_page.jpg'))
 
-image_tracker = ImageTk.PhotoImage(Image.open('PICTURES\image_tracker.jpg'))
+image_tracker = ImageTk.PhotoImage(Image.open('PICTURES/image_tracker.jpg'))
 
-image_for_tracker_graphs = ImageTk.PhotoImage(Image.open('PICTURES\image_tracker_graphs.jpg'))
+image_for_tracker_graphs = ImageTk.PhotoImage(Image.open('PICTURES/image_tracker_graphs.jpg'))
 
-image_online_shop = ImageTk.PhotoImage(Image.open('PICTURES\image_main_online_shop.jpg'))
+image_online_shop = ImageTk.PhotoImage(Image.open('PICTURES/image_main_online_shop.jpg'))
 
-image_tracker_2 = ImageTk.PhotoImage(Image.open('PICTURES\image_tracker_2.jpg'))
+image_tracker_2 = ImageTk.PhotoImage(Image.open('PICTURES/image_tracker_2.jpg'))
 
 
 # ======================================================FONTS===================================================================
