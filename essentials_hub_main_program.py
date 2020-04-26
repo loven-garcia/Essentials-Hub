@@ -313,6 +313,31 @@ def sign_in_as_guest():
     curs = conn.cursor()
     curs.execute('delete from my_shopping_cart')
     conn.commit()
+    
+ 
+def initialize_data_viewer():
+    """
+    This is to initialize/load the data from
+    the database and place it to the label
+    """
+
+    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    df = pd.read_sql_query('select * from Product_Inventory', conn)
+
+    global label_for_viewer
+    label_for_viewer = Label(frame_right_side)
+    label_for_viewer.grid(row=1, column=0, pady=10, columnspan=4)
+
+    pt = Table(label_for_viewer, dataframe=df)
+    for i in range(3):
+        pt.expandColumns()
+
+    label_for_viewer.config(text=pt.show())
+
+    
+ def show_all_products():
+    initialize_data_viewer()
+
 
     
     
