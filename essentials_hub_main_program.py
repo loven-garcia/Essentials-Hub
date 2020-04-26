@@ -34,6 +34,7 @@ def main_login_window():
     the main sign-up window, sign-in form, and the forgot password
     feature
     """
+    preload_web_scrape_data()
     
     global main_window
     main_window = Toplevel(root)
@@ -233,8 +234,87 @@ def sign_in_as_guest():
     button_for_about_us = Button(frame_above_canvas_bottom_part, text = 'About Us', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white')
     button_for_about_us.grid(row = 0, column = 3, ipadx = 7, ipady = 3, padx=(60,0))
 
-    preload_web_scrape_data()
+    
+    def online_shop():
+    """
+    This function is for the main window of the
+    online shop window. This includes all the
+    necessary widgets
+    """
 
+    sign_in_as_guest_window.destroy()
+
+    global online_shop_main_window
+    online_shop_main_window = Toplevel(root)
+    online_shop_main_window.geometry('1300x750+100+50')
+    main_frame_for_main_window = Frame(online_shop_main_window)
+    main_frame_for_main_window.pack()
+
+    image_canvas = Canvas(main_frame_for_main_window, width=1300, height=750)
+    image_canvas.pack()
+    image_canvas.create_image(0, 0, anchor=NW, image=image_online_shop)
+
+    global frame_left_side
+    frame_left_side = Frame(main_frame_for_main_window, bg ='#050505')
+    image_canvas.create_window(120,340, anchor = NW, window = frame_left_side)
+
+    global frame_right_side
+    frame_right_side = Frame(main_frame_for_main_window, bg ='#050505')
+    image_canvas.create_window(690,200, anchor = NW, window = frame_right_side)
+
+
+    label_enter_product_id= Label(frame_left_side, font = font_for_label_for_product_id, bg = '#050505', fg = 'White',text = 'Product Id: ')
+    label_enter_product_id.grid(row = 0, column = 0, pady =10, sticky = W, padx =(0, 25))
+
+    global entry_for_product_id
+    entry_for_product_id= Entry(frame_left_side, width = 15 ,borderwidth =1, bg = '#050505', fg = 'White', font = font_for_label_for_product_id )
+    entry_for_product_id.grid(row = 0, column = 1, pady = 10, sticky = W+E)
+
+    label_enter_quantity= Label(frame_left_side, font = font_for_label_for_product_id, bg = '#050505', fg = 'White',text = 'Quantity:   ')
+    label_enter_quantity.grid(row = 1, column = 0, sticky = W, padx =(0, 25), pady = 10)
+
+    global entry_for_quantity
+    entry_for_quantity= Entry(frame_left_side, width = 15 ,borderwidth =1, bg = '#050505', fg = 'White', font = font_for_label_for_product_id )
+    entry_for_quantity.grid(row = 1, column = 1, pady = 10, sticky = W+E)
+
+    button_add_to_cart = Button(frame_left_side, text = 'Add to Cart', bg = '#FF9900',fg = 'Black', font = font_for_online_shop_button, command = add_to_cart)
+    button_add_to_cart.grid(row = 3, column = 0, pady = (25, 10), ipadx =15, ipady = 7)
+
+    button_view_my_cart = Button(frame_left_side, text = 'View my Cart', bg = '#FF9900',fg = 'Black', font = font_for_online_shop_button, command = view_my_cart)
+    button_view_my_cart.grid(row = 3, column = 1, pady = (25, 10), ipadx =15, ipady = 7, sticky = W)
+
+    button_save_receipt = Button(frame_left_side, text = 'Save Receipt', bg = '#FF9900',fg = 'Black', font = font_for_online_shop_button)
+    button_save_receipt.grid(row = 4, column = 0, ipadx =13, ipady = 7)
+
+    label_for_search= Label(frame_right_side, font = font_for_online_shop_search, bg = '#050505', fg = 'White', text = 'Search by Name')
+    label_for_search.grid(row = 0, column = 0)
+
+    global entry_search
+    entry_search= Entry(frame_right_side, width = 9, borderwidth =1, bg = '#050505', fg = 'White', font = font_for_online_shop_search)
+    entry_search.grid(row = 0, column = 1, pady = 5, padx = 7)
+
+    button_search = Button(frame_right_side, text = 'Search', bg = '#050505',fg = 'White', font = font_for_online_shop_button, command = search_by_name)
+    button_search.grid(row = 0, column = 2, ipadx =6, padx = 3)
+
+    button_show_all_products = Button(frame_right_side, text = 'Show all products', bg = '#050505',fg = 'White', font = font_for_online_shop_button, command = show_all_products)
+    button_show_all_products.grid(row = 0, column = 3, ipadx = 6, padx = 3)
+
+    button_online_shop_go_back = Button(frame_right_side, text='Back', bg='#050505', fg='White', font = font_for_online_shop_button, command = online_shop_back)
+    button_online_shop_go_back.grid(row=2, column=0, pady=5, ipadx =11, padx = (0,5), sticky = W+E)
+
+    button_online_shop_exit = Button(frame_right_side, text='Exit', bg='#050505', fg='White', font = font_for_online_shop_button, command = online_shop_exit)
+    button_online_shop_exit.grid(row=2, column=1, pady=5, ipadx = 11, padx =5, sticky = W+E)
+
+    #BY CALLING THE INITIALIZE_DATA_VIEWER(), WE ARE PUTTING THE TABLE TO THE LABEL INSIDE THE RIGHT FRAME
+    initialize_data_viewer()
+
+    #THE SHOPPING CART NEEDS TO BE DELETED EVERYTIME THE FUNCTION IS CALLED
+    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    curs = conn.cursor()
+    curs.execute('delete from my_shopping_cart')
+    conn.commit()
+
+    
     
 def preload_web_scrape_data():
     """
