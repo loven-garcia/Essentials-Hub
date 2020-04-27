@@ -27,7 +27,7 @@ def exit_launcher():
 
     root.destroy()
 
-
+    
 def main_login_window():
     """
     This is the main window of the program. The window includes
@@ -35,7 +35,6 @@ def main_login_window():
     feature
     """
     preload_web_scrape_data()
-    
     global main_window
     main_window = Toplevel(root)
     main_window.geometry('1300x750+100+50')
@@ -222,7 +221,7 @@ def sign_in_as_guest():
     button_for_logout = Button(frame_above_canvas_top_part, text = 'Logout', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = logout)
     button_for_logout.grid(row = 0, column = 1, ipadx = 10, ipady = 4, padx = (875,0))
 
-    button_for_online_shop = Button(frame_above_canvas_bottom_part, text = 'Online Shop', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white')
+    button_for_online_shop = Button(frame_above_canvas_bottom_part, text = 'Online Shop', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = online_shop)
     button_for_online_shop.grid(row = 0, column = 0, ipadx = 7, ipady = 3)
 
     button_for_facts_statistics = Button(frame_above_canvas_bottom_part, text = 'Facts & Statistics', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = facts_and_statistics)
@@ -340,7 +339,6 @@ def show_all_products():
     
     
 def search_by_name():
-
     try:
         delete_data_viewer()
         conn = sqlite3.connect('Essentials_Hub_Database.db')
@@ -497,13 +495,209 @@ def online_shop_exit():
     exit_launcher()
     
     
+def sign_in_as_admin():
+    global sign_in_as_admin_window
+    sign_in_as_admin_window = Toplevel(root)
+    sign_in_as_admin_window.geometry('1300x750+100+50')
+
+    main_frame_sign_in_as_admin_window = Frame(sign_in_as_admin_window)
+    main_frame_sign_in_as_admin_window.pack()
+
+    canvas_sign_in_as_admin_window = Canvas(main_frame_sign_in_as_admin_window, width = 1300, height = 750)
+    canvas_sign_in_as_admin_window.pack()
+    canvas_sign_in_as_admin_window.create_image(0,0, anchor = NW, image = image_main_page_admin)
+
+    frame_above_canvas_top_part = Frame(main_frame_sign_in_as_admin_window, bg = '#020202')
+    canvas_sign_in_as_admin_window.create_window(74, 33, anchor = NW, window = frame_above_canvas_top_part)
+
+    frame_above_canvas_bottom_part = Frame(main_frame_sign_in_as_admin_window, bg = '#020202')
+    canvas_sign_in_as_admin_window.create_window(475, 685, anchor = NW, window = frame_above_canvas_bottom_part)
+
+    #LABEL FOR WELCOMING USER
+    label_for_welcoming_user = Label(frame_above_canvas_top_part, text = f'Welcome to Essentials Hub, admin {username}!', bg = 'Black', fg = '#e99314', font = font_for_welcoming_user)
+    label_for_welcoming_user.grid(row = 0, column = 0)
+
+    #BUTTON FOR LOGOUT
+    button_for_logout = Button(frame_above_canvas_top_part, text = 'Logout', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = logout)
+    button_for_logout.grid(row = 0, column = 1, ipadx = 10, ipady = 4, padx = (830,0))
+
+    button_for_online_shop = Button(frame_above_canvas_bottom_part, text = 'Manage Online Shop', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = online_shop_admin)
+    button_for_online_shop.grid(row = 0, column = 0, ipadx = 7, ipady = 3)
+
+    button_for_blog_section = Button(frame_above_canvas_bottom_part, text = 'Manage Blog Section', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white')
+    button_for_blog_section.grid(row = 0, column = 1, ipadx = 7, ipady = 3, padx=(40,0))
+
+    
+def online_shop_admin():
+    global online_shop_admin_window
+    online_shop_admin_window = Toplevel(root)
+    online_shop_admin_window.geometry('1300x750+100+50')
+
+    main_frame_for_main_window = Frame(online_shop_admin_window)
+    main_frame_for_main_window.pack()
+
+
+    image_canvas = Canvas(main_frame_for_main_window, width=1300, height=750)
+    image_canvas.pack()
+    image_canvas.create_image(0, 0, anchor=NW, image=image_online_shop_admin)
+
+    global frame_left_side
+    frame_left_side = Frame(main_frame_for_main_window, bg='#050505')
+    image_canvas.create_window(120, 300, anchor=NW, window=frame_left_side)
+
+    global frame_right_side
+    frame_right_side = Frame(main_frame_for_main_window, bg='#050505')
+    image_canvas.create_window(690, 200, anchor=NW, window=frame_right_side)
+
+    label_enter_product_id = Label(frame_left_side, font=font_for_label_for_product_id, bg='#050505', fg='White',
+                                   text='Product Id: ')
+    label_enter_product_id.grid(row=0, column=0, pady=10, sticky=W, padx=(0, 25))
+
+    global entry_for_product_id
+    entry_for_product_id = Entry(frame_left_side, width=15, borderwidth=1, bg='#050505', fg='White',
+                                 font=font_for_label_for_product_id)
+    entry_for_product_id.grid(row=0, column=1, pady=10, sticky=W + E)
+
+    label_enter_product_name = Label(frame_left_side, font=font_for_label_for_product_id, bg='#050505', fg='White',
+                                     text='Product Name: ')
+    label_enter_product_name.grid(row=1, column=0, pady=10, sticky=W, padx=(0, 25))
+
+    global entry_for_product_name
+    entry_for_product_name = Entry(frame_left_side, width=15, borderwidth=1, bg='#050505', fg='White',
+                                   font=font_for_label_for_product_id)
+    entry_for_product_name.grid(row=1, column=1, pady=10, sticky=W + E)
+
+    label_enter_product_price = Label(frame_left_side, font=font_for_label_for_product_id, bg='#050505', fg='White',
+                                      text='Product Price: ')
+    label_enter_product_price.grid(row=2, column=0, pady=10, sticky=W, padx=(0, 25))
+
+    global entry_for_product_price
+    entry_for_product_price = Entry(frame_left_side, width=15, borderwidth=1, bg='#050505', fg='White',
+                                    font=font_for_label_for_product_id)
+    entry_for_product_price.grid(row=2, column=1, pady=10, sticky=W + E)
+
+    label_enter_quantity = Label(frame_left_side, font=font_for_label_for_product_id, bg='#050505', fg='White',
+                                 text='Quantity:   ')
+    label_enter_quantity.grid(row=3, column=0, sticky=W, padx=(0, 25), pady=10)
+
+    global entry_for_quantity
+    entry_for_quantity = Entry(frame_left_side, width=15, borderwidth=1, bg='#050505', fg='White',
+                               font=font_for_label_for_product_id)
+    entry_for_quantity.grid(row=3, column=1, pady=10, sticky=W + E)
+
+    button_add_product = Button(frame_left_side, text='Add Product', bg='#FF9900', fg='Black',
+                                font=font_for_online_shop_button, command=add_product)
+    button_add_product.grid(row=4, column=0, pady=(25, 10), ipadx=15, ipady=7)
+
+    button_update_product = Button(frame_left_side, text='Update Product', bg='#FF9900', fg='Black',
+                                   font=font_for_online_shop_button, command=update_product)
+    button_update_product.grid(row=4, column=1, pady=(25, 10), ipadx=15, ipady=7, sticky=W)
+
+    button_delete_product = Button(frame_left_side, text='Delete Product', bg='#FF9900', fg='Black',
+                                   font=font_for_online_shop_button, command=delete_product)
+    button_delete_product.grid(row=5, column=0, ipadx=7, ipady=7)
+
+    label_for_search = Label(frame_right_side, font=font_for_online_shop_search, bg='#050505', fg='White',
+                             text='Search by Name')
+    label_for_search.grid(row=0, column=0)
+
+    global entry_search
+    entry_search = Entry(frame_right_side, width=9, borderwidth=1, bg='#050505', fg='White',
+                         font=font_for_online_shop_search)
+    entry_search.grid(row=0, column=1, pady=5, padx=7)
+
+    button_search = Button(frame_right_side, text='Search', bg='#050505', fg='White', font=font_for_online_shop_button, command = search_by_name)
+    button_search.grid(row=0, column=2, ipadx=6, padx=3)
+
+    button_show_all_products = Button(frame_right_side, text='Show all products', bg='#050505', fg='White',
+                                      font=font_for_online_shop_button, command = show_all_products)
+    button_show_all_products.grid(row=0, column=3, ipadx=6, padx=3)
+
+    button_online_shop_go_back = Button(frame_right_side, text='Back', bg='#050505', fg='White',
+                                        font=font_for_online_shop_button)
+    button_online_shop_go_back.grid(row=2, column=0, pady=5, ipadx=11, padx=(0, 5), sticky=W + E)
+
+    button_online_shop_exit = Button(frame_right_side, text='Exit', bg='#050505', fg='White',
+                                     font=font_for_online_shop_button, command = online_shop_exit)
+    button_online_shop_exit.grid(row=2, column=1, pady=5, ipadx=11, padx=5, sticky=W + E)
+
+    initialize_data_viewer()
+    
+    
+def add_product():
+    try:
+        if entry_for_product_id.get() == '' or entry_for_product_price.get() == '' or entry_for_product_name.get() == '' or entry_for_quantity.get() == '':
+            messagebox.showerror('ERROR!', 'Please fill all the boxes!', parent=online_shop_admin_window)
+
+        else:
+            conn = sqlite3.connect('Essentials_Hub_Database.db')
+            curs = conn.cursor()
+
+            curs.execute('insert into Product_Inventory values(:pid, :pname, :pprice, :pquantity)',
+                         {
+                             'pid': entry_for_product_id.get(),
+                             'pname': entry_for_product_name.get(),
+                             'pprice': entry_for_product_price.get(),
+                             'pquantity': entry_for_quantity.get()
+                         })
+            conn.commit()
+            entry_for_product_id.delete(0, 'end')
+            entry_for_product_name.delete(0, 'end')
+            entry_for_product_price.delete(0, 'end')
+            entry_for_quantity.delete(0, 'end')
+            messagebox.showinfo('SUCCESS!', 'Product added to the inventory', parent=online_shop_admin_window)
+    except:
+        messagebox.showerror('ERROR!', 'Product ID already exists', parent=online_shop_admin_window)
+
+
+def update_product():
+    try:
+        if entry_for_product_id.get() == '' or entry_for_product_price.get() == '' or entry_for_product_name.get() == '' or entry_for_quantity.get() == '':
+            messagebox.showerror('ERROR!', 'Please fill all the boxes!', parent=online_shop_admin_window)
+
+        else:
+            conn = sqlite3.connect('Essentials_Hub_Database.db')
+            curs = conn.cursor()
+
+            curs.execute('update Product_Inventory set Product_Id = :pid, Product_name = :pname, Product_price = :pprice, Product_Quantity == :pquantity where product_id = :pid',
+                         {
+                             'pid': entry_for_product_id.get(),
+                             'pname': entry_for_product_name.get(),
+                             'pprice': entry_for_product_price.get(),
+                             'pquantity': entry_for_quantity.get()
+                         })
+
+            conn.commit()
+            entry_for_product_id.delete(0, 'end')
+            entry_for_product_name.delete(0, 'end')
+            entry_for_product_price.delete(0, 'end')
+            entry_for_quantity.delete(0, 'end')
+            messagebox.showinfo('SUCCESS!', 'Product Updated!', parent=online_shop_admin_window)
+    except:
+        messagebox.showerror('ERROR!', 'Product ID already exists', parent=online_shop_admin_window)
+
+
+def delete_product():
+    try:
+        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        curs = conn.cursor()
+
+        curs.execute('delete from Product_Inventory where product_id = :pid', {'pid': entry_for_product_id.get()})
+        conn.commit()
+        entry_for_product_id.delete(0, 'end')
+        messagebox.showinfo('SUCCESS!', 'Product Deleted!', parent=online_shop_admin_window)
+
+    except:
+        messagebox.showerror('ERROR!', 'No such product Id', parent=online_shop_admin_window)
+
+        
+    
 def preload_web_scrape_data():
     """
     Funtion for preloading all the data
     inside final_scrape.py
     """
-
-
+    
     final_scrape.day_by_day()
     final_scrape.for_total_deaths_total_recovered()
     final_scrape.pui_pum_tested()
@@ -570,8 +764,8 @@ def facts_and_statistics():
     button_for_chatbot = Button(frame_for_buttons_below, text = 'Chatbot', font = font_for_facts_and_statistics_button, bg ='#e99314', fg = 'Black')
     button_for_chatbot.grid(row = 0, column = 2, ipadx = 18, ipady =8, padx = (0,10))
 
-    button_for_page_back = Button(frame_for_buttons_below, text = 'Back', font = font_for_facts_and_statistics_button, bg ='#e99314', fg = 'Black')
-    button_for_page_back.grid(row = 0, column = 3, ipadx = 18, ipady =8, command = back_facts_statistics)
+    button_for_page_back = Button(frame_for_buttons_below, text = 'Back', font = font_for_facts_and_statistics_button, bg ='#e99314', fg = 'Black', command = back_facts_statistics)
+    button_for_page_back.grid(row = 0, column = 3, ipadx = 18, ipady =8)
 
 
 def facts_and_statistics_2():
@@ -811,7 +1005,7 @@ def graphs_page_2():
     subplot_4.barh(final_scrape.region[::-1], final_scrape.region_cases[::-1], color = '#FFC000', log = True)
     for index, value in enumerate(final_scrape.region_cases[::-1]):
         subplot_4.text(value, index, str(value), va = 'center', fontsize = 8, fontweight = 'bold')
-    subplot_4.set_title('Number of cases per Region in the Philippines')
+    subplot_4.set_title('Confirmed COVID-19 cases in the Philippines by region of residence')
     subplot_4.set_xlabel('Number of Cases')
     subplot_4.set_ylabel('Regions')
     figure_4.set_tight_layout(TRUE)
@@ -831,7 +1025,7 @@ def graphs_page_2():
     subplot_5.barh(final_scrape.age_group[::-1], final_scrape.age_number_of_case[::-1], color = '#FF6347', height = 0.6)
     for index, value in enumerate(final_scrape.age_number_of_case[::-1]):
         subplot_5.text(value, index, str(value), va = 'center', fontsize = 8, fontweight = 'bold')
-    subplot_5.set_title('Number of Cases per Age Group in the Philippines')
+    subplot_5.set_title('Confirmed COVID-19 cases in the Philippines by gender')
     subplot_5.set_xlabel('Number of Cases')
     subplot_5.set_ylabel('Age Groups')
     figure_5.set_tight_layout(TRUE)
@@ -861,6 +1055,7 @@ def graphs_page_2():
                                     bg='black', fg='white',command = back_graph_2)
     button_for_graphs_back.grid(row=0, column=3, ipadx=7, ipady=5, padx=3)
 
+    
 def graphs_page_3():
     try:
         graphs_page_2_window.destroy()
@@ -910,7 +1105,7 @@ def graphs_page_3():
     for index, value in enumerate(final_scrape.outside_deaths[::-1]):
         subplot_6.text(value, index+0.26, str(value), va = 'center', fontsize = 8, fontweight = 'bold')
 
-    subplot_6.set_title('Number of cases per Region in the Philippines')
+    subplot_6.set_title('Confirmed cases of Filipino nationals outside the Philippines')
     subplot_6.set_xlabel('Number of Cases')
     subplot_6.set_ylabel('Regions')
     figure_6.set_tight_layout(TRUE)
@@ -1681,33 +1876,38 @@ button_launch.grid(row = 0, column = 0, ipady = 15, ipadx = 100, sticky = W)
 # ======================================================IMAGES==================================================================
 
 
-image_main_login_cover = ImageTk.PhotoImage(Image.open('PICTURES/image_main_cover.jpg'))
+image_main_login_cover = ImageTk.PhotoImage(Image.open('PICTURES\image_main_cover.jpg'))
 
-image_main_login_top_of_main_rec = ImageTk.PhotoImage(Image.open("PICTURES/image_top_of_main_cover.jpg"))
+image_main_login_top_of_main_rec = ImageTk.PhotoImage(Image.open("PICTURES\image_top_of_main_cover.jpg"))
 
-image_sign_up_window = ImageTk.PhotoImage(Image.open('PICTURES/image_second_main_cover.jpg'))
+image_sign_up_window = ImageTk.PhotoImage(Image.open('PICTURES\image_second_main_cover.jpg'))
 
-image_sign_up_as_guest_window = ImageTk.PhotoImage(Image.open('PICTURES/image_sign_up_as_guest.jpg'))
+image_sign_up_as_guest_window = ImageTk.PhotoImage(Image.open('PICTURES\image_sign_up_as_guest.jpg'))
 
-image_sign_up_as_admin_window = ImageTk.PhotoImage(Image.open('PICTURES/image_sign_up_as_admin.jpg'))
+image_sign_up_as_admin_window = ImageTk.PhotoImage(Image.open('PICTURES\image_sign_up_as_admin.jpg'))
 
-image_forgot_password_1 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_1.jpg'))
+image_forgot_password_1 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_1.jpg'))
 
-image_forgot_password_2 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_2.jpg'))
+image_forgot_password_2 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_2.jpg'))
 
-image_forgot_password_3 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_3.jpg'))
+image_forgot_password_3 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_3.jpg'))
 
-image_forgot_password_4 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_4.jpg'))
+image_forgot_password_4 = ImageTk.PhotoImage(Image.open('PICTURES\image_forgot_password_4.jpg'))
 
-image_sign_in_as_guest_cover = ImageTk.PhotoImage(Image.open('PICTURES/image_main_page.jpg'))
+image_sign_in_as_guest_cover = ImageTk.PhotoImage(Image.open('PICTURES\image_main_page.jpg'))
 
-image_tracker = ImageTk.PhotoImage(Image.open('PICTURES/image_tracker.jpg'))
+image_tracker = ImageTk.PhotoImage(Image.open('PICTURES\image_tracker.jpg'))
 
-image_for_tracker_graphs = ImageTk.PhotoImage(Image.open('PICTURES/image_tracker_graphs.jpg'))
+image_for_tracker_graphs = ImageTk.PhotoImage(Image.open('PICTURES\image_tracker_graphs.jpg'))
 
-image_online_shop = ImageTk.PhotoImage(Image.open('PICTURES/image_main_online_shop.jpg'))
+image_online_shop = ImageTk.PhotoImage(Image.open('PICTURES\image_main_online_shop.jpg'))
 
-image_tracker_2 = ImageTk.PhotoImage(Image.open('PICTURES/image_tracker_2.jpg'))
+image_tracker_2 = ImageTk.PhotoImage(Image.open('PICTURES\image_tracker_2.jpg'))
+
+image_online_shop_admin = ImageTk.PhotoImage(Image.open('PICTURES\image_online_shop_admin.jpg'))
+
+image_main_page_admin = ImageTk.PhotoImage(Image.open('PICTURES\image_main_page_admin.jpg'))
+
 
 
 # ======================================================FONTS===================================================================
