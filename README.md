@@ -27,6 +27,7 @@ conda activate E-Hub_env
 ```
 
 ### Requirements
+
 <ul><li> <b>Pillow</b></li>
 <li> <b>secure-smtplib</b></li>
 <li> <b>bs4</b></li>
@@ -48,9 +49,18 @@ pip install pandas
 pip install tensorflow==1.14.0
 ```
 
+## Objectives
+
+The objectives of the project are the following:
+- To create an online shopping program specified for calamities.
+- To collect info regarding COVID-19 cases and their localities in the Philippines.
+- To visualize the gathered information into appropriate graphs.
+- To create an Artificial Intelligence for convenience in terms of query.
+- To develop a blog section for a direct communication between the client and administrator.
+
 ## User Stories
 
-### List of all Use Stories
+### List of all User Stories
 
 - **User stories (Customers)**
   + **Sign-up form**
@@ -62,7 +72,7 @@ pip install tensorflow==1.14.0
    
   + **Online Shop main GUI**
     + As a customer, I want to be able to shop online using the app, I want to see different features like add to cart, view my cart, view all products, search for items, and view or add ratings to products.
-  + **View all Products **
+  + **View all Products**
     + As a customer, I want to be able to view all the essential products that are available to the store.
   + **Search for products (By name)**
     + As a customer, I want to be able to search for the product that I want through its name.
@@ -86,7 +96,7 @@ pip install tensorflow==1.14.0
     + As a user, I want to be able to see the programmers involved in this application.
     
     
-- **User stories (Software Developer)**
+- **User stories (Administrator)**
   + **View all products**
     + As an admin, I want to be able to view all the remaining products in the database
   + **Add/Update/delete products**
