@@ -60,7 +60,7 @@ The objectives of the project are the following:
 
 ## User Stories
 
-### List of all Use Stories
+### List of all User Stories
 
 - **User stories (Customers)**
   + **Sign-up form**
@@ -96,7 +96,7 @@ The objectives of the project are the following:
     + As a user, I want to be able to see the programmers involved in this application.
     
     
-- **User stories (Software Developer)**
+- **User stories (Administrator)**
   + **View all products**
     + As an admin, I want to be able to view all the remaining products in the database
   + **Add/Update/delete products**
