@@ -2,14 +2,16 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](UI/essential_main_logo2.png)
 
-## Team Members
-- Loven Garcia
-- Richard Vincent Chua
-- Louisse Velasco
-- Fil Janses Tapaganao
-- Jeloux Docto
-- Jarl Centeno
-- Flynn Alcaraz
+## &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Team Members
+```
+                                                 Loven Garcia
+                                             Richard Vincent Chua
+                                               Louisse Velasco
+                                             Fil Janses Tapaganao
+                                                 Jeloux Docto
+                                                 Jarl Centeno
+                                                 Flynn Alcaraz
+```
 
 ## Overview
 
