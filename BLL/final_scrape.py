@@ -4,7 +4,6 @@ import urllib.request
 import json
 import pandas as pd
 
-
 #FOR THE DAY BY DAY CASES
 def day_by_day():
 
@@ -175,6 +174,8 @@ def by_region():
         df = pd.DataFrame(list(zip(region, region_cases, region_deaths, region_recovered)), columns=headers, index=indices)
 
 
+
+
 def by_sex():
     global sex
     sex = ['Male', 'Female']
@@ -278,7 +279,7 @@ def pui_pum_tested():
 
 
 def picture():
-    urllib.request.urlretrieve('https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/COVID-19_pandemic_cases_in_the_Philippines.svg/412px-COVID-19_pandemic_cases_in_the_Philippines.svg.png', 'PICTURES/image_svg.png' )
+    urllib.request.urlretrieve('https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/COVID-19_pandemic_cases_in_the_Philippines.svg/412px-COVID-19_pandemic_cases_in_the_Philippines.svg.png', 'UI/PICTURES/image_svg.png' )
 
 
 def api():
@@ -317,10 +318,3 @@ url = 'https://en.wikipedia.org/wiki/2020_coronavirus_pandemic_in_the_Philippine
 page = requests.get(url)
 soup = BeautifulSoup(page.text, 'html.parser')
 
-
-# by_region()
-# by_age()
-# by_sex()
-# for_total_deaths_total_recovered()
-# cases_outside_ph()
-# pui_pum_tested()

@@ -8,7 +8,7 @@ import sqlite3
 import smtplib
 import string
 import random
-import final_scrape
+import BLL import final_scrape
 from datetime import datetime
 import pandas as pd
 from pandastable import Table
