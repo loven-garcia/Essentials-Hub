@@ -730,7 +730,7 @@ def facts_and_statistics():
     canvas_facts_and_statistics.create_image(0,0, anchor = NW, image = image_tracker)
 
     global image_map
-    image_map = ImageTk.PhotoImage(Image.open('PICTURES/image_svg.png'))
+    image_map = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_svg.png'))
 
 
     canvas_facts_and_statistics.create_text(1100, 720, font = font_for_date_today, text = final_scrape.dates[0] , fill = 'white')
@@ -1184,6 +1184,257 @@ def back_graph_3():
         graphs_page_2()
     except:
         pass
+
+
+def chatbot():
+
+    stemmer = LancasterStemmer()
+    with codecs.open("BLL/intents_for_chatbot.json", encoding='utf-8') as file:
+        data = json.load(file)
+
+    try:
+        with codecs.open("DAL/data.pickle", "rb", encoding='utf-8') as f:
+            words, labels, training, output = pickle.load(f)
+    except:
+        words = []
+        labels = []
+        docs_x = []
+        docs_y = []
+
+        for intent in data["intents"]:
+            for pattern in intent["patterns"]:
+                wrds = nltk.word_tokenize(pattern)
+                words.extend(wrds)
+                docs_x.append(wrds)
+                docs_y.append(intent["tag"])
+
+            if intent["tag"] not in labels:
+                labels.append(intent["tag"])
+
+        words = [stemmer.stem(w.lower()) for w in words if w != "?"]
+        words = sorted(list(set(words)))
+
+        labels = sorted(labels)
+
+        training = []
+        output = []
+
+        out_empty = [0 for _ in range(len(labels))]
+
+        for x, doc in enumerate(docs_x):
+            bag = []
+
+            wrds = [stemmer.stem(w.lower()) for w in doc]
+
+            for w in words:
+                if w in wrds:
+                    bag.append(1)
+                else:
+                    bag.append(0)
+
+            output_row = out_empty[:]
+            output_row[labels.index(docs_y[x])] = 1
+
+            training.append(bag)
+            output.append(output_row)
+
+        training = np.array(training)
+        output = np.array(output)
+
+        with open("DAL\data.pickle", "wb") as f:
+            pickle.dump((words, labels, training, output), f)
+
+    tensorflow.reset_default_graph()
+
+    net = tflearn.input_data(shape=[None, len(training[0])])
+    net = tflearn.fully_connected(net, 8)
+    net = tflearn.fully_connected(net, 8)
+    net = tflearn.fully_connected(net, len(output[0]), activation="softmax")
+    net = tflearn.regression(net)
+
+    model = tflearn.DNN(net)
+
+    try:
+        model.load("DAL\model1.tflearn")
+    except:
+        model.fit(training, output, n_epoch=700, batch_size=8, show_metric=True)
+        model.save("DAL\model1.tflearn")
+
+    def bag_of_words(s, words):
+        bag = [0 for _ in range(len(words))]
+
+        s_words = nltk.word_tokenize(s)
+        s_words = [stemmer.stem(word.lower()) for word in s_words]
+
+        for se in s_words:
+            for i, w in enumerate(words):
+                if w == se:
+                    bag[i] = 1
+
+        return np.array(bag)
+
+
+
+    def chat():
+
+        if entry_for_users.get("1.0", 'end-1c') == '1' or entry_for_users.get("1.0",
+                                                                              'end-1c') == '2' or entry_for_users.get(
+                "1.0", 'end-1c') == '3' or entry_for_users.get("1.0", 'end-1c') == '4' or entry_for_users.get("1.0",
+                                                                                                              'end-1c') == '5':
+            cases()
+        else:
+            inp = entry_for_users.get("1.0", 'end-1c').strip()
+            entry_for_users.delete("0.0", END)
+
+            LineNumber = float(text_box_for_logs.index('end')) - 1.0
+            text_box_for_logs.insert(END, 'You: ' + inp + '  ' + '\n\n\n')
+            text_box_for_logs.tag_add("You: ", LineNumber, LineNumber + 0.3)
+            text_box_for_logs.tag_config("You: ", foreground="Green", font=font_for_chatbot_text, justify='right')
+
+            results = model.predict([bag_of_words(inp, words)])
+            results_index = np.argmax(results)
+            tag = labels[results_index]
+
+            for tg in data["intents"]:
+                if tg['tag'] == tag:
+                    responses = tg['responses']
+
+            LineNumber = float(text_box_for_logs.index('end')) - 1.0
+            text_box_for_logs.insert(END, 'E-hub: ' + random.choice(responses) + '\n\n\n')
+            text_box_for_logs.tag_add("E-hub: ", LineNumber, LineNumber + 0.6)
+            text_box_for_logs.tag_config("E-hub: ", foreground="#e99314", font=font_for_chatbot_text)
+
+    def cases():
+
+        if entry_for_users.get("1.0", 'end-1c') == '1':
+            LineNumber = float(text_box_for_logs.index('end')) - 1.0
+            text_box_for_logs.insert(END, 'You: 1 ' + '\n\n\n')
+            text_box_for_logs.tag_add("You: ", LineNumber, LineNumber + 0.3)
+            text_box_for_logs.tag_config("You: ", foreground="Green", font=font_for_chatbot_text, justify='right')
+
+            response = ("The latest coronavirus cases are as follows: \n"
+                        f"Total Cases: {final_scrape.api_total_cases}\n"
+                        f"Addtional Cases for today: {final_scrape.api_additional_cases_today}\n\n"
+                        f"Total Deaths: {final_scrape.api_total_deaths}\n"
+                        f"Addtional Deaths for today: {final_scrape.api_additional_deaths_today}\n\n"
+                        f"Total Recoveries: {final_scrape.api_total_recoveries}\n"
+                        f"Addtional Recoveries for today: {final_scrape.api_additional_recoveries_today}\n\n"
+                        "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. PUI/PUM/Person Tested/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
+
+            LineNumber = float(text_box_for_logs.index('end')) - 1.0
+            text_box_for_logs.insert(END, 'E-hub: ' + response + '\n\n\n')
+            text_box_for_logs.tag_add("E-hub: ", LineNumber, LineNumber + 0.6)
+            text_box_for_logs.tag_config("E-hub: ", foreground="#e99314", font=font_for_chatbot_text)
+            entry_for_users.delete("0.0", END)
+
+        elif entry_for_users.get("1.0", 'end-1c') == '2':
+            LineNumber = float(text_box_for_logs.index('end')) - 1.0
+            text_box_for_logs.insert(END, 'You: 2 ' + '\n\n\n')
+            text_box_for_logs.tag_add("You: ", LineNumber, LineNumber + 0.3)
+            text_box_for_logs.tag_config("You: ", foreground="Green", font=font_for_chatbot_text, justify='right')
+
+            response = (
+                f"The fatality rate in the Philippines is {final_scrape.api_fatality_rate}, while the recovery rate is {final_scrape.api_recovery_rate}\n\n"
+                "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. PUI/PUM/Person Tested/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
+
+            LineNumber = float(text_box_for_logs.index('end')) - 1.0
+            text_box_for_logs.insert(END, 'E-hub: ' + response + '\n\n\n')
+            text_box_for_logs.tag_add("E-hub: ", LineNumber, LineNumber + 0.6)
+            text_box_for_logs.tag_config("E-hub: ", foreground="#e99314", font=font_for_chatbot_text)
+            entry_for_users.delete("0.0", END)
+
+        elif entry_for_users.get("1.0", 'end-1c') == '3':
+            LineNumber = float(text_box_for_logs.index('end')) - 1.0
+            text_box_for_logs.insert(END, 'You: 3 ' + '\n\n\n')
+            text_box_for_logs.tag_add("You: ", LineNumber, LineNumber + 0.3)
+            text_box_for_logs.tag_config("You: ", foreground="Green", font=font_for_chatbot_text, justify='right')
+
+            response = (
+                f"The number of coronavirus cases in males are {final_scrape.sex_number_of_case[0]}, while {final_scrape.sex_number_of_case[1]} for women. \nThe number of deaths in males and females are {final_scrape.sex_number_of_deaths[0]} and {final_scrape.sex_number_of_deaths[1]}, respectively\n\n"
+                "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. PUI/PUM/Person Tested/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
+
+            LineNumber = float(text_box_for_logs.index('end')) - 1.0
+            text_box_for_logs.insert(END, 'E-hub: ' + response + '\n\n\n')
+            text_box_for_logs.tag_add("E-hub: ", LineNumber, LineNumber + 0.6)
+            text_box_for_logs.tag_config("E-hub: ", foreground="#e99314", font=font_for_chatbot_text)
+            entry_for_users.delete("0.0", END)
+
+
+        elif entry_for_users.get("1.0", 'end-1c') == '4':
+            LineNumber = float(text_box_for_logs.index('end')) - 1.0
+            text_box_for_logs.insert(END, 'You: 4 ' + '\n\n\n')
+            text_box_for_logs.tag_add("You: ", LineNumber, LineNumber + 0.3)
+            text_box_for_logs.tag_config("You: ", foreground="Green", font=font_for_chatbot_text, justify='right')
+
+            response = ("Here is what i found: \n"
+                        f"Persons Under Monitoring: {final_scrape.pum[0]}\n"
+                        f"Persons Under investigation: {final_scrape.pui[0]}\n"
+                        f"Persons Tested: {final_scrape.tested[0]}\n"
+                        f"Persons Admitted: {final_scrape.api_admitted}\n\n"
+                        "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. PUI/PUM/Person Tested/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
+
+            LineNumber = float(text_box_for_logs.index('end')) - 1.0
+            text_box_for_logs.insert(END, 'E-hub: ' + response + '\n\n\n')
+            text_box_for_logs.tag_add("E-hub: ", LineNumber, LineNumber + 0.6)
+            text_box_for_logs.tag_config("E-hub: ", foreground="#e99314", font=font_for_chatbot_text)
+            entry_for_users.delete("0.0", END)
+
+
+        elif entry_for_users.get("1.0", 'end-1c') == '5':
+            LineNumber = float(text_box_for_logs.index('end')) - 1.0
+            text_box_for_logs.insert(END, 'You: 5 ' + '\n\n\n')
+            text_box_for_logs.tag_add("You: ", LineNumber, LineNumber + 0.3)
+            text_box_for_logs.tag_config("You: ", foreground="Green", font=font_for_chatbot_text, justify='right')
+
+            response = ("Here are the cases of coronavirus among Filipinos outside the Philippines: \n"
+                        f"{final_scrape.outside_region[0]}: {final_scrape.outside_confirmed_cases[0]}\n"
+                        f"{final_scrape.outside_region[1]}: {final_scrape.outside_confirmed_cases[1]}\n"
+                        f"{final_scrape.outside_region[2]}: {final_scrape.outside_confirmed_cases[2]}\n"
+                        f"{final_scrape.outside_region[3]}: {final_scrape.outside_confirmed_cases[3]}\n\n"
+                        "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. PUI/PUM/Person Tested/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
+
+            LineNumber = float(text_box_for_logs.index('end')) - 1.0
+            text_box_for_logs.insert(END, 'E-hub: ' + response + '\n\n\n')
+            text_box_for_logs.tag_add("E-hub: ", LineNumber, LineNumber + 0.6)
+            text_box_for_logs.tag_config("E-hub: ", foreground="#e99314", font=font_for_chatbot_text)
+            entry_for_users.delete("0.0", END)
+
+
+    global chatbot_window
+    chatbot_window = Toplevel(root)
+    chatbot_window.geometry("1400x800")
+    chatbot_window.resizable(width= False, height=False)
+    main_frame = Frame(chatbot_window)
+    main_frame.pack()
+
+    canvas_main_window = Canvas(main_frame, width=1400, height=800)
+    canvas_main_window.pack()
+    canvas_main_window.create_image(0, 0, anchor=NW, image=image_ehub)
+
+    frame_for_logs = Frame(main_frame, height=500, bg="#050505")
+    canvas_main_window.create_window(100, 110, anchor=NW, window=frame_for_logs)
+
+    text_box_for_logs = Text(frame_for_logs, bg="#050505", fg='White', height="30", width="100",
+                             font=font_for_chatbot_text, highlightthickness=1, wrap=WORD)
+    text_box_for_logs.grid(row=0, column=0, columnspan=2, ipadx=5, ipady=5)
+
+    LineNumber = float(text_box_for_logs.index('end')) - 1.0
+    text_box_for_logs.insert(END,
+                             'E-hub: ' + 'Welcome my friend! I am E-Hub, the coronavirus chatbot! \nI am here to help you regarding the covid happenings in the Philippines!' + '\n\n')
+    text_box_for_logs.tag_add("E-hub: ", LineNumber, LineNumber + 0.6)
+    text_box_for_logs.tag_config("E-hub: ", foreground="#e99314", font=font_for_chatbot_text)
+
+    scrollbar = Scrollbar(frame_for_logs, command=text_box_for_logs.yview, bg="#050505")
+    scrollbar.grid(row=0, column=2, sticky=NS + W)
+    text_box_for_logs['yscrollcommand'] = scrollbar.set
+
+    entry_for_users = Text(frame_for_logs, fg='black', bg="white", width="80", height="1", font=font_for_chatbot_text_2,
+                           highlightthickness=1)
+    entry_for_users.grid(row=1, column=0, sticky=E, pady=12)
+
+    send_button = Button(frame_for_logs, font=font_for_chatbot_button, text="Send", bg="#e99314", fg='Black',
+                         command=chat)
+    send_button.grid(row=1, column=1, ipadx=10, padx=(4, 0))
 
 
 def forgot_password():
@@ -1854,7 +2105,7 @@ main_frame.pack()
 
 canvas_launcher = Canvas(main_frame, width = 1300, height = 750)
 canvas_launcher.pack()
-image_launcher = ImageTk.PhotoImage(Image.open('PICTURES/image_launcher.jpg'))
+image_launcher = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_launcher.jpg'))
 canvas_launcher.create_image(0,0, anchor = NW, image = image_launcher)
 
 frame_above_canvas_left = Frame(main_frame, bg = 'Black')
@@ -1876,37 +2127,39 @@ button_launch.grid(row = 0, column = 0, ipady = 15, ipadx = 100, sticky = W)
 # ======================================================IMAGES==================================================================
 
 
-image_main_login_cover = ImageTk.PhotoImage(Image.open('PICTURES/image_main_cover.jpg'))
+image_main_login_cover = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_main_cover.jpg'))
 
-image_main_login_top_of_main_rec = ImageTk.PhotoImage(Image.open("PICTURES/image_top_of_main_cover.jpg"))
+image_main_login_top_of_main_rec = ImageTk.PhotoImage(Image.open("UI/PICTURES/image_top_of_main_cover.jpg"))
 
-image_sign_up_window = ImageTk.PhotoImage(Image.open('PICTURES/image_second_main_cover.jpg'))
+image_sign_up_window = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_second_main_cover.jpg'))
 
-image_sign_up_as_guest_window = ImageTk.PhotoImage(Image.open('PICTURES/image_sign_up_as_guest.jpg'))
+image_sign_up_as_guest_window = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_sign_up_as_guest.jpg'))
 
 image_sign_up_as_admin_window = ImageTk.PhotoImage(Image.open('PICTURES/image_sign_up_as_admin.jpg'))
 
-image_forgot_password_1 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_1.jpg'))
+image_forgot_password_1 = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_forgot_password_1.jpg'))
 
-image_forgot_password_2 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_2.jpg'))
+image_forgot_password_2 = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_forgot_password_2.jpg'))
 
-image_forgot_password_3 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_3.jpg'))
+image_forgot_password_3 = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_forgot_password_3.jpg'))
 
-image_forgot_password_4 = ImageTk.PhotoImage(Image.open('PICTURES/image_forgot_password_4.jpg'))
+image_forgot_password_4 = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_forgot_password_4.jpg'))
 
-image_sign_in_as_guest_cover = ImageTk.PhotoImage(Image.open('PICTURES/image_main_page.jpg'))
+image_sign_in_as_guest_cover = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_main_page.jpg'))
 
-image_tracker = ImageTk.PhotoImage(Image.open('PICTURES/image_tracker.jpg'))
+image_tracker = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_tracker.jpg'))
 
-image_for_tracker_graphs = ImageTk.PhotoImage(Image.open('PICTURES/image_tracker_graphs.jpg'))
+image_for_tracker_graphs = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_tracker_graphs.jpg'))
 
-image_online_shop = ImageTk.PhotoImage(Image.open('PICTURES/image_main_online_shop.jpg'))
+image_online_shop = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_main_online_shop.jpg'))
 
-image_tracker_2 = ImageTk.PhotoImage(Image.open('PICTURES/image_tracker_2.jpg'))
+image_tracker_2 = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_tracker_2.jpg'))
 
-image_online_shop_admin = ImageTk.PhotoImage(Image.open('PICTURES/image_online_shop_admin.jpg'))
+image_online_shop_admin = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_online_shop_admin.jpg'))
 
-image_main_page_admin = ImageTk.PhotoImage(Image.open('PICTURES/image_main_page_admin.jpg'))
+image_main_page_admin = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_main_page_admin.jpg'))
+
+image_ehub = ImageTk.PhotoImage(Image.open('UI/PICTURES/e-hub_main.jpg'))
 
 
 
@@ -1948,6 +2201,11 @@ font_for_online_shop_button = Font(family='Gotham', size=11)
 
 font_for_online_shop_search = Font(family='Gotham', size=13)
 
+font_for_chatbot_text = Font(family='Gotham', size=13)
+
+font_for_chatbot_text_2 = Font(family='Gotham', size=15)
+
+font_for_chatbot_button = Font(family='Gotham', size=12)
 
 # ==============================================================================================================================
 
