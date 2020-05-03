@@ -1,6 +1,6 @@
 
 
-![](UI/essential_main_logo2.png)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![](UI/essential_main_logo2.png)
 
 ## Team Members
 - Loven Garcia
