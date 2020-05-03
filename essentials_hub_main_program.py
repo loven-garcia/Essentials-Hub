@@ -388,17 +388,14 @@ def add_to_cart():
                 'product_Id': entry_for_product_id.get()})
             global inventory_product_Id
             inventory_product_Id = curs.fetchall()
-            print(inventory_product_Id)
 
             curs.execute('select Product_Name from Product_Inventory where Product_Id = :product_Id', {
                 'product_Id': inventory_product_Id[0][0]})
             inventory_product_name = curs.fetchall()
-            print(inventory_product_name)
 
             curs.execute('select Product_Price from Product_Inventory where Product_Id = :product_Id', {
                 'product_Id': inventory_product_Id[0][0]})
             inventory_product_price = curs.fetchall()
-            print(inventory_product_price)
 
             conn = sqlite3.connect('Essentials_Hub_Database.db')
             curs = conn.cursor()
