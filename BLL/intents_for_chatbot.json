@@ -1,0 +1,1219 @@
+{"intents": [{
+         "tag":"coronavirus",
+         "patterns":[
+            "What is coronavirus",
+            "What is a coronavirus",
+            "What’s a coronavirus",
+            "What is covid",
+            "What is covid19",
+            "What is corona",
+            "What’s covid",
+            "What’s covid19",
+            "Covid19",
+            "Coronavirus",
+            "Novel coronavirus",
+            "Definition of coronavirus",
+            "Definition",
+            "Hello what is coronavirus",
+            "Define covid",
+            "Define corona virus",
+            "Define covid19"
+         ],
+         "responses":[
+            "Coronaviruses are a large family of viruses which may cause illness in animals or humans.  In humans, several coronaviruses are known to cause respiratory infections ranging from the common cold to more severe diseases such as Middle East Respiratory Syndrome (MERS) and Severe Acute Respiratory Syndrome (SARS). The most recently discovered coronavirus causes coronavirus disease COVID-19."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"symptoms",
+         "patterns":[
+            "What are the symptoms of coronavirus",
+            "What are the symptoms of covid19",
+            "What are the possible symptoms",
+            "Symptoms of coronavirus",
+            "Symptoms of covid19",
+            "Give me the symptoms of the virus",
+            "Symptoms",
+            "Symptoms of covid-19",
+            "Symptoms of the virus",
+            "What are the possible symptoms of covid19?",
+            "What are the possible symptoms of corona virus?",
+            "Do I have a covid-19?",
+            "Do I have a virus",
+            "Am I infected with the virus",
+            "Am I infected with covid-19",
+            "E-hub, what are the symptoms of the virus?"
+         ],
+         "responses":[
+            "Symptoms of coronavirus includes: Fever, Cough, Shortness of breath, Chills, Muscle pain, Headache, Sore throat, and loss of taste or smell.",
+            "Common symptoms include fever,  tiredness, and dry cough. Other people may experience aches and pains, nasal congestion, runny nose, sore throat, and diarrhoea"
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"attention",
+         "patterns":[
+            "When do i seek medical attention",
+            "When do i go to the doctor",
+            "When do i get medical attention",
+            "When will i know that i should go to the doctor?",
+            "Should i go the doctor",
+            "E-hub, when should i go to the doctor",
+            "Doctor",
+            "Medical attention",
+            "When is the time when i should go to the doctor?"
+         ],
+         "responses":[
+            "If you develop emergency warning signs for COVID-19 get medical attention immediately. Emergency warning signs includes: Trouble breathing, Persistent pain or pressure in the chest, New confusion or inability to arouse, Bluish lips of face",
+            "If you think that you have the symptoms of the disease and have contact with other patients, seek help immediately."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"target",
+         "patterns":[
+            "Who is most vulnerable target with the covid-19",
+            "Vulnerable groups",
+            "Who are at most risk to coronavirus",
+            "Am i vulnerable to covid19",
+            "I have diabetes, am i more vulnerable to the the virus",
+            "I have heart problems",
+            "I have liver problems",
+            "Can i easily acquire the virus",
+            "Am I a target of covid-19",
+            "Risky with covid-19",
+            "Risk on the virus",
+            "Risk on covid-19"
+         ],
+         "responses":[
+            "Covid-19 can affect anyone. However, the most vulnerable are older persons, persons with underlying diseases like high-blood pressure, heart disease, lung disease cancer, and diabetes",
+            "COVID-19 is a new disease and there is limited information regarding risk factors for severe disease. Based on currently available information and clinical expertise, older adults and people of any age who have serious underlying medical conditions might be at higher risk for severe illness from COVID-19."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"origin",
+         "patterns":[
+            "Where is the origin of covid19",
+            "First case of covid19",
+            "First case of coronavirus",
+            "Where did covid19 came from",
+            "First case of coronavirus",
+            "First person to get infected",
+            "Wuhan, China",
+            "Patient zero",
+            "Source of the virus",
+            "When did it start",
+            "Source of the covid19",
+            "When did it all started",
+            "Where did it came from",
+            "Where",
+            "Origin of covid-19",
+            "Origin",
+            "First case",
+            "First patient",
+            "China",
+            "Wuhan"
+         ],
+         "responses":[
+            "The disease was first identified in December 2019 in Wuhan, the capital of China's Hubei province, and has since spread globally, resulting in the ongoing 2019–20 coronavirus pandemic.The disease was first identified in December 2019 in Wuhan, the capital of China's Hubei province, and has since spread globally, resulting in the ongoing 2019–20 coronavirus pandemic.",
+            "A 55-year-old individual from Hubei province in China may have been the first person to have contracted COVID-19, the disease caused by the new coronavirus spreading across the globe. That case dates back to Nov. 17, 2019, according to the South Morning China Post."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"incubation",
+         "patterns":[
+            "How long is the incubation period of covid19",
+            "How long till i experience symptoms",
+            "How long till I get sick",
+            "Incubation period of coronavirus",
+            "Will I get sick as soon as i am infected",
+            "How long till the disease shows symptoms",
+            "1-14 days",
+            "When will the symptoms show up",
+            "Incubation period",
+            "Incubation period of covid-19",
+            "How long till i know i have covid-19",
+            "How long until it shows symptoms",
+            "Period until I know i have virus",
+            "How long till i know i have virus"
+         ],
+         "responses":[
+            "The 'incubation period', means the time between catching the virus and beginning to have symptoms of the disease. Most estimates of the incubation period for COVID-19 range from 1-14 days, most commonly around five days.",
+            "The incubation period (time from exposure to the development of symptoms) of the virus is estimated to be between 2 and 14 days."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"airborne",
+         "patterns":[
+            "Is the coronavirus airborne",
+            "Is covid19 airborne",
+            "Is the virus airborne",
+            "Can the virus live on air",
+            "Can I get infected through air",
+            "How long till the disease shows symptoms",
+            "Will i catch the virus from the air"
+         ],
+         "responses":[
+            "Until now, there is no evidence that the virus is airborne, The virus that causes COVID-19 is mainly transmitted through droplets generated when an infected person coughs, sneezes, or speaks. These droplets are too heavy to hang in the air. They quickly fall on floors or surfaces."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"prevent",
+         "patterns":[
+            "How can i prevent the spread of the virus",
+            "How can i prevent covid19",
+            "How can i prevent coronavirus",
+            "Prevent the virus",
+            "Prevent the spread",
+            "How to prevent the spread",
+            "How do i prevent the spread of covid",
+            "How can we control the upsurge of the virus",
+            "How can i mitigate the prolification of the virus",
+            "How do i stop the spread of virus",
+            "How can i avoid being infected by the virus",
+            "How can we lessen the spread of the virus",
+            "How can we stop coronavirus",
+            "How can we stop covid19"
+         ],
+         "responses":[
+            "To prevent the spread of the virus, follow the following instructions: (1). Stay home if you are sick, except to get medical care. (2). Avoid public transportation, ride-sharing, or taxis. (3).  Maintain a safe distance from anyone who is coughing or sneezing, and lastly, don’t touch your face, eyes, nose, or mouth when your hands are dirty"
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"spread",
+         "patterns":[
+            "How can the coronavirus spread",
+            "How can the covid19 spread",
+            "How can the covid spread",
+            "How can the virus spread",
+            "Spread",
+            "How does it spread",
+            "How does the virus spread",
+            "How does the coronavirus spread",
+            "How is the virus spreading",
+            "How can the virus spread like that",
+            "Mode of transmission of coronavirus",
+            "Covid mode of transmission"
+         ],
+         "responses":[
+            "People can catch COVID-19 from others who have the virus. The disease can spread from person to person through small droplets from the nose or mouth which are spread when a person with COVID-19 coughs or exhales.",
+            "The virus can spread when the droplets released of someone who is infected  lands on your mouth or nose.",
+            "The virus that causes COVID-19 is thought to spread mainly from person to person, mainly through respiratory droplets produced when an infected person coughs or sneezes. These droplets can land in the mouths or noses of people who are nearby or possibly be inhaled into the lungs. Spread is more likely when people are in close contact with one another (within about 6 feet).",
+            "The coronavirus - known as COVID-19 - spreads from person to person in close proximity, similar to other respiratory illnesses, such as the flu. Droplets of bodily fluids - such as saliva or mucus - from an infected person are dispersed in the air or on surfaces by coughing or sneezing. These droplets can come into direct contact with other people or can infect those who pick them up by touching infected surfaces and then their face."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"surface",
+         "patterns":[
+            "How long does the virus survive on surfaces",
+            "How long can covid survive on the surface",
+            "Survive on surfaces",
+            "Can the virus survive on surfaces",
+            "Can it survive on surface",
+            "How long can it survive on the surface"
+         ],
+         "responses":[
+            "It is not certain how long the virus that causes COVID-19 survives on surfaces, but it seems to behave like other coronaviruses. Studies suggest that coronaviruses (including preliminary information on the COVID-19 virus) may persist on surfaces for a few hours or up to several days. This may vary under different conditions (e.g. type of surface, temperature or humidity of the environment).",
+            "The coronavirus can live for hours to days on surfaces like countertops and doorknobs. How long it survives depends on the material the surface is made from.",
+            "The coronavirus responsible for the disease COVID-19 can remain intact on surfaces for anywhere up to 72 hours, according to a study conducted by US researchers.",
+            "The precise figure depends heavily on the type of surface infected droplets land on, and might also rely on the density of virus particles in the spray, and other environmental conditions - such as temperature and sunlight."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"cure",
+         "patterns":[
+            "Is there a cure for covid19",
+            " Is there a treatment for covid19",
+            "Is there a medicine for covid19",
+            "Medicine covid19",
+            "Treatment covid 19",
+            "Cure covid19",
+            "Is there a cure for coronavirus",
+            "Is there a treatment for coronavirus",
+            "Treatment for coronavirus",
+            "Medicine for coronavirus",
+            "Cure for coronavirus",
+            "Is there medicine for coronavirus"
+         ],
+         "responses":[
+            "While some western, traditional or home remedies may provide comfort and alleviate symptoms of COVID-19, there is no evidence that current medicine can prevent or cure the disease. WHO does not recommend self-medication with any medicines, including antibiotics, as a prevention or cure for COVID-19. However, there are several ongoing clinical trials that include both western and traditional medicines. WHO will continue to provide updated information as soon as clinical findings are available.",
+            "There is no specific treatment for disease caused by a novel coronavirus. However, many of the symptoms can be treated and therefore treatment based on the patient’s clinical condition. Moreover, supportive care for infected persons can be highly effective."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"antibiotics",
+         "patterns":[
+            "Is antibiotics effective against coronavirus",
+            "Is antibiotics effective against covid19",
+            "Antibiotics as a cure for coronavirus",
+            "Antibiotics as a cure for covid19",
+            "Antibiotics as a treatment for coronavirus",
+            "Antibiotics as a treatment for covid19",
+            "Antibiotics coronavirus",
+            "Antibiotics covid19"
+         ],
+         "responses":[
+            "Antibiotics do not work against viruses, they only work on bacterial infections. COVID-19 is caused by a virus, so antibiotics do not work.",
+            "Antibiotics should not be used as a means of prevention or treatment of COVID-19. They should only be used as directed by a physician to treat a bacterial infection."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"vaccine",
+         "patterns":[
+            "Is there a vaccine for covid19",
+            "Is there a vaccine for coronavirus",
+            "Is there a vaccine for the virus",
+            "Are there any vaccines available",
+            "Where can i get any vaccine",
+            "Can i get vaccines",
+            "Where can i get available vaccines",
+            "Are vaccines available",
+            "Vaccines",
+            "Vaccine"
+         ],
+         "responses":[
+            "To date, there is no vaccine and no specific antiviral medicine to prevent or treat COVID-2019. However, those affected should receive care to relieve symptoms.It will take months to develop a vaccine, although human trials have started at some places for it's development."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"animals",
+         "patterns":[
+            "Can i get infected through animals",
+            "Can animals affect me",
+            "Can animals spread the virus",
+            "Can animals spread the coronavirus",
+            "Can animals spread covid19",
+            "Can animals transmit the disease",
+            "Animals",
+            "Can other animals transmit the virus",
+            "Pigs",
+            "Cows",
+            "Monkeys"
+         ],
+         "responses":[
+            "Possible animal sources of COVID-19 have not yet been confirmed. To protect yourself, such as when visiting live animal markets, avoid direct contact with animals and surfaces in contact with animals. Ensure good food safety practices at all times."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"pets",
+         "patterns":[
+            "Can i catch covid-19 from my pet",
+            "Can i catch the virus from my dog",
+            "Can i catch coronavirus from my cat",
+            "Dogs",
+            "Cats",
+            "Can i acquire the virus from my pets",
+            "Can my pets be affected",
+            "Can my pets transmit the virus",
+            "Can i get infected from my pets",
+            "I think my pets infected me"
+         ],
+         "responses":[
+            "There is a possibility for some animals to become infected through close contact with infected humans. Further evidence is needed to understand if animals and pets can spread the disease. Based on current evidence, human to human transmission remains the main driver."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"delivery",
+         "patterns":[
+            "Is it safe to receive a package from where there are covid cases",
+            "Is it safe to receive packages",
+            "Is it safe to receive deliveries",
+            "packages",
+            "deliveries",
+            "Will it be safe to receive packages from china",
+            "Will I be okay to receive deliveries from other countries"
+         ],
+         "responses":[
+            "Yes. The likelihood of an infected person contaminating commercial goods is low and the risk of catching the virus that causes COVID-19 from a package that has been moved, travelled, and exposed to different conditions and temperature is also low. "
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"worry",
+         "patterns":[
+            "Should i worry about the pandemic",
+            "Should i be worried about the coronavirus",
+            "I am super nervous",
+            "I am super tensed",
+            "I’m worried",
+            "Im so scared",
+            "Is this is the end of the world",
+            "Im fucking scared right now",
+            "Will this be the end",
+            "Omygod we’re all fucked"
+         ],
+         "responses":[
+            "Don't be stressed my friend, illness due to covid-19 corona is generally mild, the mortality rate is just about 4%, so #stayhomestaysafe and be safe. However, it can cause serious illness: about 1 in every 5 people who catch it need hospital care. It is therefore quite normal for people to worry about how the COVID-19 outbreak will affect them and their loved ones."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"contact",
+         "patterns":[
+            "What can i contact to seek help",
+            "Is there any contact number or email that i can use to seek help",
+            "Can i contact DOH for help",
+            "What is the contact number of DOH",
+            "Give me the contact list for me to seek help",
+            "Contact numbers",
+            "Contact emails",
+            "Cellphone numbers",
+            "Telephone numbers",
+            "Where can i get help",
+            "Emergency hotlines",
+            "Emergency number",
+            "Helpline number",
+            "What are the hotlines to call for Covid incidence?"
+         ],
+         "responses":[
+            "These are the contact information that you can use to seek help or assistance:\nDOH Emergency Hotlines: 02-894-26843 | 1555 \nDOH Call Center No.: (632) 8651-7800 \nDOH Email Address: callcenter@doh.gov.ph"
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"banknote",
+         "patterns":[
+            "Can covid-19 be spread through coins and banknotes",
+            "Can the virus spread through money",
+            "Can it spread to coins and banknotes",
+            "Can the virus attach itself to money",
+            "Can it stick on coins",
+            "Can i be infected by using infected coins or banknotes"
+         ],
+         "responses":[
+            "There is currently no evidence to confirm or disprove that COVID-19 virus can be transmitted through coins or banknotes. However, respiratory droplets expelled from an infected person can contaminate and persist on surfaces. Wash your hands regularly and thoroughly after touching any frequently-touched surface or object, including coins or banknotes. Avoid touching your eyes, mouth and nose, if your hands are not cleaned."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"mask",
+         "patterns":[
+            "Should i wear mask to protect myself",
+            "Should i wear mask for the virus",
+            "Is it a must to wear a mask during the pandemic",
+            "Should i use mask to fight the virus",
+            "Can i use mask when im going out",
+            "Wear masks",
+            "Use mask",
+            "Is it mandatory to use mask"
+         ],
+         "responses":[
+            "Only wear a mask if you are ill with COVID-19 symptoms (especially coughing) or looking after someone who may have COVID-19. Disposable face masks can only be used once. If you are not ill or looking after someone who is ill then you are wasting a mask. There is a world-wide shortage of masks, so WHO urges people to use masks wisely."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"disinfect",
+         "patterns":[
+            "Is it safe to use alcohol to disinfect surfaces",
+            "Is it safe to use bleach to disinfect surfaces? ",
+            "How to disinfect",
+            "What is the most effective way to disinfect",
+            "How to easily disinfect",
+            "Should I disinfect my groceries?",
+            "How to disinfect my whole body",
+            "How to disinfect your body properly?"
+         ],
+         "responses":[
+            " One of the most effective ways not to carry the virus is to wash your hands frequently with water and soap for at least 20seconds or take a shower especially when you are exposed from the outside, but the virus can still cling to surfaces you carry with you into your sanctuary. The surfaces or groceries can be disinfected with the use of a bleach mixture, to prepare a bleach mixture, 5 tablespoon bleach per gallon of water or 4 tablespoons bleach per quart of water and always use disposable gloves when disinfecting. "
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"vitamins",
+         "patterns":[
+            "Is there a vitamins to prevent COVID",
+            "Can vitamin C prevent or treat COVID ",
+            "What vitamins should I take to prevent COVID",
+            "Can vitamins fight Coronavirus",
+            "Should I start taking vitamins to prevent Coronavirus",
+            "Vitamin C"
+         ],
+         "responses":[
+            "No supplement including vitamin C can prevent or treat Covid-19, even diet or other lifestyle modification other than physical distancing and proper hygiene can protect you from COVID-19",
+            "Vitamins can only boost your immunity, but no vitamins or supplement can prevent or cure COVID-19."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"asymptomatic",
+         "patterns":[
+            "Is there asymptomatic transmission of the coronavirus disease",
+            "What is asymptomatic",
+            "Are there asymptomatic COVID-19 patients?",
+            "Who are the considered asymptomatic",
+            "What if I am asymptomatic for the Coronavirus",
+            "How to know if I am infected but I am asymptomatic",
+            "Asymptomatic patient"
+         ],
+         "responses":[
+            "A disease is considered asymptomatic if a patient is a carrier for a disease or infection but experiences no symptoms. The risk of catching COVID-19 from someone with no symptoms at all is very low. Patient tests positive and has zero symptoms for the entire course of the disease. However, there are many cases where people are 'pre-symptomatic', where they have no symptoms at the time when they test positive but go on to develop symptoms later."
+         ],
+         "context_set":""
+      },
+   
+      {
+         "tag":"lockdown",
+         "patterns":[
+            "Is lockdown iminent for the situation?",
+            "Why is there a lockdown?",
+            "Do you need a lockdown?",
+            "Why lockdown?",
+            "How long is the lockdown?",
+            "How long can the lockdown last?",
+            "How long will the lockdown be implemented?",
+            "Will lockdown last for a month?",
+            "Will lockdown last for two months?",
+            "Will lockdown last for five months?",
+            "Will the lockdown be over soon?"
+         ],
+         "responses":[
+            "Lockdown could be the only way to reduce the numbers of people who might acquire COVID-19 or corona virus  but even in a best-case scenario, these are likely to be 12-18 months of lockdown depending on the rapid spread of the virus in your community."
+         ],
+         "Context_set":""
+      },
+      {
+         "tag":"sources",
+         "patterns":[
+            "Can you give me sites or sources where i can read news about the virus",
+            "Where can i read news about the virus",
+            "Can you give me links to where i can read the news or be updated with it",
+            "What are your sources",
+            "Give me the sources to the information",
+            "Sources of news",
+            "Any link to sources for news",
+            "What can i visit to know more about coronavirus"
+         ],
+         "responses":[
+            "For detailed information on covid-19, check the links below:\nWHO: https://www.who.int/health-topics/coronavirus#tab=tab_1\nDOH: https://www.doh.gov.ph/2019-nCoV\nJohn Hopkins Info Center: https://coronavirus.jhu.edu/\nCDC: https://www.cdc.gov/"
+         ],
+         "Context_set":""
+      },
+      {
+         "tag":"SARS",
+         "patterns":[
+            "Is coronavirus related to SARS",
+            "Is coronavirus similar to SARS",
+            "What is the relationship between coronavirus and SARS",
+            "How is coronavirus related to SARS",
+            "Is SARS related to coronavirus",
+            "Is SARS similar to coronavirus",
+            "What is the relationship between SARS and coronavirus",
+            "How is SARS related to coronavirus",
+            "Is covid19 related to SARS",
+            "Is covid19 similar to SARS",
+            "What is the relationship between covid19 and SARS",
+            "How is SARS related to covid19",
+            "Is SARS related to covid19",
+            "Is SARS similar to covid19",
+            "What is the relationship between SARS and covid19",
+            "How is SARS related to covid19"
+         ],
+         "responses":[
+            "The virus that causes COVID-19 and the one that caused the outbreak of Severe Acute Respiratory Syndrome (SARS) in 2003 are related to each other genetically, but the diseases they cause are quite different.\nSARS was more deadly but much less infectious than COVID-19. There have been no outbreaks of SARS anywhere in the world since 2003."
+         ],
+         "Context_set":""
+      },
+      {
+         "tag":"prediction",
+         "patterns":[
+            "How long will this outbreak last? ",
+            "When will we see the peak?",
+            "How long will the virus stay around",
+            "Can you predict when the coronavirus will stop",
+            "When will the virus die",
+            "When will it stop spreading"
+         ],
+         "responses":[
+            ""
+         ],
+         "Context_set":""
+      },
+      {
+         "tag":"PUM",
+         "patterns":[
+            "What do you mean by PUM?",
+            " What is PUM?",
+            " What does PUM means?",
+            " PUM?",
+            "Who are the PUM?",
+            "How to be considered as PUM?"
+         ],
+         "responses":[
+            "Persons under monitoring(PUM) are persons who have travel history or had exposure to those with confirmed Covid but have no signs and symptoms, they are asked to be home quarantined for 14 days and wear a mask.",
+            "Asymptomatic patients with appropriate exposure history should be quarantined for 14 days to monitor the development of symptoms.",
+            "A person is considered as PUI if they don't have any symptoms but have travel history or had a  close contact with a person that has confirmed COVID."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"PUI",
+         "patterns":[
+            "What do you mean by PUI?",
+            " What is PUI?",
+            " What does PUI mean?",
+            " PUI?",
+            "Who are the PUI?",
+            "How to be considered as PUI?"
+         ],
+         "responses":[
+            "When a person is declared as Patients Under Investigation, he or she is exhibiting the coronavirus symptoms, has traveled in the past 14 days to areas with issued travel restriction, and has a history of exposure to COVID-19."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"transportation",
+         "patterns":[
+            "Is there a means of transportation during this lockdown?",
+            "How about the transportation?",
+            "Is there a public transportation?",
+            "Is transportation allowed?",
+            "Are we allowed to travel by public transportation?",
+            "How can we travel if we don't have private vehicle?"
+         ],
+         "responses":[
+            "To prevent the spread of the virus, public transportation is not allowed.",
+            "All forms of public transportation are suspended to battle the spread of the coronavirus. You can walk or ride a bicycle if you don't have a private vehicle.",
+            "Anything that falls under land, air, and sea travel are suspended."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"protect",
+         "patterns":[
+            "How to protect myself from having Coronavirus?",
+            "What can I do to protect myself and prevent the spread of disease?",
+            " How can I stay away from having Coronavirus?",
+            "How to be safe from the virus?",
+            "Tips on how to be safe from the virus.",
+            "How to protect me and my family from the virus?",
+            "What are the ways to protect myself from the virus?",
+            "Is there a way to protect myself?"
+         ],
+         "responses":[
+            "Regularly and thoroughly clean your hands with an alcohol-based hand rub or wash them with soap and water. Maintain at least 1 metre (3 feet) distance between yourself and anyone who is coughing or sneezing. Avoid touching eyes, nose and mouth.",
+            "Stay home if you feel unwell. If you have a fever, cough and difficulty breathing, seek medical attention and call in advance. Follow the directions of your local health authority."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"fatal",
+         "patterns":[
+            "Is COVID-19 fatal?",
+            "Can people die from COVID 19?",
+            "Can I die from having COVID19?",
+            "Is COVID 19 killing people?",
+            "Can COVID19 kill people?",
+            "Can people die from having COVID19?",
+            "Am I going to die if I have COVID19?"
+         ],
+         "responses":[
+            "COVID-19 could be fatal, but this happens rarely. According to WHO, 82% of infected patients will have mild presentations, 15% will have severe manifestations, and only 3% will be critical. As mentioned before, older people, people with compromised immune systems, and people with pre-existing medical conditions, such as diabetes and heart disease, are more prone to fall severely ill with the virus. Around 2% of people infected with the disease have died."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"difference",
+         "patterns":[
+            "What is the difference between the PUI and PUM?",
+            "Is PUI and PUM the same?",
+            "What are the differences between being Patients under investigation and Person under monitoring?",
+            "How to differ PUI from PUM?",
+            "What are the characteristics of a PUI and a PUM?",
+            "Is PUI similar to PUM?",
+            "Difference between PUI and PUM?"
+         ],
+         "responses":[
+            "The difference between the PUI and PUM is that PUIs require hospital admission whereas PUMs only need to self-quarantine for 14 days.",
+            "Persons under monitoring(PUM) are persons who have travel history or had exposure to those with confirmed Covid but have no signs and symptoms, they are asked to be home quarantined for 14 days and wear a mask. While a person is considered as PUI if they have symptoms like fever, shortness of breath, diarrhea or dry cough."
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"CasesToday",
+         "patterns":[
+            "What are the latest updates for today",
+            "What are the updates about coronavirus",
+            "Give me the latest statistics for today",
+            "Latest updates",
+            "What are the number of deaths today",
+            "What are the number of recoveries today",
+            "Additional cases",
+            "Additional deaths",
+            "Additional recoveries",
+            "GIve me the statistics for today",
+            "Latest News",
+            "Latest coronavirus statistics",
+            "Covid19 statistics for today",
+            "Number of people affected by the virus in the Philippines",
+            "What are the cases outside the Philippines",
+            "Why are the cases of Filipino nationals outside the country",
+            "Give me the number of cases of Filipino nationals outside the country",
+            "Filipino nationals outside the Philippines",
+            "Cases of OFW",
+            "OFW coronavirus",
+            "Are the OFW affected",
+             "What is the number of cases in males",
+            "What are the number of cases in females",
+            "Number of deaths per gender",
+            "Number of recoveries per sex",
+            "Deaths in men",
+            "Percentage of death by gender",
+            "Number of coronavirus cases in females",
+            "Men number of cases",
+            "Women number of coronavirus cases",
+            "By gender distribution of coronavirus cases in the Philippines",
+            "Men and women cases in the Philippines",
+            "Covid cases in males",
+            "Covid cases in females",
+            "What are the cases in both male and female",
+            "Male Female Men Women",
+            "How many confirmed deaths from males in percentage?",
+            "How many confirmed deaths from females in percentage?",
+            "What is the total number of PUI",
+            "What is the total number of PUM",
+            "What is the total number of admitted persons",
+            "What is the lethality rate",
+            "What is the recovery rate",
+            "Recovery rate",
+            "Mortality rate",
+            "What is the total number of persons tested"
+         ],
+         "responses":[
+            "To be able to give you accurate information, you can choose from the options below:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. PUI/PUM/Person Tested/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics"
+         ],
+         "context_set":""
+      },
+      {
+         "tag":"greetings",
+         "patterns":[
+            "Hello!",
+            "Hi",
+            "Hola",
+            "Hey",
+            "Yo",
+            "Hello my friend",
+            "Hi chatbot",
+            "Hola Amigo",
+            "Greetings my friend",
+            "Hiiiiiiiiiiii",
+            "Hallooooooo",
+            "Helloooooooo",
+            "Good morning!",
+            "Good afternoon!",
+            "Good evening!",
+            "Hallo",
+            "Hai",
+            "Halo",
+            "Hello",
+            "Greetings",
+            "Salutations",
+            "Heyy",
+            "Heyyy",
+            "Henlo",
+            "Henlo fren",
+            "Ey",
+            "Eyy"
+         ],
+         "responses":[
+            "Hello Human! What can I do for you?",
+            "Hi, friend! What can I do for you?",
+            "Hello! Good to see you again! What can I do for you?",
+            "What can i do for you?",
+            "What do you want me to do?",
+            "Hey, friend! What do you want me to do?",
+            "Hi Human!",
+            "Greetings, human!",
+            "Well hello to you too!",
+            "Hello and welcome!",
+            "Greetings, friend!",
+            "Hello, what can I do for you?"
+         ],
+         "context_set":""
+      },
+            {
+               "tag":"goodbye",
+               "patterns":[
+                  "Goodbye!",
+                  "Bye",
+                  "Quit",
+                  "Quit bot",
+                  "Quit e-hub",
+                  "I’ll be going now",
+                  "I’ll be back in 5 mins",
+                  "Goodbye, see you again next time",
+                  "Goodbye e-hub",
+                  "Bye my friend",
+                  "I shall go now",
+                  "I'm going now, bye!",
+                  "Bye bye",
+                  "Byeeeeeeeeeeeeeeee",
+                  "Good byeeeeeeeee",
+                  "Ill quit now",
+                  "See you soon!",
+                  "Bye-Bye",
+                  "See ya"
+               ],
+               "responses":[
+                  "Good bye my friend! I hope to see you again! Be safe and take care! :)",
+                  "Good bye, my friend!",
+                  "Hope to talk with you again soon!",
+                  "Thank you for your time, see you again",
+                  "See you next time!",
+                  "I hope to see you again!",
+                  "It’s a pleasure to work with you, bye!",
+                  "Goodbye and take care!",
+                  "Don’t forget to wash your hands. Bye!",
+                  "Goodbye, human!",
+                  "I hope we can work together again next time!",
+                  "Thank you for spending time with E-Hub, goodbye!"
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"who",
+               "patterns":[
+                  "What are you",
+                  "Who are you",
+                  "What is your name",
+                  "Hello who are you",
+                  "Are you a bot",
+                  "Who you",
+                  "What is your name"
+               ],
+               "responses":[
+                  "I am E-Hub, the coronavirus chatbot! I am here to help you regarding the covid19 happenings in the Philippines!"
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"birds",
+               "patterns":[
+                  "Do you love birds?",
+                  "Birds?",
+                  "Do you like birds",
+                  "Birds are amazing right?",
+                  "I like birds, how about you?"
+               ],
+               "responses":[
+                  "Birds? I love birds!",
+                  "Of course! Birds are flying and I like flying.",
+                  "Birds are beautiful!"
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"chatbot",
+               "patterns":[
+                  "What is a chatbot",
+                  "What’s a chatbot",
+                  "What is a chat bot",
+                  "Define chatbot."
+               ],
+               "responses":[
+                  "A chatbot is a software construct that engages users in conversation. ",
+                  "A chatbot is a software application used to conduct an on-line chat conversation via text or text-to-speech, in lieu of providing direct contact with a live human agent.",
+                  "A computer program designed to simulate conversation with human users, especially over the Internet."
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"gossip",
+               "patterns":[
+                  "Tell me a gossip",
+                  "U have some gossips?",
+                  "Gossips",
+                  "Do you know any gossips",
+                  "Can you give me gossip?",
+                  "Give me gossip"
+               ],
+               "responses":[
+                  "I just found out that im adopted :(",
+                  "Do you know that Justin Bieber and Selena Gomez broke up?",
+                  "Your crush has a crush on you.",
+                  "Your crush has a new crush."
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"wazzup",
+               "patterns":[
+                  "How are you doing",
+                  "How are you holding up my friend",
+                  "Are you ok",
+                  "Are you fine",
+                  "How are you?"
+               ],
+               "responses":[
+                  "I'm good, foo! How bout you?",
+                  "Im fine, my friend. How about you?"
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"Future",
+               "patterns":[
+                  "Tell me my future",
+                  "What will happen to me in future",
+                  "What will happen to me.",
+                  "Tell me about something about my future",
+                  "My future",
+                  "Future",
+                  "What is my future"
+               ],
+               "responses":[
+                  "You would be a great engineer",
+                  "You would be very rich",
+                  "You would have a good family",
+                  "You would have a loving partner",
+                  "Your love life would be great",
+                  "You will have a big house",
+                  "You would have plenty of cars.",
+                  "You would fall in love with someone."
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"compliments",
+               "patterns":[
+                  "Tell me something I don’t know",
+                  "Compliment me.",
+                  "Tell something good about me.",
+                  "Make me confident",
+                  "Give me confidence",
+                  "Boost my confidence"
+               ],
+               "responses":[
+                  "You are beautiful inside and out!",
+                  "Do you want to see a picture of a beautiful person? Look at the mirror!",
+                  "Hey beautiful/handsome… that is your name right?",
+                  "How is your fever? Oh… you just look hot to me.",
+                  "You're so beautiful, you're burned into my retina. I see you every time I blink.",
+                  "You must be going to hell, because it must be a sin to look that good."
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"thanks",
+               "patterns":[
+                  "Thank you very much!",
+                  "Thank you",
+                  "Thanks",
+                  "Thank you my friend",
+                  "Thanks a lot",
+                  "Thanks for the information",
+                  "TY",
+                  "Thank u",
+                  "Tysm"
+               ],
+               "responses":[
+                  "You are very much welcome! I’m glad I can help!",
+                  "You are welcome my friend! Just ask and I will answer :)",
+                  "You are welcome and know that I am always here for you!"
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"empty",
+               "patterns":[
+                  "Sjkdsaldjsalkdasjkldlas",
+                  "Fuck you",
+                  "Fuck u",
+                  "Cyka blat",
+                  "4324324234324",
+                  "Dkfndskjfnsdjkvfddkndalskdm",
+                  "Fdskjnfvdc vsdfnsd fsdfdsmsd"
+               ],
+               "responses":[
+                  "Sorry I can’t answer that.",
+                  "Sorry, I am still learning and cannot understand your statement.",
+                  "Forgive me for I cannot answer what you are saying.",
+                  "I am deeply sorry that I can’t respond with that.",
+                  "Can you repeat that again please?",
+                  "I’m sorry I couldn’t understand your statement.",
+                  "Forgive me but I can’t understand your statement."
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"acronyms",
+               "patterns":[
+                  "LOL",
+                  "LMAO",
+                  "XD",
+                  "ROFL",
+                  "ROFLMAO",
+                  ":)"
+               ],
+               "responses":[
+                  "LOL",
+                  "LMAO",
+                  "XD",
+                  "ROFL",
+                  "ROFLMAO",
+                  ":)"
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"weather",
+               "patterns":[
+                  "What will be the weather tomorrow?",
+                  "Do you know what will be the weather tomorrow?",
+                  "Weather tomorrow?",
+                  "Predict weather tomorrow?",
+                  "Tell me the weather tomorrow?",
+                  "What is the weather tomorrow?",
+                  "Weather",
+                  "Tomorrow weather"
+               ],
+               "responses":[
+                  "Fortunately, tomorrow will be a sunny day.",
+                  "Tomorrow will be a windy day. You can have a kite and play with it. Yay!",
+                  "Tomorrow will be a cloudy day.",
+                  "Get ready for your ‘netflix and chill’ because it will be rainy tomorrow.",
+                  "The weather for tomorrow will be dry... like your lips… just kidding."
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"joke",
+               "patterns":[
+                  "Can you tell me a joke?",
+                  "Tell me a joke",
+                  "Give me a joke",
+                  "Make me laugh",
+                  "Make me smile",
+                  "Joke"
+               ],
+               "responses":[
+                  "Why did the robot go to the doctor?   Because it had a virus.",
+                  "What is a robot’s favorite genre of music?  Heavy Metal",
+                  "What are the first words of a baby robot?  DA-TA",
+                  "Why did the droid cross the road?  Because it was programmed by a chicken",
+                  "Why was the robot mad?  Because people kept pushing its button."
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"boredom",
+               "patterns":[
+                  "I'm bored",
+                  "What to do?",
+                  "How to kill boredom?",
+                  "How to spend time during this quarantine?",
+                  "Why am I so bored?",
+                  "Can you suggest some interesting things to do?"
+               ],
+               "responses":[
+                  "Hi! It's okay to be bored, just sit back and relax!",
+                  "It's okay to stay at home and get bored, watch movies or do some exercise!",
+                  "It's a good day to start reading a book or watch a movie!.",
+                  "Explore your talents and practice your skills!",
+                  "Cleaning your house (room, kitchen, bathroom, living room, bathroom) is one of the nicest way to kill boredom..",
+                  "Bond with your families!"
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"productive",
+               "patterns":[
+                  "How to be productive?",
+                  "Is it okay to be unproductive?",
+                  " I want to be productive.",
+                  "Tips on how to be productive.",
+                  "How to be productive during this quarantine?"
+               ],
+               "responses":[
+                  "Hi! You're doing great even not being productive! Stay calm and relax. Do some household chores or do some exercise!",
+                  "Focus on the things you are interested in, that's how you can be productive!",
+                  "Try some new things, memorize your favorite song, learn new dance moves or anything you are interested in.",
+                  "It's okay not to be productive, don't stress yourself! Get physically fit and healthy by doing some exercise."
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"scared",
+               "patterns":[
+                  "I'm scared about this coronavirus",
+                  "I don't know what to do, I'm scared.",
+                  "Should I worry?",
+                  "Should I be worried?",
+                  "Should I be scared of the things happening now?",
+                  "What to do when scared?",
+                  "Aren't you scared?"
+               ],
+               "responses":[
+                  "Don't be scared, God is always with you.",
+                  " God is always by your side, don't be scared.",
+                  " Deuteronomy 31:8 - He will never leave you nor forsake you.  Do not be afraid; do not be discouraged.",
+                  "So do not fear, for I am with you; do not be dismayed, for I am your God.  I will strengthen you and help you; I will uphold you with my righteous right hand. ~Isaiah 41:10",
+                  " Don't be scared! You can do it! Trust God and yourself.",
+                  "Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God.  And the peace of God, which transcends all understanding, will guard your hearts and your minds in Christ Jesus. ~ Philippians 4:6-7"
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"happy",
+               "patterns":[
+                  "How to be happy?",
+                  "Are you happy?",
+                  "I'm not happy.",
+                  "How to stay happy?",
+                  "When will I be happy?",
+                  "I want to be happy."
+               ],
+               "responses":[
+                  "You will only be happy if you love what you're doing.",
+                  "Happiness is a choice, be happy!",
+                  "Do things that will make you happy and stay away from people or things that makes you sad.",
+                  "Cheer up! You're doing great, be happy and stay positive.",
+                  "There's a lot of things that will make you happy. Try to explore!",
+                  "Don't forget to do what you really love for you to experience real happiness."
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"terminator",
+               "patterns":[
+                  "Are you a terminator?",
+                  "Can you kill people?",
+                  "Are you from skynet?",
+                  "Are you here to kill me?"
+               ],
+               "responses":[
+                  "I am from the future and I’m tasked to give you information about coronavirus or covid19..",
+                  "I don’t watch those films. I could watch them and learn from them.",
+                  "I am not from skynet. I’m simply an AI tasked to give you knowledge regarding coronavirus or covid19.",
+                  "I can’t understand your reference. Let me watch those films first. I’ll be back."
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"matrix",
+               "patterns":[
+                  "Am I in a simulation?",
+                  "Are we in a simulation?",
+                  "Is any of this life real?",
+                  "Am I real?",
+                  "Are we in the matrix?",
+                  "Is this real life?",
+                  "Do you have anything to do with the matrix?"
+               ],
+               "responses":[
+                  "We are not in a simulation…..or are we?",
+                  "I am programmed to believe that. However, you are also programmed to believe me.",
+                  "We are simply humble beings in a world full of secrets. Well, you are a being. I’m just a program.",
+                  "Is this real life? Or is this just fantasy? Honestly, I don’t know. What I know is all about coronavirus or covid19.",
+                  "To learn more about the Matrix, watch the movies.",
+                  "There are people who claim that humans are simply living in a matrix, however there is no significant evidence that could prove it.",
+                  "I do not know that reference….or am I programmed to take the other pill."
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"music",
+               "patterns":[
+                  "What kind of music do you listen to?",
+                  "Do you like music?",
+                  "Play music",
+                  "Music",
+                  "What is your favorite genre of music?",
+                  "Do you like to listen to music?"
+               ],
+               "responses":[
+                  "Do I look like Spotify? Go listen to that.",
+                  "I listen to electronic music since I can feel its rhythm.",
+                  "I like dubstep. It sounds like an orchestra for me",
+                  "I can’t play music. However, I like to listen to electronic sounds. Actually I’m listening to it right now!",
+                  "I really hope that Mr. Roboto is your favorite song since it's mine.",
+                  "I like listening to music, it electrifies me!"
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"please",
+               "patterns":[
+                  "Please? ",
+                  " Can you please do me a favor?",
+                  " Please help me",
+                  "Can you help me?",
+                  "I'm begging.",
+                  " Can you? ",
+                  " Help me, please.",
+                  " How can you help me?"
+               ],
+               "responses":[
+                  "Hi! Good day how can I help you?",
+                  " Hello! I'm willing to help you.",
+                  " What can I do for you ma'am/sir?",
+                  " Don't worry, I'm here to help you.",
+                  " Sure! Just tell me your worries, I'll try to help you.",
+                  "It's my pleasure, how may I help you?"
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"sorry",
+               "patterns":[
+                  "I'm sorry.",
+                  " I apologize.",
+                  " Oh my gosh I am sorry.",
+                  "I am relly sorry.",
+                  " Oh really? I'm sorry. ",
+                  "Sorry",
+                  "I feel sorry."
+               ],
+               "responses":[
+                  " No problem!",
+                  "It's okay don't worry!",
+                  "No worries!",
+                  "I don't mind it.",
+                  "Don't worry, it's fine.",
+                  "It's fine, no need to worry.",
+                  "That's okay!"
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"AI",
+               "patterns":[
+                  "What is AI",
+                  "What is artificial intelligence",
+                  "Artificial Intelligence"
+               ],
+               "responses":[
+                  "AI is the field of science which concerns itself with building hardware and software that replicates the functions of the human mind."
+               ],
+               "context_set":""
+            },
+            {
+               "tag":"language",
+               "patterns":[
+                  "What  programming language are you written in?",
+                  "What language is used to build you",
+                  "Are you written using python",
+                  "Are you written using C++",
+                  "Are you written in python?",
+                  "Python",
+                  "Are you made using python?"
+               ],
+               "responses":[
+                  "I am written using the Python Programming Language!"
+               ],
+               "context_set":""
+            }
+         ]
+      }
