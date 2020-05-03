@@ -38,6 +38,7 @@ def main_login_window():
     global main_window
     main_window = Toplevel(root)
     main_window.geometry('1300x750+100+50')
+    main_window.resizable(width=False, height=False)
     main_frame_for_main_window = Frame(main_window)
     main_frame_for_main_window.pack()
 
@@ -199,6 +200,7 @@ def sign_in_as_guest():
     global sign_in_as_guest_window
     sign_in_as_guest_window = Toplevel(root)
     sign_in_as_guest_window.geometry('1300x750+100+50')
+    sign_in_as_guest_window.resizable(width=False, height=False)
 
     main_frame_sign_in_as_guest_window = Frame(sign_in_as_guest_window)
     main_frame_sign_in_as_guest_window.pack()
@@ -246,6 +248,7 @@ def online_shop():
     global online_shop_main_window
     online_shop_main_window = Toplevel(root)
     online_shop_main_window.geometry('1300x750+100+50')
+    online_shop_main_window.resizable(width=False, height=False)
     main_frame_for_main_window = Frame(online_shop_main_window)
     main_frame_for_main_window.pack()
 
@@ -282,7 +285,7 @@ def online_shop():
     button_view_my_cart = Button(frame_left_side, text = 'View my Cart', bg = '#FF9900',fg = 'Black', font = font_for_online_shop_button, command = view_my_cart)
     button_view_my_cart.grid(row = 3, column = 1, pady = (25, 10), ipadx =15, ipady = 7, sticky = W)
 
-    button_save_receipt = Button(frame_left_side, text = 'Save Receipt', bg = '#FF9900',fg = 'Black', font = font_for_online_shop_button)
+    button_save_receipt = Button(frame_left_side, text = 'Save Receipt', bg = '#FF9900',fg = 'Black', font = font_for_online_shop_button, command = save_receipt)
     button_save_receipt.grid(row = 4, column = 0, ipadx =13, ipady = 7)
 
     label_for_search= Label(frame_right_side, font = font_for_online_shop_search, bg = '#050505', fg = 'White', text = 'Search by Name')
@@ -473,11 +476,44 @@ def delete_data_viewer():
     table for the cart of user to be shown
     """
 
-
     initialize_data_viewer()
     label_for_viewer.destroy()
-    
-    
+
+
+def save_receipt():
+    try:
+        conns = sqlite3.connect('Essentials_Hub_Database.db')
+        df = pd.read_sql_query('select * from my_shopping_cart', conns)
+
+        transpose = df.transpose()
+        array_within = transpose.to_numpy()
+
+        name = '\t\t\t\tEssentials Hub\n'
+        email = "\t\t\t\tessentialshubofficial@gmail.com\n"
+        invoice = '\t\t\t\tInvoice\n'
+        date_today = str(datetime.today().strftime('%Y-%m-%d-%H:%M:%S'))
+        date_today_2 = str(datetime.today().strftime('%Y-%m-%d-%H-%M-%S'))
+        date = '\t\t\t\t' + date_today
+        t_header = '\n\t\t---------------------------------------------------\n\t\tID\tName\t\t\tAmount\tQty\t\tPrice\n\t\t---------------------------------------------------'
+
+        output = name + email + invoice + date + '\n' + t_header
+        file_name = date_today_2 + '_invoice.rtf'
+        f = open(file_name, 'w')
+        f.write(output)
+
+        for i in range(len(array_within[0])):
+            f.write('\n\t\t' + str(array_within[0][i]) + '\t' + str(array_within[1][i] + '......................')[
+                                                                :15] + '\t' + str(array_within[2][i]) + '\t\t' + str(
+                array_within[3][i]) + '\t\t' + str(array_within[4][i]))
+        f.write(f'\n\n\t\tTotal Price is {sum(array_within[4])} Pesos')
+        f.close()
+
+        messagebox.showinfo('SUCCESS!', 'Invoice exported!', parent=online_shop_main_window)
+
+    except:
+        messagebox.showerror('ERROR!', 'No Item in Cart', parent=online_shop_main_window)
+
+
 def online_shop_back():
     """
     Function to return back to the main online
@@ -499,6 +535,7 @@ def sign_in_as_admin():
     global sign_in_as_admin_window
     sign_in_as_admin_window = Toplevel(root)
     sign_in_as_admin_window.geometry('1300x750+100+50')
+    sign_in_as_admin_window.resizable(width=False, height=False)
 
     main_frame_sign_in_as_admin_window = Frame(sign_in_as_admin_window)
     main_frame_sign_in_as_admin_window.pack()
@@ -532,6 +569,7 @@ def online_shop_admin():
     global online_shop_admin_window
     online_shop_admin_window = Toplevel(root)
     online_shop_admin_window.geometry('1300x750+100+50')
+    online_shop_admin_window.resizable(width=False, height=False)
 
     main_frame_for_main_window = Frame(online_shop_admin_window)
     main_frame_for_main_window.pack()
@@ -721,6 +759,7 @@ def facts_and_statistics():
     global facts_and_statistics_window
     facts_and_statistics_window = Toplevel(root)
     facts_and_statistics_window.geometry('1300x750+100+50')
+    facts_and_statistics().resizable(width=False, height=False)
     
     main_frame = Frame(facts_and_statistics_window)
     main_frame.pack()
@@ -772,6 +811,7 @@ def facts_and_statistics_2():
     global facts_and_statistics_window_2
     facts_and_statistics_window_2 = Toplevel(root)
     facts_and_statistics_window_2.geometry('1300x750+100+50')
+    facts_and_statistics_window_2.resizable(width=False, height=False)
 
     main_frame = Frame(facts_and_statistics_window_2)
     main_frame.pack()
@@ -866,24 +906,29 @@ def facts_and_statistics_2():
 
     # BUTTONS BELOW
     button_for_page_graphs = Button(frame_for_buttons_below, text='Graphs', font=font_for_facts_and_statistics_button,
-                                    bg='#e99314', fg='Black')
+                                    bg='#e99314', fg='Black', command = graphs_page_1)
     button_for_page_graphs.grid(row=0, column=0, ipadx=18, ipady=8, padx=(0, 10))
 
     button_for_chatbot = Button(frame_for_buttons_below, text='Chatbot', font=font_for_facts_and_statistics_button,
-                                bg='#e99314', fg='Black')
+                                bg='#e99314', fg='Black', command = chatbot)
     button_for_chatbot.grid(row=0, column=1, ipadx=18, ipady=8, padx=(0, 10))
 
     button_for_page_back = Button(frame_for_buttons_below, text='Back', font=font_for_facts_and_statistics_button,
-                                  bg='#e99314', fg='Black')
+                                  bg='#e99314', fg='Black', command = back_facts_statistics_page_2)
     button_for_page_back.grid(row=0, column=2, ipadx=18, ipady=8)
 
 
 def graphs_page_1():
     facts_and_statistics_window.destroy()
 
+    try:
+        facts_and_statistics_window_2.destroy()
+    except:
+        pass
+
     global graphs_page_1_window
     graphs_page_1_window = Toplevel(root)
-    graphs_page_1_window.geometry('1920x1080')
+    graphs_page_1_window.attributes("-fullscreen", True)
     main_frame = Frame(graphs_page_1_window)
     main_frame.pack()
 
@@ -978,7 +1023,7 @@ def graphs_page_2():
 
     global graphs_page_2_window
     graphs_page_2_window = Toplevel(root)
-    graphs_page_2_window.geometry('1920x1080')
+    graphs_page_2_window.attributes("-fullscreen", True)
     main_frame = Frame(graphs_page_2_window)
     main_frame.pack()
 
@@ -1065,7 +1110,7 @@ def graphs_page_3():
 
     global graphs_page_3_window
     graphs_page_3_window = Toplevel(root)
-    graphs_page_3_window.geometry('1920x1080')
+    graphs_page_3_window.attributes("-fullscreen", True)
     main_frame = Frame(graphs_page_3_window)
     main_frame.pack()
 
@@ -1164,6 +1209,12 @@ def back_facts_statistics():
     facts_and_statistics_window.destroy()
     sign_in_as_guest()
 
+
+def back_facts_statistics_page_2():
+    facts_and_statistics_window_2.destroy()
+    facts_and_statistics()
+
+
 def back_graph1():
     try:
         graphs_page_1_window.destroy()
@@ -1241,7 +1292,7 @@ def chatbot():
         training = np.array(training)
         output = np.array(output)
 
-        with open("DAL\data.pickle", "wb") as f:
+        with open("DAL/data.pickle", "wb") as f:
             pickle.dump((words, labels, training, output), f)
 
     tensorflow.reset_default_graph()
@@ -1255,10 +1306,10 @@ def chatbot():
     model = tflearn.DNN(net)
 
     try:
-        model.load("DAL\model1.tflearn")
+        model.load("DAL/model1.tflearn")
     except:
         model.fit(training, output, n_epoch=700, batch_size=8, show_metric=True)
-        model.save("DAL\model1.tflearn")
+        model.save("DAL/model1.tflearn")
 
     def bag_of_words(s, words):
         bag = [0 for _ in range(len(words))]
@@ -1445,6 +1496,7 @@ def forgot_password():
     global forgot_password_window
     forgot_password_window = Toplevel(root)
     forgot_password_window.geometry('1300x750+100+50')
+    forgot_password_window.resizable(width=False, height=False)
     main_frame = Frame(forgot_password_window)
     main_frame.pack()
 
@@ -1534,6 +1586,7 @@ def forgot_pw_second_page():
     global forgot_password_second_window
     forgot_password_second_window = Toplevel(root)
     forgot_password_second_window.geometry('1300x750+100+50')
+    forgot_password_second_window.resizable(width=False, height=False)
     main_frame = Frame(forgot_password_second_window)
     main_frame.pack()
 
@@ -1644,6 +1697,7 @@ def forgot_pw_third_page():
     global forgot_password_third_window
     forgot_password_third_window = Toplevel(root)
     forgot_password_third_window.geometry('1300x750+100+50')
+    forgot_password_third_window.resizable(width=False, height=False)
     main_frame = Frame(forgot_password_third_window)
     main_frame.pack()
 
@@ -1704,6 +1758,7 @@ def forgot_pw_fourth_page():
     global forgot_password_fourth_window
     forgot_password_fourth_window = Toplevel(root)
     forgot_password_fourth_window.geometry('1300x750+100+50')
+    forgot_password_fourth_window.resizable(width=False, height=False)
     main_frame = Frame(forgot_password_fourth_window)
     main_frame.pack()
 
@@ -1798,6 +1853,7 @@ def sign_up():
     global sign_up_window
     sign_up_window = Toplevel(root)
     sign_up_window.geometry('1300x750+100+50')
+    sign_up_window.resizable(width=False, height=False)
 
     main_frame_sign_up_window = Frame(sign_up_window)
     main_frame_sign_up_window.pack()
@@ -1844,6 +1900,7 @@ def sign_up_as_guest():
     global sign_up_as_guest_window
     sign_up_as_guest_window = Toplevel(root)
     sign_up_as_guest_window.geometry('1300x750+100+50')
+    sign_up_as_guest_window.resizable(width=False, height=False)
 
     main_frame_sign_up_as_guest_window = Frame(sign_up_as_guest_window)
     main_frame_sign_up_as_guest_window.pack()
@@ -1939,6 +1996,7 @@ def sign_up_as_admin():
     global sign_up_as_admin_window
     sign_up_as_admin_window = Toplevel(root)
     sign_up_as_admin_window.geometry('1300x750+100+50')
+    sign_up_as_admin_window.resizable(width=False, height=False)
 
     main_frame_sign_up_as_admin_window = Frame(sign_up_as_admin_window)
     main_frame_sign_up_as_admin_window.pack()
@@ -2099,6 +2157,7 @@ def back_sign_up_as_admin():
 #THIS FOR THE LAUNCHER
 root = Tk()
 root.geometry('1300x500+100+50')
+root.resizable(width= False, height=False)
 root.title('Welcome to Essentials Hub!')
 main_frame = Frame(root)
 main_frame.pack()
