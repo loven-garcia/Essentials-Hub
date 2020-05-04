@@ -1485,6 +1485,33 @@ def chatbot():
     send_button.grid(row=1, column=1, ipadx=10, padx=(4, 0))
 
 
+def about_us():
+
+    sign_in_as_guest_window.destroy()
+    global about_us_window
+    about_us_window = Toplevel(root)
+    about_us_window.geometry('1400x800')
+    about_us_window.resizable(width=False, height=False)
+    main_frame = Frame(about_us_window)
+    main_frame.pack()
+
+    canvas_main_window = Canvas(main_frame, width=1400, height=800)
+    canvas_main_window.pack()
+    canvas_main_window.create_image(0, 0, anchor=NW, image=image_about_us)
+
+    frame_for_button = Frame(main_frame)
+    canvas_main_window.create_window(670, 745, anchor =NW, window = frame_for_button)
+
+    back_button = Button(frame_for_button, text = 'Back', font=font_for_facts_and_statistics_button,
+                                    bg='#e99314', fg='Black', borderwidth = 1, highlightthickness = 1.5, highlightcolor = 'black', highlightbackground ='black', command=back_button_about_us)
+    back_button.grid(row = 0, column = 0, ipady = 5, ipadx = 11)
+
+
+def back_button_about_us():
+    about_us_window.destroy()
+    sign_in_as_guest()
+
+
 def forgot_password():
 
     #THIS IS TO DESTROY THE MAIN LOGIN WINDOW
@@ -2216,6 +2243,8 @@ image_online_shop_admin = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_onlin
 image_main_page_admin = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_main_page_admin.jpg'))
 
 image_ehub = ImageTk.PhotoImage(Image.open('UI/PICTURES/e-hub_main.jpg'))
+
+image_about_us = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_about_us.jpg'))
 
 
 
