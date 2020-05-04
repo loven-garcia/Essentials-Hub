@@ -124,7 +124,6 @@ def day_by_day():
         return False
 
 
-
     #CASE TODAY
     # global case_today
     # case_today = total_cases[len(total_cases)-1]
@@ -367,10 +366,6 @@ def pui_pum_tested():
     pui.append(int(main[3].text.strip()))
     pum.append(int(main[4].text.strip()))
     tested.append(int(main[5].text.strip()))  
-
-
-def picture():
-    urllib.request.urlretrieve('https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/COVID-19_pandemic_cases_in_the_Philippines.svg/412px-COVID-19_pandemic_cases_in_the_Philippines.svg.png', 'PICTURES\image_svg.png' )
 
 
 def api_connection():
