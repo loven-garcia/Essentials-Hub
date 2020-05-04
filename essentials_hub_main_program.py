@@ -17,6 +17,7 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 import json
 import requests
+import numpy as np
 # ======================================================FUNCTIONS===============================================================
 
 
