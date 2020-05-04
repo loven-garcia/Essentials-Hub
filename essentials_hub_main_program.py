@@ -8,7 +8,7 @@ import sqlite3
 import smtplib
 import string
 import random
-import BLL import final_scrape
+from BLL import final_scrape
 from datetime import datetime
 import pandas as pd
 from pandastable import Table
@@ -142,7 +142,7 @@ def sign_in():
         username = entry_for_username.get()
 
         #IF ALL THE BOXES ARE FILLED, OPEN THE DATABASE
-        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
         curs = conn.cursor()
 
         #GET THE PASSWORD BASED FROM THE USERNAME GIVEN
@@ -311,7 +311,7 @@ def online_shop():
     initialize_data_viewer()
 
     #THE SHOPPING CART NEEDS TO BE DELETED EVERYTIME THE FUNCTION IS CALLED
-    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
     curs = conn.cursor()
     curs.execute('delete from my_shopping_cart')
     conn.commit()
@@ -323,7 +323,7 @@ def initialize_data_viewer():
     the database and place it to the label
     """
 
-    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
     df = pd.read_sql_query('select * from Product_Inventory', conn)
 
     global label_for_viewer
@@ -344,7 +344,7 @@ def show_all_products():
 def search_by_name():
     try:
         delete_data_viewer()
-        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
         df = pd.read_sql_query('select * from product_inventory where (Product_Name like "%{}") OR (Product_Name like "{}%") OR (Product_Name like "%{}%")'.format(entry_search.get(),entry_search.get(),entry_search.get()), conn)
         global label_for_viewer_2
         label_for_viewer_2 = Label(frame_right_side)
@@ -366,7 +366,7 @@ def add_to_cart():
 
     try:
 
-        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
         curs = conn.cursor()
 
         curs.execute('select product_quantity from Product_Inventory where product_Id = :product_Id', {
@@ -397,7 +397,7 @@ def add_to_cart():
                 'product_Id': inventory_product_Id[0][0]})
             inventory_product_price = curs.fetchall()
 
-            conn = sqlite3.connect('Essentials_Hub_Database.db')
+            conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
             curs = conn.cursor()
 
 
@@ -435,7 +435,7 @@ def add_to_cart():
 
 def update_products_inventory():
     remaining_product_quantity = int(specific_quantity[0][0]) - user_entered_quantity
-    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
     curs = conn.cursor()
     curs.execute('update Product_Inventory set Product_Quantity = :remaining_inv where Product_Id = :product_id', {
         'remaining_inv': remaining_product_quantity,
@@ -454,7 +454,7 @@ def view_my_cart():
 
     delete_data_viewer()
 
-    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
     df = pd.read_sql_query('select * from my_shopping_cart', conn)
 
     global label_for_viewer_2
@@ -479,7 +479,7 @@ def delete_data_viewer():
 
 def save_receipt():
     try:
-        conns = sqlite3.connect('Essentials_Hub_Database.db')
+        conns = sqlite3.connect('DAL/Essentials_Hub_Database.db')
         df = pd.read_sql_query('select * from my_shopping_cart', conns)
 
         transpose = df.transpose()
@@ -665,7 +665,7 @@ def add_product():
             messagebox.showerror('ERROR!', 'Please fill all the boxes!', parent=online_shop_admin_window)
 
         else:
-            conn = sqlite3.connect('Essentials_Hub_Database.db')
+            conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
             curs = conn.cursor()
 
             curs.execute('insert into Product_Inventory values(:pid, :pname, :pprice, :pquantity)',
@@ -691,7 +691,7 @@ def update_product():
             messagebox.showerror('ERROR!', 'Please fill all the boxes!', parent=online_shop_admin_window)
 
         else:
-            conn = sqlite3.connect('Essentials_Hub_Database.db')
+            conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
             curs = conn.cursor()
 
             curs.execute('update Product_Inventory set Product_Id = :pid, Product_name = :pname, Product_price = :pprice, Product_Quantity == :pquantity where product_id = :pid',
@@ -714,7 +714,7 @@ def update_product():
 
 def delete_product():
     try:
-        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
         curs = conn.cursor()
 
         curs.execute('delete from Product_Inventory where product_id = :pid', {'pid': entry_for_product_id.get()})
@@ -756,7 +756,7 @@ def facts_and_statistics():
     global facts_and_statistics_window
     facts_and_statistics_window = Toplevel(root)
     facts_and_statistics_window.geometry('1300x750+100+50')
-    facts_and_statistics().resizable(width=False, height=False)
+    facts_and_statistics_window.resizable(width=False, height=False)
     
     main_frame = Frame(facts_and_statistics_window)
     main_frame.pack()
@@ -1575,7 +1575,7 @@ def submit_forgot_pw():
             messagebox.showerror('ERROR!', 'Please fill the  username box!', parent = forgot_password_window)
 
     else:
-        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
         curs = conn.cursor()
         curs.execute('select username from Users_Information where username = :username',{
                             'username': entry_for_username_forgot_password.get()})
@@ -1598,7 +1598,7 @@ def forgot_pw_second_page():
         break
         
     #THIS IS TO GET THE SECURITY QUESTION AND PUT IT IN THE LABEL
-    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
     curs = conn.cursor()
 
     curs.execute('select SecurityQuestion from Users_Information where username = :username',{
@@ -1659,7 +1659,7 @@ def submit_forgot_pw_for_security_question():
             messagebox.showerror('ERROR!', 'Please fill the answer box!', parent = forgot_password_second_window)
 
     else:
-        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
         curs = conn.cursor()
         curs.execute('select SecurityQuestionAnswer from Users_Information where username = :username',{
                     'username': username_for_forgot_pw})
@@ -1696,7 +1696,7 @@ def get_code_then_send_to_email():
     
 
     #THIS IS FOR ME TO GET THE EMAIL WHERE I CAN SEND THE CODE
-    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
     curs = conn.cursor()
     curs.execute('select email from Users_Information where username = :username',{
                 'username': username_for_forgot_pw})
@@ -1850,7 +1850,7 @@ def update_pw_in_forgot_pw():
         new_pw = entry_for_confirm_pw_forgot_password.get()
         # forgot_password_fourth_window.destroy()
 
-        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
         curs = conn.cursor()
         curs.execute('update Users_Information set password = :password where username = :username', {
         'password': new_pw,
@@ -2121,7 +2121,7 @@ def submit_sign_up():
 
     #HERE I CREATE THE DATABASE FOR USER INFORMATION
     else:
-        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
         curs = conn.cursor()
 
         curs.execute("""
@@ -2218,7 +2218,7 @@ image_sign_up_window = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_second_m
 
 image_sign_up_as_guest_window = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_sign_up_as_guest.jpg'))
 
-image_sign_up_as_admin_window = ImageTk.PhotoImage(Image.open('PICTURES/image_sign_up_as_admin.jpg'))
+image_sign_up_as_admin_window = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_sign_up_as_admin.jpg'))
 
 image_forgot_password_1 = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_forgot_password_1.jpg'))
 
