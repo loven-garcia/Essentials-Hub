@@ -4,6 +4,7 @@ import urllib.request
 import json
 import pandas as pd
 
+
 #FOR THE DAY BY DAY CASES
 def day_by_day():
 
@@ -24,6 +25,12 @@ def day_by_day():
     april_deaths = []
     april_recoveries = []
 
+    may_dates =[]
+    may_total_cases = []
+    may_new_cases = []
+
+    may_deaths = []
+    may_recoveries = []
 
     tr_1 = t_body.find_all('tr', id="mw-customcollapsible-mar")
 
@@ -71,16 +78,32 @@ def day_by_day():
         april_recoveries.append(int((title_3[1])['title']))
 
 
+    tr_4 = t_body.find_all(id="mw-customcollapsible-may-l15")
+
+    for e in tr_4:
+        td_4 = e.find('td')
+        may_dates.append(td_4.text.replace('2020-05-','May '))
+
+        span_4 = e.find_all('span')
+        may_total_cases.append(int(span_4[0].text.replace(',', '')))
+        may_new_cases.append(span_4[1].text.replace('(', '').replace(')', ''))
+
+        title_4 = e.find_all('div')
+        may_deaths.append(int((title_4[0])['title']))
+        may_recoveries.append(int((title_4[1])['title']))
+
+
+
     global total_dates
-    total_dates = march_dates+april_dates
+    total_dates = march_dates+april_dates+may_dates
     global total_cases
-    total_cases = (march_total_cases)+(april_total_cases)
+    total_cases = (march_total_cases)+(april_total_cases)+(may_total_cases)
     global total_new_cases
-    total_new_cases = (march_new_cases)+april_new_cases
+    total_new_cases = (march_new_cases)+april_new_cases+may_new_cases
     global total_recoveries_day
-    total_recoveries_day = march_recoveries + april_recoveries
+    total_recoveries_day = march_recoveries + april_recoveries + may_recoveries
     global total_deaths_day
-    total_deaths_day = march_deaths + april_deaths
+    total_deaths_day = march_deaths + april_deaths + may_deaths
 
 
 
