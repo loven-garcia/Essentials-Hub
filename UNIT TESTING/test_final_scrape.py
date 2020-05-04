@@ -1,5 +1,5 @@
 import unittest
-from BLL.final_scrape import check_connection_wiki, day_by_day, day_by_day_cases_test ,api_connection, pui_pum_tested_connection_test, api_length_of_stats,  for_total_deaths_total_recovered_test, by_age_test, by_region_test, by_sex_test, date_test, pui_pum_tested_test
+from final_scrape import check_connection_wiki, day_by_day, day_by_day_cases_test ,api_connection, pui_pum_tested_connection_test, api_length_of_stats,  for_total_deaths_total_recovered_test, by_age_test, by_region_test, by_sex_test, date_test, pui_pum_tested_test
 
 
 class Test_Connection(unittest.TestCase):
