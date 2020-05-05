@@ -112,3 +112,54 @@ The objectives of the project are the following:
     + As an admin, I want to be able to view all the comments/suggestions of the customers
   + **Reply to comments**
     + As an admin, I want to be able to send  replies to the comments of the customers through their emails.
+    
+    
+## Sample ScreenGrabs
+
+### Launcher
+![](UI/PICTURES_README/LAUNCHER.png)
+
+### Sign-in Form
+![](UI/PICTURES_README/SIGN-IN_FORM.jpg)
+
+### Sign-up Form
+![](UI/PICTURES_README/SIGN-UP_FORM.jpg)
+![](UI/PICTURES_README/SIGN-UP_FORM2.jpg)
+
+### Forgot Password Feature
+![](UI/PICTURES_README/FORGOT_PASSWORD_FEATURE_0.jpg)
+![](UI/PICTURES_README/FORGOT_PASSWORD_FEATURE_1.jpg)
+![](UI/PICTURES_README/FORGOT_PASSWORD_FEATURE_2.jpg)
+
+### Main Page for Guests
+![](UI/PICTURES_README/MAIN_GUI_FOR_GUESTS.jpg)
+
+### Inventory Management System
+![](UI/PICTURES_README/INVENTORY_MANAGEMENT_SYSTEM.jpg)
+
+### Statistics Page
+![](UI/PICTURES_README/STATISTICS_WINDOW.jpg)
+![](UI/PICTURES_README/STATISTICS_WINDOW2.jpg)
+
+### Graphs/Visualization
+![](UI/PICTURES_README/GRAPHS_1.jpg)
+![](UI/PICTURES_README/GRAPHS_2.jpg)
+![](UI/PICTURES_README/GRAPHS_3.jpg)
+
+### Chatbot 
+![](UI/PICTURES_README/chatbot.jpg)
+![](UI/PICTURES_README/chatbot2.jpg)
+
+### Main Page for Admins
+![](UI/PICTURES_README/MAIN_GUI_FOR_ADMIN.jpg)
+
+### Inventory Management for Admins
+![](UI/PICTURES_README/INVENTORY_MANAGEMENT_SYSTEM_FOR_ADMIN.jpg)
+
+
+
+
+
+
+
+
