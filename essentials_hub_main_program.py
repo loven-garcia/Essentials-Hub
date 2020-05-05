@@ -564,6 +564,8 @@ def sign_in_as_admin():
 
     
 def online_shop_admin():
+
+    sign_in_as_admin_window.destroy()
     global online_shop_admin_window
     online_shop_admin_window = Toplevel(root)
     online_shop_admin_window.geometry('1300x750+100+50')
@@ -650,7 +652,7 @@ def online_shop_admin():
     button_show_all_products.grid(row=0, column=3, ipadx=6, padx=3)
 
     button_online_shop_go_back = Button(frame_right_side, text='Back', bg='#050505', fg='White',
-                                        font=font_for_online_shop_button)
+                                        font=font_for_online_shop_button, command = online_shop_admin_back)
     button_online_shop_go_back.grid(row=2, column=0, pady=5, ipadx=11, padx=(0, 5), sticky=W + E)
 
     button_online_shop_exit = Button(frame_right_side, text='Exit', bg='#050505', fg='White',
@@ -725,6 +727,17 @@ def delete_product():
 
     except:
         messagebox.showerror('ERROR!', 'No such product Id', parent=online_shop_admin_window)
+
+
+def online_shop_admin_back():
+    """
+    Function to return back to the main online
+    shop window
+    """
+
+    online_shop_admin_window.destroy()
+    sign_in_as_admin()
+
 
         
     
