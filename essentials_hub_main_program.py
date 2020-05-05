@@ -35,7 +35,7 @@ def main_login_window():
     the main sign-up window, sign-in form, and the forgot password
     feature
     """
-    preload_web_scrape_data()
+
     global main_window
     main_window = Toplevel(root)
     main_window.geometry('1300x750+100+50')
@@ -2185,6 +2185,7 @@ def back_sign_up_as_admin():
 
 # ======================================================START====================================================================
 
+preload_web_scrape_data()
 #THIS FOR THE LAUNCHER
 root = Tk()
 root.geometry('1300x500+100+50')
