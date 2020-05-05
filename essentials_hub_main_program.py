@@ -806,6 +806,12 @@ def facts_and_statistics():
 
 
 def facts_and_statistics_2():
+
+    try:
+        facts_and_statistics_window.destroy()
+    except:
+        pass
+
     global facts_and_statistics_window_2
     facts_and_statistics_window_2 = Toplevel(root)
     facts_and_statistics_window_2.geometry('1300x750+100+50')
