@@ -31,7 +31,7 @@
   * [Forgot Password Feature](#Forgot-Password-Feature)
   * [Main Page for Guests](#Main-Page-for-Guests)
   * [Inventory Management System](#Inventory-Management-System)
-  * [Statistics Page](#Statistics Page)
+  * [Statistics Page](#Statistics-Page)
   * [Graphs/Visualization](#Graphs/Visualization)
   * [Chatbot](#chatbot)
   * [Blog Section for Guests](#Blog-Section-for-Guests)
