@@ -230,7 +230,7 @@ def sign_in_as_guest():
     button_for_facts_statistics = Button(frame_above_canvas_bottom_part, text = 'Facts & Statistics', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = facts_and_statistics)
     button_for_facts_statistics.grid(row = 0, column = 1, ipadx = 7, ipady = 3, padx=(40,0))
 
-    button_for_blog_section = Button(frame_above_canvas_bottom_part, text = 'Blog Section', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white')
+    button_for_blog_section = Button(frame_above_canvas_bottom_part, text = 'Blog Section', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = blog_section)
     button_for_blog_section.grid(row = 0, column = 2, ipadx = 7, ipady = 3, padx=(40,0))
 
     button_for_about_us = Button(frame_above_canvas_bottom_part, text = 'About Us', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = about_us)
@@ -749,6 +749,186 @@ def online_shop_admin_back():
     sign_in_as_admin()
 
 
+def image_forward(image_number):
+    global label_for_image_list
+    global button_forward
+    global button_back
+
+    label_for_image_list.grid_forget()
+
+    label_for_image_list = Label(frame_right_side, image=blog_section_image_list[image_number - 1], font=font_for_blog_section_message, bg='Black',
+                     fg='White')
+    label_for_image_list.grid(row=0, column=0, columnspan=2)
+
+    button_forward = Button(frame_right_side, text='Forward', command=lambda: image_forward(image_number + 1), bg='#FF9900',
+                            fg='Black', highlightbackground='#FF9900', highlightcolor='#FF9900', font = font_for_blog_section_message)
+    button_forward.grid(row=1, column=1, ipady=4, ipadx=10)
+
+    button_back = Button(frame_right_side, text='Back', command=lambda: image_back(image_number - 1), bg='#FF9900',
+                         fg='Black', highlightbackground='#FF9900', highlightcolor='#FF9900', font = font_for_blog_section_message)
+    button_back.grid(row=1, column=0, ipady=4, ipadx=16)
+    button_forward.grid(row = 1, column = 1, ipady=4, ipadx=10)
+
+    if image_number == 5:
+        button_forward = Button(frame_right_side, text='Forward', state=DISABLED, bg='#FF9900', fg='Black',
+                                highlightbackground='#FF9900', highlightcolor='#FF9900', font = font_for_blog_section_message)
+        button_forward.grid(row=1, column=1, ipady=4, ipadx=10)
+
+
+def image_back(image_number):
+    global label_for_image_list
+    global button_forward
+    global button_back
+
+    label_for_image_list.grid_forget()
+
+    label_for_image_list = Label(frame_right_side, image=blog_section_image_list[image_number - 1], font=font_for_blog_section_message, bg='Black',
+                     fg='White')
+    label_for_image_list.grid(row=0, column=0, columnspan=2)
+
+    button_forward = Button(frame_right_side, text='Forward', command=lambda: image_forward(image_number + 1), bg='#FF9900',
+                            fg='Black', highlightbackground='#FF9900', highlightcolor='#FF9900', font = font_for_blog_section_message)
+    button_forward.grid(row=1, column=1, ipady=4, ipadx=10)
+
+    button_back = Button(frame_right_side, text='Back', command=lambda: image_back(image_number - 1), bg='#FF9900',
+                         fg='Black', highlightbackground='#FF9900', highlightcolor='#FF9900', font = font_for_blog_section_message)
+    button_back.grid(row=1, column=0, ipady=4, ipadx=16)
+
+    if image_number == 1:
+        button_back = Button(frame_right_side, text='Back', state=DISABLED, bg='#FF9900', fg='Black',
+                             highlightbackground='#FF9900', highlightcolor='#FF9900', font = font_for_blog_section_message)
+        button_back.grid(row=1, column=0, ipady=4, ipadx=16)
+        button_forward.grid(row = 1, column = 1, ipady=4, ipadx=10)
+
+
+def blog_section():
+    sign_in_as_guest_window.destroy()
+    global blog_section_window
+    blog_section_window = Toplevel(root)
+    blog_section_window.geometry('1300x750+100+50')
+    blog_section_window.resizable(width= False, height=False)
+
+    main_frame = Frame(blog_section_window)
+    main_frame.pack()
+
+    image_canvas = Canvas(main_frame, width=1300, height=750)
+    image_canvas.pack()
+    image_canvas.create_image(0, 0, anchor=NW, image=image_blog_section)
+
+    global frame_left_side
+    frame_left_side = Frame(main_frame, width = 500, height  = 380, bg='#050505')
+    image_canvas.create_window(90,260, anchor = NW, window = frame_left_side)
+
+    global frame_right_side
+    frame_right_side = Frame(main_frame, width = 500, height  = 380, bg='#050505')
+    image_canvas.create_window(770,280, anchor = NW, window = frame_right_side)
+
+    label_subject = Label(frame_left_side, font=font_for_blog_section_label, bg='#050505', fg='#FF9900', text='Subject:')
+    label_subject.grid(row=0, column=0, pady = 1, sticky = W)
+
+    label_email = Label(frame_left_side, font=font_for_blog_section_label, bg='#050505', fg='#FF9900', text='Email:')
+    label_email.grid(row=1, column=0, pady =1, sticky = W)
+
+    label_comment = Label(frame_left_side, font=font_for_blog_section_label, bg='#050505', fg='#FF9900', text='Comment:')
+    label_comment.grid(row=2, column=0, pady = 1, sticky = W)
+
+    global entry_enter_subject
+    entry_enter_subject= Entry(frame_left_side, width = 27, bg = '#050505', fg = 'White', font = font_for_blog_section_label, highlightthickness = 1, highlightcolor = 'White')
+    entry_enter_subject.grid(row = 0, column = 1, sticky = W, pady = 3, columnspan = 3)
+
+    global entry_enter_email
+    entry_enter_email = Entry(frame_left_side, width = 27, bg = '#050505', fg = 'White', font = font_for_blog_section_label, highlightthickness = 1, highlightcolor = 'White')
+    entry_enter_email.grid(row = 1, column = 1, sticky = W, pady = 3, columnspan = 3)
+
+    global text_enter_comment
+    text_enter_comment = Text(frame_left_side, width=45, height=16, bg='#050505', fg='White', font = font_for_blog_section_message, highlightthickness = 1, highlightcolor = 'White')
+    text_enter_comment.grid(row=3, column=0, columnspan=3, sticky = W, pady = (3,1))
+
+    button_blog_section_submit = Button(frame_left_side, text='Submit', bg='#FF9900', fg='Black', highlightcolor='#FF9900', font = font_for_blog_section_message, command = blog_section_submit)
+    button_blog_section_submit.grid(row=4, column=0, pady=10, sticky=W, ipady=1, ipadx=20)
+
+    button_blog_section_clear = Button(frame_left_side, text='Clear', bg='#FF9900', fg='Black', highlightcolor='#FF9900', font = font_for_blog_section_message, command = blog_section_clear)
+    button_blog_section_clear.grid(row=4, column=1, pady=10, sticky = W, ipady=1, ipadx=20)
+
+    button_blog_back = Button(frame_left_side, text='Back', bg='#FF9900', fg='Black', highlightcolor='#FF9900', font = font_for_blog_section_message, command = blog_section_back)
+    button_blog_back.grid(row=4, column=2, pady=10, sticky=W+E, ipady=1, ipadx=20)
+
+
+    my_image_1 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_alcohol.jpg'))
+    my_image_2 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_bar.jpg'))
+    my_image_3 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_disin.jpg'))
+    my_image_4 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_dispo.jpg'))
+    my_image_5 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_gloves.jpg'))
+    my_image_6 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_hand_soap.jpg'))
+    my_image_7 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_n95.jpg'))
+    my_image_8 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_sanit.jpg'))
+    my_image_9 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_tissue.jpg'))
+    my_image_10 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_towel.jpg'))
+    my_image_11 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_wipes.jpg'))
+
+
+    global blog_section_image_list
+    blog_section_image_list = [my_image_1, my_image_2, my_image_3, my_image_4, my_image_5,my_image_6, my_image_7, my_image_8, my_image_9, my_image_10, my_image_11]
+    # image_names = ['wow', 'nice', 'noice', 'waw', 'omy']
+
+    global label_for_image_list
+    label_for_image_list = Label(frame_right_side, image=my_image_1)
+    label_for_image_list.grid(row=0, column=0, columnspan=2)
+
+    global button_online_section_back
+    button_online_section_back = Button(frame_right_side, text='Back', state=DISABLED, command=image_back, bg='#FF9900',
+                                        fg='Black', highlightbackground='#FF9900', highlightcolor='#FF9900', font = font_for_blog_section_message)
+    button_online_section_back.grid(row=1, column=0, ipady=4, ipadx=16)
+
+    global button_online_section_forward
+    button_online_section_forward = Button(frame_right_side, text='Forward', command=lambda: image_forward(2), bg='#FF9900',
+                                           fg='Black', highlightbackground='#FF9900', highlightcolor='#FF9900', font = font_for_blog_section_message)
+    button_online_section_forward.grid(row=1, column=1, ipady=4, ipadx=10, pady = 10)
+
+
+def blog_section_submit():
+
+    if entry_enter_subject.get() == '' or entry_enter_email.get() == '' or text_enter_comment.get('1.0', END) == '':
+
+        messagebox.showerror('ERROR!', 'Please fill all the boxes!', parent=blog_section_window)
+
+    else:
+        conn = sqlite3.connect('Essentials_Hub_Database.db')
+        curs = conn.cursor()
+
+        curs.execute("""
+                    create table if not exists Comments(
+                        Subject text,
+                        Email text,
+                        Comment text
+                    )
+                    """)
+        conn.commit()
+
+        try:
+            curs.execute(
+                    'insert into Comments values (:subject, :email, :comment)',
+                    {
+                        'subject': entry_enter_subject.get(),
+                        'email': entry_enter_email.get(),
+                        'comment': text_enter_comment.get('1.0', END)
+                    })
+            conn.commit()
+            messagebox.showinfo('SUCCESS!', 'Thank you for your response! Comment has been sent to the admins!', parent = blog_section_window)
+
+        except:
+            messagebox.showerror('ERROR!', 'Comment failed to be stored in database, try again.', parent=blog_section_window)
+
+
+def blog_section_clear():
+    entry_enter_subject.delete(0, END)
+    entry_enter_email.delete(0, END)
+    text_enter_comment.delete(1.0, END)
+
+
+def blog_section_back():
+    blog_section_window.destroy()
+    sign_in_as_guest()
         
     
 def preload_web_scrape_data():
@@ -2278,6 +2458,8 @@ image_ehub = ImageTk.PhotoImage(Image.open('UI/PICTURES/e-hub_main.jpg'))
 
 image_about_us = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_about_us.jpg'))
 
+image_blog_section = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_blog_section_main.jpg'))
+
 
 
 # ======================================================FONTS===================================================================
@@ -2323,6 +2505,10 @@ font_for_chatbot_text = Font(family='Gotham', size=13)
 font_for_chatbot_text_2 = Font(family='Gotham', size=15)
 
 font_for_chatbot_button = Font(family='Gotham', size=12)
+
+font_for_blog_section_message = Font(family = 'Gotham', size = 12)
+
+font_for_blog_section_label = Font(family = 'Gotham', size = 14)
 
 # ==============================================================================================================================
 
