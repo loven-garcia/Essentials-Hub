@@ -553,7 +553,7 @@ def sign_in_as_admin():
     label_for_welcoming_user.grid(row = 0, column = 0)
 
     #BUTTON FOR LOGOUT
-    button_for_logout = Button(frame_above_canvas_top_part, text = 'Logout', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = logout)
+    button_for_logout = Button(frame_above_canvas_top_part, text = 'Logout', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = logout_admin)
     button_for_logout.grid(row = 0, column = 1, ipadx = 10, ipady = 4, padx = (830,0))
 
     button_for_online_shop = Button(frame_above_canvas_bottom_part, text = 'Manage Online Shop', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = online_shop_admin)
@@ -561,6 +561,16 @@ def sign_in_as_admin():
 
     button_for_blog_section = Button(frame_above_canvas_bottom_part, text = 'Manage Blog Section', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white')
     button_for_blog_section.grid(row = 0, column = 1, ipadx = 7, ipady = 3, padx=(40,0))
+
+
+def logout_admin():
+    """
+    Logout by destroying the main window for the admin
+    and reopening the main login window
+    """
+
+    sign_in_as_admin_window.destroy()
+    main_login_window()
 
     
 def online_shop_admin():
