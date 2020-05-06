@@ -755,7 +755,6 @@ def online_shop_admin_back():
     online_shop_admin_window.destroy()
     sign_in_as_admin()
 
-
 def image_forward(image_number):
     global label_for_image_list
     global button_forward
@@ -763,22 +762,27 @@ def image_forward(image_number):
 
     label_for_image_list.grid_forget()
 
-    label_for_image_list = Label(frame_right_side, image=blog_section_image_list[image_number - 1], font=font_for_blog_section_message, bg='Black',
-                     fg='White')
+    label_for_image_list = Label(frame_right_side, image=blog_section_image_list[image_number - 1],
+                                 font=font_for_blog_section_message, bg='Black',
+                                 fg='White')
     label_for_image_list.grid(row=0, column=0, columnspan=2)
 
-    button_forward = Button(frame_right_side, text='Forward', command=lambda: image_forward(image_number + 1), bg='#FF9900',
-                            fg='Black', highlightbackground='#FF9900', highlightcolor='#FF9900', font = font_for_blog_section_message)
+    button_forward = Button(frame_right_side, text='Forward', command=lambda: image_forward(image_number + 1),
+                            bg='#FF9900',
+                            fg='Black', highlightbackground='#FF9900', highlightcolor='#FF9900',
+                            font=font_for_blog_section_message)
     button_forward.grid(row=1, column=1, ipady=4, ipadx=10)
 
     button_back = Button(frame_right_side, text='Back', command=lambda: image_back(image_number - 1), bg='#FF9900',
-                         fg='Black', highlightbackground='#FF9900', highlightcolor='#FF9900', font = font_for_blog_section_message)
+                         fg='Black', highlightbackground='#FF9900', highlightcolor='#FF9900',
+                         font=font_for_blog_section_message)
     button_back.grid(row=1, column=0, ipady=4, ipadx=16)
-    button_forward.grid(row = 1, column = 1, ipady=4, ipadx=10)
+    button_forward.grid(row=1, column=1, ipady=4, ipadx=10)
 
     if image_number == 5:
         button_forward = Button(frame_right_side, text='Forward', state=DISABLED, bg='#FF9900', fg='Black',
-                                highlightbackground='#FF9900', highlightcolor='#FF9900', font = font_for_blog_section_message)
+                                highlightbackground='#FF9900', highlightcolor='#FF9900',
+                                font=font_for_blog_section_message)
         button_forward.grid(row=1, column=1, ipady=4, ipadx=10)
 
 
@@ -789,31 +793,36 @@ def image_back(image_number):
 
     label_for_image_list.grid_forget()
 
-    label_for_image_list = Label(frame_right_side, image=blog_section_image_list[image_number - 1], font=font_for_blog_section_message, bg='Black',
-                     fg='White')
+    label_for_image_list = Label(frame_right_side, image=blog_section_image_list[image_number - 1],
+                                 font=font_for_blog_section_message, bg='Black',
+                                 fg='White')
     label_for_image_list.grid(row=0, column=0, columnspan=2)
 
-    button_forward = Button(frame_right_side, text='Forward', command=lambda: image_forward(image_number + 1), bg='#FF9900',
-                            fg='Black', highlightbackground='#FF9900', highlightcolor='#FF9900', font = font_for_blog_section_message)
+    button_forward = Button(frame_right_side, text='Forward', command=lambda: image_forward(image_number + 1),
+                            bg='#FF9900',
+                            fg='Black', highlightbackground='#FF9900', highlightcolor='#FF9900',
+                            font=font_for_blog_section_message)
     button_forward.grid(row=1, column=1, ipady=4, ipadx=10)
 
     button_back = Button(frame_right_side, text='Back', command=lambda: image_back(image_number - 1), bg='#FF9900',
-                         fg='Black', highlightbackground='#FF9900', highlightcolor='#FF9900', font = font_for_blog_section_message)
+                         fg='Black', highlightbackground='#FF9900', highlightcolor='#FF9900',
+                         font=font_for_blog_section_message)
     button_back.grid(row=1, column=0, ipady=4, ipadx=16)
 
     if image_number == 1:
         button_back = Button(frame_right_side, text='Back', state=DISABLED, bg='#FF9900', fg='Black',
-                             highlightbackground='#FF9900', highlightcolor='#FF9900', font = font_for_blog_section_message)
+                             highlightbackground='#FF9900', highlightcolor='#FF9900',
+                             font=font_for_blog_section_message)
         button_back.grid(row=1, column=0, ipady=4, ipadx=16)
-        button_forward.grid(row = 1, column = 1, ipady=4, ipadx=10)
+        button_forward.grid(row=1, column=1, ipady=4, ipadx=10)
 
 
 def blog_section():
-    sign_in_as_admin_window.destroy()
+    sign_in_as_guest_window.destroy()
     global blog_section_window
     blog_section_window = Toplevel(root)
     blog_section_window.geometry('1300x750+100+50')
-    blog_section_window.resizable(width= False, height=False)
+    blog_section_window.resizable(width=False, height=False)
 
     main_frame = Frame(blog_section_window)
     main_frame.pack()
@@ -823,55 +832,67 @@ def blog_section():
     image_canvas.create_image(0, 0, anchor=NW, image=image_blog_section)
 
     global frame_left_side
-    frame_left_side = Frame(main_frame, width = 500, height  = 380, bg='#050505')
-    image_canvas.create_window(90,260, anchor = NW, window = frame_left_side)
+    frame_left_side = Frame(main_frame, width=500, height=380, bg='#050505')
+    image_canvas.create_window(90, 260, anchor=NW, window=frame_left_side)
 
     global frame_right_side
-    frame_right_side = Frame(main_frame, width = 500, height  = 380, bg='#050505')
-    image_canvas.create_window(770,280, anchor = NW, window = frame_right_side)
+    frame_right_side = Frame(main_frame, width=500, height=380, bg='#050505')
+    image_canvas.create_window(770, 280, anchor=NW, window=frame_right_side)
 
-    label_subject = Label(frame_left_side, font=font_for_blog_section_label, bg='#050505', fg='#FF9900', text='Subject:')
-    label_subject.grid(row=0, column=0, pady = 1, sticky = W)
+    label_subject = Label(frame_left_side, font=font_for_blog_section_label, bg='#050505', fg='#FF9900',
+                          text='Subject:')
+    label_subject.grid(row=0, column=0, pady=1, sticky=W)
 
-    label_email = Label(frame_left_side, font=font_for_blog_section_label, bg='#050505', fg='#FF9900', text='Email:')
-    label_email.grid(row=1, column=0, pady =1, sticky = W)
+    label_email = Label(frame_left_side, font=font_for_blog_section_label, bg='#050505', fg='#FF9900',
+                        text='Email:')
+    label_email.grid(row=1, column=0, pady=1, sticky=W)
 
-    label_comment = Label(frame_left_side, font=font_for_blog_section_label, bg='#050505', fg='#FF9900', text='Comment:')
-    label_comment.grid(row=2, column=0, pady = 1, sticky = W)
+    label_comment = Label(frame_left_side, font=font_for_blog_section_label, bg='#050505', fg='#FF9900',
+                          text='Comment:')
+    label_comment.grid(row=2, column=0, pady=1, sticky=W)
 
     global entry_enter_subject
-    entry_enter_subject= Entry(frame_left_side, width = 27, bg = '#050505', fg = 'White', font = font_for_blog_section_label, highlightthickness = 1, highlightcolor = 'White')
-    entry_enter_subject.grid(row = 0, column = 1, sticky = W, pady = 3, columnspan = 3)
+    entry_enter_subject = Entry(frame_left_side, width=27, bg='#050505', fg='White',
+                                font=font_for_blog_section_label, highlightthickness=1, highlightcolor='White')
+    entry_enter_subject.grid(row=0, column=1, sticky=W, pady=3, columnspan=3)
 
     global entry_enter_email
-    entry_enter_email = Entry(frame_left_side, width = 27, bg = '#050505', fg = 'White', font = font_for_blog_section_label, highlightthickness = 1, highlightcolor = 'White')
-    entry_enter_email.grid(row = 1, column = 1, sticky = W, pady = 3, columnspan = 3)
+    entry_enter_email = Entry(frame_left_side, width=27, bg='#050505', fg='White', font=font_for_blog_section_label,
+                              highlightthickness=1, highlightcolor='White')
+    entry_enter_email.grid(row=1, column=1, sticky=W, pady=3, columnspan=3)
 
     global text_enter_comment
-    text_enter_comment = Text(frame_left_side, width=45, height=16, bg='#050505', fg='White', font = font_for_blog_section_message, highlightthickness = 1, highlightcolor = 'White')
-    text_enter_comment.grid(row=3, column=0, columnspan=3, sticky = W, pady = (3,1))
+    text_enter_comment = Text(frame_left_side, width=45, height=16, bg='#050505', fg='White',
+                              font=font_for_blog_section_message, highlightthickness=1, highlightcolor='White')
+    text_enter_comment.grid(row=3, column=0, columnspan=3, sticky=W, pady=(3, 1))
 
-    button_blog_section_submit = Button(frame_left_side, text='Submit', bg='#FF9900', fg='Black', highlightcolor='#FF9900', font = font_for_blog_section_message, command = blog_section_submit)
+    button_blog_section_submit = Button(frame_left_side, text='Submit', bg='#FF9900', fg='Black',
+                                        highlightcolor='#FF9900', font=font_for_blog_section_message,
+                                        command=blog_section_submit)
     button_blog_section_submit.grid(row=4, column=0, pady=10, sticky=W, ipady=1, ipadx=20)
 
-    button_blog_section_clear = Button(frame_left_side, text='Clear', bg='#FF9900', fg='Black', highlightcolor='#FF9900', font = font_for_blog_section_message, command = blog_section_clear)
-    button_blog_section_clear.grid(row=4, column=1, pady=10, sticky = W, ipady=1, ipadx=20)
+    button_blog_section_clear = Button(frame_left_side, text='Clear', bg='#FF9900', fg='Black',
+                                       highlightcolor='#FF9900', font=font_for_blog_section_message,
+                                       command=blog_section_clear)
+    button_blog_section_clear.grid(row=4, column=1, pady=10, sticky=W, ipady=1, ipadx=20)
 
-    button_blog_back = Button(frame_left_side, text='Back', bg='#FF9900', fg='Black', highlightcolor='#FF9900', font = font_for_blog_section_message, command = blog_section_back)
-    button_blog_back.grid(row=4, column=2, pady=10, sticky=W+E, ipady=1, ipadx=20)
+    button_blog_back = Button(frame_left_side, text='Back', bg='#FF9900', fg='Black', highlightcolor='#FF9900',
+                              font=font_for_blog_section_message, command=blog_section_back)
+    button_blog_back.grid(row=4, column=2, pady=10, sticky=W + E, ipady=1, ipadx=20)
 
 
-    my_image_1 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_alcohol.jpg'))
-    my_image_2 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_bar.jpg'))
-    my_image_3 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_disin.jpg'))
-    my_image_4 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_dispo.jpg'))
-    my_image_5 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_gloves.jpg'))
-    my_image_6 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_hand_soap.jpg'))
-    my_image_7 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_n95.jpg'))
-    my_image_8 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_sanit.jpg'))
-    my_image_9 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_tissue.jpg'))
-    my_image_10 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_towel.jpg'))
-    my_image_11 = ImageTk.PhotoImage(Image.open('PICTURES/products/image_wipes.jpg'))
+
+    my_image_1 = ImageTk.PhotoImage(Image.open('UI/PICTURES/products/image_alcohol.jpg'))
+    my_image_2 = ImageTk.PhotoImage(Image.open('UI/PICTURES/products/image_bar.jpg'))
+    my_image_3 = ImageTk.PhotoImage(Image.open('UI/PICTURES/products/image_disin.jpg'))
+    my_image_4 = ImageTk.PhotoImage(Image.open('UI/PICTURES/products/image_dispo.jpg'))
+    my_image_5 = ImageTk.PhotoImage(Image.open('UI/PICTURES/products/image_gloves.jpg'))
+    my_image_6 = ImageTk.PhotoImage(Image.open('UI/PICTURES/products/image_hand_soap.jpg'))
+    my_image_7 = ImageTk.PhotoImage(Image.open('UI/PICTURES/products/image_n95.jpg'))
+    my_image_8 = ImageTk.PhotoImage(Image.open('UI/PICTURES/products/image_sanit.jpg'))
+    my_image_9 = ImageTk.PhotoImage(Image.open('UI/PICTURES/products/image_tissue.jpg'))
+    my_image_10 = ImageTk.PhotoImage(Image.open('UI/PICTURES/products/image_towel.jpg'))
+    my_image_11 = ImageTk.PhotoImage(Image.open('UI/PICTURES/products/image_wipes.jpg'))
 
 
     global blog_section_image_list
@@ -925,6 +946,17 @@ def blog_section_submit():
 
         except:
             messagebox.showerror('ERROR!', 'Comment failed to be stored in database, try again.', parent=blog_section_window)
+
+
+def blog_section_clear():
+    entry_enter_subject.delete(0, END)
+    entry_enter_email.delete(0, END)
+    text_enter_comment.delete(1.0, END)
+
+
+def blog_section_back():
+    blog_section_window.destroy()
+    sign_in_as_guest()
 
 
 def blog_section_clear():
