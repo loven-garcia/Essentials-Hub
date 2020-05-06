@@ -749,7 +749,7 @@ def preload_web_scrape_data():
     
     final_scrape.day_by_day()
     final_scrape.for_total_deaths_total_recovered()
-    final_scrape.pui_pum_tested()
+    final_scrape.active_test_tested()
     final_scrape.picture()
 
     final_scrape.by_sex()
@@ -791,9 +791,9 @@ def facts_and_statistics():
     canvas_facts_and_statistics.create_text(250, 425, font = font_for_tracker_additional, text = f'+{final_scrape.api_additional_deaths_today}', fill = 'white')
     canvas_facts_and_statistics.create_text(255, 570, font = font_for_tracker_case_today, text = final_scrape.api_total_recoveries, fill = 'green')
     canvas_facts_and_statistics.create_text(250, 610, font = font_for_tracker_additional, text = f'+{final_scrape.api_additional_recoveries_today}', fill = 'white')
-    canvas_facts_and_statistics.create_text(590, 215, font = font_for_tracker_case_today, text = final_scrape.pui, fill = 'white')
-    canvas_facts_and_statistics.create_text(590, 405, font = font_for_tracker_case_today, text = final_scrape.pum, fill = 'white')
-    canvas_facts_and_statistics.create_text(590, 585, font = font_for_tracker_case_today, text = final_scrape.tested, fill = 'white')
+    canvas_facts_and_statistics.create_text(590, 215, font = font_for_tracker_case_today, text = final_scrape.active[0], fill = 'white')
+    canvas_facts_and_statistics.create_text(590, 405, font = font_for_tracker_case_today, text = final_scrape.tested[0], fill = 'white')
+    canvas_facts_and_statistics.create_text(590, 585, font = font_for_tracker_case_today, text = final_scrape.conducted[0], fill = 'white')
 
 
     #FRAME FOR THE BUTTONS BELOW
@@ -1387,7 +1387,7 @@ def chatbot():
                         f"Addtional Deaths for today: {final_scrape.api_additional_deaths_today}\n\n"
                         f"Total Recoveries: {final_scrape.api_total_recoveries}\n"
                         f"Addtional Recoveries for today: {final_scrape.api_additional_recoveries_today}\n\n"
-                        "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. PUI/PUM/Person Tested/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
+                        "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. Active/Persons Tested/Test Conducted/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
 
             LineNumber = float(text_box_for_logs.index('end')) - 1.0
             text_box_for_logs.insert(END, 'E-hub: ' + response + '\n\n\n')
@@ -1403,7 +1403,7 @@ def chatbot():
 
             response = (
                 f"The fatality rate in the Philippines is {final_scrape.api_fatality_rate}, while the recovery rate is {final_scrape.api_recovery_rate}\n\n"
-                "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. PUI/PUM/Person Tested/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
+                "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. Active/Persons Tested/Test Conducted/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
 
             LineNumber = float(text_box_for_logs.index('end')) - 1.0
             text_box_for_logs.insert(END, 'E-hub: ' + response + '\n\n\n')
@@ -1419,7 +1419,7 @@ def chatbot():
 
             response = (
                 f"The number of coronavirus cases in males are {final_scrape.sex_number_of_case[0]}, while {final_scrape.sex_number_of_case[1]} for women. \nThe number of deaths in males and females are {final_scrape.sex_number_of_deaths[0]} and {final_scrape.sex_number_of_deaths[1]}, respectively\n\n"
-                "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. PUI/PUM/Person Tested/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
+                "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. Active/Persons Tested/Test Conducted/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
 
             LineNumber = float(text_box_for_logs.index('end')) - 1.0
             text_box_for_logs.insert(END, 'E-hub: ' + response + '\n\n\n')
@@ -1435,11 +1435,11 @@ def chatbot():
             text_box_for_logs.tag_config("You: ", foreground="Green", font=font_for_chatbot_text, justify='right')
 
             response = ("Here is what i found: \n"
-                        f"Persons Under Monitoring: {final_scrape.pum[0]}\n"
-                        f"Persons Under investigation: {final_scrape.pui[0]}\n"
-                        f"Persons Tested: {final_scrape.tested[0]}\n"
+                        f"Active Cases: {final_scrape.active[0]}\n"
+                        f"Person Tested: {final_scrape.tested[0]}\n"
+                        f"Test Conducted: {final_scrape.conducted[0]}\n"
                         f"Persons Admitted: {final_scrape.api_admitted}\n\n"
-                        "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. PUI/PUM/Person Tested/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
+                        "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. Active/Persons Tested/Test Conducted/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
 
             LineNumber = float(text_box_for_logs.index('end')) - 1.0
             text_box_for_logs.insert(END, 'E-hub: ' + response + '\n\n\n')
@@ -1459,7 +1459,7 @@ def chatbot():
                         f"{final_scrape.outside_region[1]}: {final_scrape.outside_confirmed_cases[1]}\n"
                         f"{final_scrape.outside_region[2]}: {final_scrape.outside_confirmed_cases[2]}\n"
                         f"{final_scrape.outside_region[3]}: {final_scrape.outside_confirmed_cases[3]}\n\n"
-                        "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. PUI/PUM/Person Tested/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
+                        "For more information, choose from the following options:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. Active/Persons Tested/Test Conducted/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics")
 
             LineNumber = float(text_box_for_logs.index('end')) - 1.0
             text_box_for_logs.insert(END, 'E-hub: ' + response + '\n\n\n')
@@ -1498,6 +1498,7 @@ def chatbot():
 
     entry_for_users = Text(frame_for_logs, fg='black', bg="white", width="80", height="1", font=font_for_chatbot_text_2,
                            highlightthickness=1)
+
     entry_for_users.grid(row=1, column=0, sticky=E, pady=12)
 
     send_button = Button(frame_for_logs, font=font_for_chatbot_button, text="Send", bg="#e99314", fg='Black',
