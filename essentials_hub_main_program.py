@@ -996,7 +996,7 @@ def blog_section_admin():
     frame_for_botton.pack()
     canvas_sign_up_as_admin_window.create_window(150, 704, anchor=NW, window=frame_for_botton)
 
-    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    conn = sqlite3.connect('DAL/Essentials_Hub_Database.db')
     curs = conn.cursor()
     curs.execute('select * from comments')
     rows = curs.fetchall()
