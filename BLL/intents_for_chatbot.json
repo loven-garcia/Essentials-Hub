@@ -692,7 +692,7 @@
             "What is the total number of persons tested"
          ],
          "responses":[
-            "To be able to give you accurate information, you can choose from the options below:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. PUI/PUM/Person Tested/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics"
+            "To be able to give you accurate information, you can choose from the options below:\n1. Total number of Cases/Deaths/Recoveries for Today\n2. Recovery and Fatality Rate in the Philippines\n3. Cases per Gender\n4. Active Cases/Persons Tested/Tests Conducted/Persons Admitted\n5. Filipino Cases outside the Philippines\nTIP: Just type the number for the corresponding statistics"
          ],
          "context_set":""
       },

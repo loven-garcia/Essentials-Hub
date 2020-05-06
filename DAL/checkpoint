@@ -1,2 +1,2 @@
-model_checkpoint_path: "C:\\Users\\Defiance Productions\\PycharmProjects\\e-hub_pycharm\\ESSENTIALS_HUB\\model1.tflearn"
-all_model_checkpoint_paths: "C:\\Users\\Defiance Productions\\PycharmProjects\\e-hub_pycharm\\ESSENTIALS_HUB\\model1.tflearn"
+model_checkpoint_path: "C:\\Users\\Defiance Productions\\PycharmProjects\\e-hub_pycharm\\ESSENTIALS_HUB\\DAL\\e-hub_chatbot_learning.tflearn"
+all_model_checkpoint_paths: "C:\\Users\\Defiance Productions\\PycharmProjects\\e-hub_pycharm\\ESSENTIALS_HUB\\DAL\\e-hub_chatbot_learning.tflearn"
