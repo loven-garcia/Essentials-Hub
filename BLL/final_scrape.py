@@ -284,21 +284,21 @@ def cases_outside_ph():
         outside_deaths.append(int(td[3].text.strip()))
 
 
-def pui_pum_tested():
+def active_test_tested():
     url = 'https://endcov.ph/dashboard/'
     page = requests.get(url)
     soup = BeautifulSoup(page.text, 'html.parser')
 
-    global pui
-    pui =[]
-    global pum
-    pum = []
+    global active
+    active =[]
     global tested
     tested = []
+    global conducted
+    conducted = []
     main = soup.find_all(class_ = 'h4 mb-0 font-weight-bold text-gray-800')
-    pui.append(int(main[3].text.strip()))
-    pum.append(int(main[4].text.strip()))
-    tested.append(int(main[5].text.strip()))  
+    active.append(int(main[3].text.strip()))
+    tested.append(int(main[4].text.strip()))
+    conducted.append(int(main[5].text.strip()))
 
 
 def picture():
