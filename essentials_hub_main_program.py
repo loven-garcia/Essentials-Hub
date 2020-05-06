@@ -19,6 +19,12 @@ import json
 import requests
 import numpy as np
 from tkinter import ttk
+import nltk
+from nltk.stem.lancaster import LancasterStemmer
+import tflearn
+import tensorflow
+import pickle
+import codecs
 # ======================================================FUNCTIONS===============================================================
 
 
@@ -560,7 +566,7 @@ def sign_in_as_admin():
     button_for_online_shop = Button(frame_above_canvas_bottom_part, text = 'Manage Online Shop', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = online_shop_admin)
     button_for_online_shop.grid(row = 0, column = 0, ipadx = 7, ipady = 3)
 
-    button_for_blog_section = Button(frame_above_canvas_bottom_part, text = 'Manage Blog Section', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = blog_section)
+    button_for_blog_section = Button(frame_above_canvas_bottom_part, text = 'Manage Blog Section', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = blog_section_admin)
     button_for_blog_section.grid(row = 0, column = 1, ipadx = 7, ipady = 3, padx=(40,0))
 
 
@@ -803,7 +809,7 @@ def image_back(image_number):
 
 
 def blog_section():
-    sign_in_as_guest_window.destroy()
+    sign_in_as_admin_window.destroy()
     global blog_section_window
     blog_section_window = Toplevel(root)
     blog_section_window.geometry('1300x750+100+50')
@@ -1117,10 +1123,8 @@ def facts_and_statistics():
     button_for_page_graphs = Button(frame_for_buttons_below, text = 'Graphs', font = font_for_facts_and_statistics_button, bg ='#e99314', fg = 'Black', command = graphs_page_1)
     button_for_page_graphs.grid(row = 0, column = 1, ipadx = 18, ipady =8, padx=(0,10))
 
-    button_for_page_facts = Button(frame_for_buttons_below, text = 'Facts', font = font_for_facts_and_statistics_button, bg ='#e99314', fg = 'Black')
-    button_for_page_facts.grid(row = 0, column = 2, ipadx = 18, ipady =8, padx = (0,10))
 
-    button_for_chatbot = Button(frame_for_buttons_below, text = 'Chatbot', font = font_for_facts_and_statistics_button, bg ='#e99314', fg = 'Black')
+    button_for_chatbot = Button(frame_for_buttons_below, text = 'Chatbot', font = font_for_facts_and_statistics_button, bg ='#e99314', fg = 'Black', command = chatbot)
     button_for_chatbot.grid(row = 0, column = 2, ipadx = 18, ipady =8, padx = (0,10))
 
     button_for_page_back = Button(frame_for_buttons_below, text = 'Back', font = font_for_facts_and_statistics_button, bg ='#e99314', fg = 'Black', command = back_facts_statistics)
@@ -1632,10 +1636,10 @@ def chatbot():
     model = tflearn.DNN(net)
 
     try:
-        model.load("DAL/model1.tflearn")
+        model.load("DAL/e-hub_chatbot_learning.tflearn")
     except:
         model.fit(training, output, n_epoch=700, batch_size=8, show_metric=True)
-        model.save("DAL/model1.tflearn")
+        model.save("DAL/e-hub_chatbot_learning.tflearn")
 
     def bag_of_words(s, words):
         bag = [0 for _ in range(len(words))]
@@ -2508,6 +2512,10 @@ def back_sign_up_as_admin():
 
 # ======================================================START====================================================================
 
+try:
+    nltk.download('punkt')
+except:
+    pass
 preload_web_scrape_data()
 #THIS FOR THE LAUNCHER
 root = Tk()
