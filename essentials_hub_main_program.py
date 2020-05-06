@@ -18,6 +18,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 import json
 import requests
 import numpy as np
+from tkinter import ttk
 # ======================================================FUNCTIONS===============================================================
 
 
@@ -559,7 +560,7 @@ def sign_in_as_admin():
     button_for_online_shop = Button(frame_above_canvas_bottom_part, text = 'Manage Online Shop', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = online_shop_admin)
     button_for_online_shop.grid(row = 0, column = 0, ipadx = 7, ipady = 3)
 
-    button_for_blog_section = Button(frame_above_canvas_bottom_part, text = 'Manage Blog Section', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white')
+    button_for_blog_section = Button(frame_above_canvas_bottom_part, text = 'Manage Blog Section', font =font_for_sign_in_sign_up, bg = 'black', fg = 'white', command = blog_section)
     button_for_blog_section.grid(row = 0, column = 1, ipadx = 7, ipady = 3, padx=(40,0))
 
 
@@ -929,6 +930,124 @@ def blog_section_clear():
 def blog_section_back():
     blog_section_window.destroy()
     sign_in_as_guest()
+
+
+def blog_section_admin():
+    sign_in_as_admin_window.destroy()
+    global blog_section_admin_window
+    blog_section_admin_window = Toplevel(root)
+    blog_section_admin_window.geometry('1300x800+100+50')
+    blog_section_admin_window.resizable(width= False, height=False)
+
+    main_frame = Frame(blog_section_admin_window)
+    main_frame.pack()
+
+    canvas_sign_up_as_admin_window = Canvas(main_frame, width=1300, height=800)
+    canvas_sign_up_as_admin_window.pack()
+    canvas_sign_up_as_admin_window.create_image(0, 0, anchor=NW, image=image_blog_section_admin)
+
+    frame_for_top = Frame(main_frame)
+    frame_for_top.pack(side=LEFT, expand=True)
+    canvas_sign_up_as_admin_window.create_window(150, 160, anchor=NW, window=frame_for_top)
+
+    frame_for_bottom = Frame(main_frame, bg='#050505')
+    frame_for_bottom.pack()
+    canvas_sign_up_as_admin_window.create_window(150, 455, anchor=NW, window=frame_for_bottom)
+
+    frame_for_botton = Frame(main_frame, bg='#050505')
+    frame_for_botton.pack()
+    canvas_sign_up_as_admin_window.create_window(150, 704, anchor=NW, window=frame_for_botton)
+
+    conn = sqlite3.connect('Essentials_Hub_Database.db')
+    curs = conn.cursor()
+    curs.execute('select * from comments')
+    rows = curs.fetchall()
+
+    style = ttk.Style()
+    style.theme_use("clam")
+    style.configure("mystyle.Treeview", background="#050505",
+                    fieldbackground="#050505", foreground="white")
+    style.configure("mystyle.Treeview", highlightthickness=0, bd=0, font=('Gotham', 10), background='#050505',
+                    foreground='white')  # Modify the font of the body
+    style.configure("mystyle.Treeview.Heading", font=('Gotham Black', 13))  # Modify the font of the headings
+
+    table = ttk.Treeview(frame_for_top, columns=(1, 2, 3), show='headings', height=10, style="mystyle.Treeview")
+    table.pack(expand=True, fill=BOTH)
+
+    table.column(3, width=600)
+    table.heading(1, text='Subject')
+    table.heading(2, text='Email')
+    table.heading(3, text='Comment')
+
+    for i in rows:
+        table.insert("", 'end', values=i)
+
+    label_email = Label(frame_for_bottom, font=font_for_blog_section_label_admin, bg='#050505', fg='#FF9900', text='Email:')
+    label_email.grid(row=0, column=0, pady=1, sticky=W, padx=(0, 5))
+
+    label_comment = Label(frame_for_bottom, font=font_for_blog_section_label_admin, bg='#050505', fg='#FF9900', text='Reply:')
+    label_comment.grid(row=1, column=0, pady=1, sticky=W)
+
+    global entry_enter_email_for_reply
+    entry_enter_email_for_reply = Entry(frame_for_bottom, width=78, bg='#050505', fg='White',
+                                        font=font_for_blog_section_label_admin,
+                                        highlightthickness=1, highlightcolor='White')
+    entry_enter_email_for_reply.grid(row=0, column=1, sticky=W, pady=3)
+
+    global text_enter_reply
+    text_enter_reply = Text(frame_for_bottom, width=91, height=10, bg='#050505', fg='White',
+                            font=font_for_blog_section_message, highlightthickness=1, highlightcolor='White')
+    text_enter_reply.grid(row=2, column=0, columnspan=2, sticky=W, pady=(3, 1))
+
+    button_blog_section_submit = Button(frame_for_botton, text='Submit', bg='#FF9900', fg='Black',
+                                        highlightcolor='#FF9900',
+                                        font=font_for_blog_section_message, command = blog_section_reply_email)
+    button_blog_section_submit.grid(row=0, column=0, pady=10, ipady=1, ipadx=20, padx=5)
+
+    button_blog_section_clear = Button(frame_for_botton, text='Clear', bg='#FF9900', fg='Black',
+                                       highlightcolor='#FF9900',
+                                       font=font_for_blog_section_message, command = blog_section_admin_clear)
+    button_blog_section_clear.grid(row=0, column=1, pady=10, ipady=1, ipadx=20, padx=5)
+
+    button_blog_back = Button(frame_for_botton, text='Back', bg='#FF9900', fg='Black', highlightcolor='#FF9900',
+                              font=font_for_blog_section_message, command = blog_section_admin_back)
+    button_blog_back.grid(row=0, column=2, pady=10, ipady=1, ipadx=20, padx=5)
+
+
+def blog_section_reply_email():
+
+    if text_enter_reply.get("1.0", END) == '' or entry_enter_email_for_reply.get() == '':
+        messagebox.showerror('ERROR!', 'Fill all the boxes!', parent=blog_section_admin_window)
+    else:
+        try:
+            email_sender = 'essentialshubofficial@gmail.com'
+            email_password = '!1EssentialsHub'
+            email_receiver = entry_enter_email_for_reply.get()
+            message = f'{text_enter_reply.get("1.0", END)}'
+            server = smtplib.SMTP('smtp.gmail.com', 587)
+            server.starttls()
+            server.login(email_sender, email_password)
+            server.sendmail(email_sender, email_receiver, message)
+            server.close()
+
+            messagebox.showinfo('SUCCESS!', 'Reply sent to email!', parent = blog_section_admin_window)
+
+            entry_enter_email_for_reply.delete(0, END)
+            text_enter_reply.delete('1.0', END)
+
+        except:
+            messagebox.showerror('ERROR!', 'Unable to send reply, try again', parent = blog_section_admin_window)
+
+
+def blog_section_admin_back():
+    blog_section_admin_window.destroy()
+    sign_in_as_admin()
+
+
+def blog_section_admin_clear():
+    entry_enter_email_for_reply.delete(0, END)
+    text_enter_reply.delete('1.0', END)
+
         
     
 def preload_web_scrape_data():
@@ -2460,6 +2579,8 @@ image_about_us = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_about_us.jpg')
 
 image_blog_section = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_blog_section_main.jpg'))
 
+image_blog_section_admin = ImageTk.PhotoImage(Image.open('UI/PICTURES/image_blog_section_admin.jpg'))
+
 
 
 # ======================================================FONTS===================================================================
@@ -2509,6 +2630,8 @@ font_for_chatbot_button = Font(family='Gotham', size=12)
 font_for_blog_section_message = Font(family = 'Gotham', size = 12)
 
 font_for_blog_section_label = Font(family = 'Gotham', size = 14)
+
+font_for_blog_section_label_admin = Font(family='Gotham', size=13)
 
 # ==============================================================================================================================
 
