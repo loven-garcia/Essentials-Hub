@@ -150,11 +150,20 @@ The objectives of the project are the following:
 ![](UI/PICTURES_README/chatbot.jpg)
 ![](UI/PICTURES_README/chatbot2.jpg)
 
+### Blog Section for Guests
+![](UI/PICTURES_README/blog_section_guest.jpg)
+
 ### Main Page for Admins
 ![](UI/PICTURES_README/MAIN_GUI_FOR_ADMIN.jpg)
 
 ### Inventory Management for Admins
 ![](UI/PICTURES_README/INVENTORY_MANAGEMENT_SYSTEM_FOR_ADMIN.jpg)
+
+### Blog Section for Admin
+![](UI/PICTURES_README/blog_section_admin.jpg)
+
+### About Us
+![](UI/PICTURES_README/about_us.jpg)
 
 
 
