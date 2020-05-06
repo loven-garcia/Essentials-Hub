@@ -5,7 +5,6 @@ import json
 import pandas as pd
 
 
-#FOR THE DAY BY DAY CASES
 def day_by_day():
 
     table = soup.find(class_="barbox tright")
@@ -63,6 +62,20 @@ def day_by_day():
         march_recoveries.append(int((title_2[1])['title']))
 
 
+    tr_5 = t_body.find_all(id="mw-customcollapsible-apr")
+    for f in tr_5[2:]:
+        td_5 = f.find('td')
+        april_dates.append(td_5.text.replace('2020-04-','Apr '))
+
+        span_5 = f.find_all('span')
+        april_total_cases.append(int(span_5[0].text.replace(',', '')))
+        april_new_cases.append(span_5[1].text.replace('(', '').replace(')', ''))
+
+        title_5 = f.find_all('div')
+        april_deaths.append(int((title_5[0])['title']))
+        april_recoveries.append(int((title_5[1])['title']))
+
+
     tr_3 = t_body.find_all(id="mw-customcollapsible-apr-l15")
 
     for k in tr_3:
@@ -76,6 +89,7 @@ def day_by_day():
         title_3 = k.find_all('div')
         april_deaths.append(int((title_3[0])['title']))
         april_recoveries.append(int((title_3[1])['title']))
+
 
 
     tr_4 = t_body.find_all(id="mw-customcollapsible-may-l15")
@@ -104,6 +118,13 @@ def day_by_day():
     total_recoveries_day = march_recoveries + april_recoveries + may_recoveries
     global total_deaths_day
     total_deaths_day = march_deaths + april_deaths + may_deaths
+
+
+    length = len(total_dates)
+    if len(total_dates) == length and len(total_cases) == length and len(total_recoveries_day) == length and len(total_deaths_day) == length:
+        return True
+    else:
+        return False
 
 
 
